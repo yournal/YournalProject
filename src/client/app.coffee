@@ -24,6 +24,7 @@ app = angular.module('yournal', modules.concat([
 ]))
 
 angular.module 'yournal.services', []
+angular.module 'yournal.controllers', []
 
 app.config(['$locationProvider', ($locationProvider) ->
   $locationProvider.hashPrefix '!'
@@ -33,6 +34,10 @@ app.config(['$routeProvider', ($routeProvider) ->
   $routeProvider.when('/view1',
     templateUrl: 'views/partial1.html',
     controller: 'ExampleController'
+  )
+  $routeProvider.when('/article/:articleId',
+    templateUrl: 'views/article.html',
+    controller: 'ArticleController'
   )
   $routeProvider.otherwise({redirectTo: '/view1'})
 ])
