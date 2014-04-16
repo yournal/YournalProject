@@ -5,7 +5,7 @@ controller = ($scope, Journal, Article, Section) ->
   $scope.someaction = ->
     return 'Testing controller action'
 
-app = angular.module 'yournal.controllers', []
+app = angular.module 'yournal.controllers'
 app.controller 'ExampleController', [
   '$scope', 'Journal', 'Article', 'Section', controller
 ]

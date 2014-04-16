@@ -1,0 +1,20 @@
+<article>
+	<header>
+		<h1>{{article.title}}</h1>
+
+		<!-- these ul's should be inline, waiting for bootstrap -->
+		<ul>
+			<li ng-repeat="author in article.authors">{{author}}</li>
+		</ul>
+		<strong>Keywords:</strong>
+		<ul>
+			<li ng-repeat="keyword in article.keywords">{{keyword}}</li>
+		</ul>
+	</header>
+
+	<hr>
+
+	<p>{{article.abstract}}</p>
+	<p>{{article.content}}</p>
+</article>
+
