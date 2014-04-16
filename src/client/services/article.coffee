@@ -5,5 +5,5 @@ service = ($resource) ->
       isArray: true
   }
 
-app = angular.module 'yournal.services.article', ['ngResource']
+app = angular.module 'yournal.services'
 app.factory 'Article', ['$resource', service]
