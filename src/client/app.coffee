@@ -35,6 +35,14 @@ app.config(['$routeProvider', ($routeProvider) ->
     templateUrl: 'views/partial1.html',
     controller: 'ExampleController'
   )
+  $routeProvider.when('/journals',
+    templateUrl: 'views/journals.html',
+    controller: 'ExampleController'
+  )
+  $routeProvider.when('/journals/:journal_id',
+    templateUrl: 'views/journal.html',
+    controller: 'JournalController'
+  )
   $routeProvider.when('/article/:articleId',
     templateUrl: 'views/article.html',
     controller: 'ArticleController'
