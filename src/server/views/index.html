@@ -1,11 +1,7 @@
 {% extends 'layouts/default.html' %}
 
 {% block content %}
-  <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul>
-  <div ng-view></div>
+  <div ui-view></div>
   <script type="text/javascript">
     //window.user = {{user|safe}};
     window.modules = [];      

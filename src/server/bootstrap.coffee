@@ -64,7 +64,7 @@ app.use (req, res, next) ->
   next()
 app.use require('view-helpers')()
 app.use require('connect-flash')()
-app.use require('static-favicon')(config.path.static + '/favicon.ico')
+#app.use require('static-favicon')(config.path.static + '/favicon.ico')
 app.use express.static(config.path.static)
 dic.register 'app', () -> app
 

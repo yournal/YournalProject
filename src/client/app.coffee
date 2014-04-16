@@ -20,19 +20,34 @@ app = angular.module('yournal', modules.concat([
   'yournal.filters',
   'yournal.services',
   'yournal.directives',
-  'yournal.controllers'
+  'yournal.controllers',
+  'ui.bootstrap',
+  'ui.router'
 ]))
 
+# Register modules
+angular.module 'yournal.filters', []
+angular.module 'yournal.controllers', []
 angular.module 'yournal.services', []
 
+app.config(['$stateProvider', '$urlRouterProvider',
+  ($stateProvider, $urlRouterProvider) ->
+    $stateProvider.state('home',
+      url: '/'
+      templateUrl: 'views/index.html'
+      controller: 'IndexController'
+    )
+    $stateProvider.state('search',
+      url: '/search'
+      templateUrl: 'views/search.html'
+      controller: 'SearchController'
+    )
+    $urlRouterProvider.otherwise('/')
+])
 app.config(['$locationProvider', ($locationProvider) ->
   $locationProvider.hashPrefix '!'
 ])
 
-app.config(['$routeProvider', ($routeProvider) ->
-  $routeProvider.when('/view1',
-    templateUrl: 'views/partial1.html',
-    controller: 'ExampleController'
-  )
-  $routeProvider.otherwise({redirectTo: '/view1'})
-])
+app.run ($rootScope, $state, $stateParams) ->
+  $rootScope.$state = $state
+  $rootScope.$stateParams = $stateParams
