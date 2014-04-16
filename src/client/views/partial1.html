@@ -25,3 +25,12 @@ Search: <input ng-model="search.authors">
 	  	<p>{{article.abstract}}</p>
 	</li>
 </ul>
+
+<h1>Sections</h1>
+<h6>Number of sections: {{sections.length}}</h6>
+<ul>
+	<li ng-repeat="section in sections">
+	  <h4>[{{section.abbreviation}}]  {{section.title}}</h4>
+	  <p>{{section.policy_statement}}</p>
+	</li>
+</ul>

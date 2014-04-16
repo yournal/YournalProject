@@ -3,6 +3,7 @@ app = angular.module('yournal', [
   'yournal.filters',
   'yournal.services.journal',
   'yournal.services.article',
+  'yournal.services.section',
   'yournal.directives',
   'yournal.controllers'
 ])
