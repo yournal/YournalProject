@@ -1,0 +1,27 @@
+<div>
+    {{someaction()}}
+</div>
+<h1>Journals</h1>
+<h6>Number of journals: {{journals.length}}</h6>
+<ul>
+	<li ng-repeat="journal in journals">
+	  <h4>{{journal.title}}</h4>
+	  <h5>{{journal.subject}}</h5>
+	  <span><u>Current volume:</u> {{journal.current_volume}}, <u>issue</u> {{journal.current_issue}}</span>
+	</li>
+</ul>
+<hr>
+
+<h1>Articles</h1>
+Search: <input ng-model="search.authors">
+<h6>Number of articles: {{articles.length}}</h6>
+<ul>
+	<li ng-repeat="article in articles | filter:search">
+	  <h4>{{article.title}}</h4>
+	  	<strong ng-repeat="author in article.authors">{{author}}, </strong>
+	  	<br/>
+	  	<span><u>Keywords:</u> </span>
+	  	<span ng-repeat="keyword in article.keywords">{{keyword}}, </span>
+	  	<p>{{article.abstract}}</p>
+	</li>
+</ul>

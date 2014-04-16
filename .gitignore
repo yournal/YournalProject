@@ -1,0 +1,10 @@
+yournal.sublime-project
+yournal.sublime-workspace
+.restart
+.bower-*/
+node_modules/
+lib/
+public/css/
+public/js/
+public/views/
+public/vendor/
