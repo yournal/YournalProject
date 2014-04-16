@@ -1,0 +1,23 @@
+{
+    "js": {
+        "public/js/yournal.55fcdc4719.js": [
+            "public/vendor/jquery/dist/jquery.js",
+            "public/vendor/angular/angular.js",
+            "public/vendor/angular-animate/angular-animate.js",
+            "public/vendor/angular-route/angular-route.js",
+            "public/vendor/angular-resource/angular-resource.js",
+            "public/js/app.js",
+            "public/js/services/**/*.js",
+            "public/js/controllers/**/*.js",
+            "public/js/filters/**/*.js",
+            "public/js/directives/**/*.js"
+        ]
+    },
+    "css": {
+        "public/css/yournal.b47ef9a6c7.css": [
+            "public/vendor/bootstrap/dist/css/bootstrap.css",
+            "public/css/server/**/*",
+            "public/css/client/**/*"
+        ]
+    }
+}
