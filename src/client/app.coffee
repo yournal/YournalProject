@@ -43,5 +43,9 @@ app.config(['$routeProvider', ($routeProvider) ->
     templateUrl: 'views/journal.html',
     controller: 'JournalController'
   )
+  $routeProvider.when('/article/:articleId',
+    templateUrl: 'views/article.html',
+    controller: 'ArticleController'
+  )
   $routeProvider.otherwise({redirectTo: '/view1'})
 ])
