@@ -25,7 +25,7 @@ module.exports = (grunt) ->
           cwd: __dirname
           env:
             NODE_ENV: 'development'
-            PORT: '4000'
+            PORT: '3000'
           callback: (nodemon) ->
             nodemon.on 'log', (event) ->
               console.log event.colour
