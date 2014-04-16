@@ -1,0 +1,8 @@
+<h1>Journals</h1>
+<ul>
+	<li ng-repeat="journal in journals"> 
+		<a href="#!/journals/{{journal.id}}"><strong>{{journal.title}}</strong>(<u>Current volume:</u> {{journal.current_volume}}, <u>issue</u> {{journal.current_issue}})</a>
+		<span>{{journal.subject}}</span>
+	</li>
+</ul>
+<hr>
