@@ -4,27 +4,27 @@
 		"journal_id": 0,
 		"title": "Articles",
 		"abbreviation": "AR",
-		"policy_statement": "This is a policy statement for this section. Here are articles in this section. Duh.",
+		"policy_statement": "This is a policy statement for this section. Here are articles in this section. Duh."
 	},
 	{
 		"id": 1,
 		"journal_id": 0,
 		"title": "Research notes",
 		"abbreviation": "RN",
-		"policy_statement": "This section is not for ordinary articles. Only research notes are allowed here.",
+		"policy_statement": "This section is not for ordinary articles. Only research notes are allowed here."
 	},
 	{
 		"id": 2,
 		"journal_id": 2,
 		"title": "Articles",
 		"abbreviation": "AR",
-		"policy_statement": "Our journal has articles too.",
+		"policy_statement": "Our journal has articles too."
 	},
 	{
 		"id": 3,
 		"journal_id": 1,
 		"title": "Discussion",
 		"abbreviation": "DC",
-		"policy_statement": "This is another policy statement. This section contains discussions",
-	},
+		"policy_statement": "This is another policy statement. This section contains discussions"
+	}
 ]
