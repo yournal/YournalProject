@@ -29,6 +29,7 @@ app = angular.module('yournal', modules.concat([
 angular.module 'yournal.filters', []
 angular.module 'yournal.controllers', []
 angular.module 'yournal.services', []
+angular.module 'yournal.controllers', []
 
 app.config(['$stateProvider', '$urlRouterProvider',
   ($stateProvider, $urlRouterProvider) ->
@@ -37,17 +38,28 @@ app.config(['$stateProvider', '$urlRouterProvider',
       templateUrl: 'views/index.html'
       controller: 'IndexController'
     )
+    $stateProvider.state('journals',
+      url: '/journals'
+      templateUrl: 'views/journals.html'
+      controller: 'JournalController'
+    )
+    $stateProvider.state('journal',
+      url: '/journals/:journal_id'
+      templateUrl: 'views/journal.html'
+      controller: 'JournalController'
+    )
     $stateProvider.state('search',
       url: '/search'
       templateUrl: 'views/search.html'
       controller: 'SearchController'
+    )
+    $stateProvider.state('article',
+      url: '/article/:articleId'
+      templateUrl: 'views/article.html'
+      controller: 'ArticleController'
     )
     $urlRouterProvider.otherwise('/')
 ])
 app.config(['$locationProvider', ($locationProvider) ->
   $locationProvider.hashPrefix '!'
 ])
-
-app.run ($rootScope, $state, $stateParams) ->
-  $rootScope.$state = $state
-  $rootScope.$stateParams = $stateParams

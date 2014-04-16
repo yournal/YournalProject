@@ -1,7 +1,8 @@
 service = ($resource) ->
-  return $resource 'json/articles.json', {}, {
+  return $resource 'json/articles/:articleId.json', {}, {
     query:
       method: 'GET'
+      params: {articleId: 'articles'}
       isArray: true
   }
 
