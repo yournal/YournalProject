@@ -9,9 +9,8 @@
     <input class="btn btn-default" type="submit" value="Go!" />
   </span>
 </form>
-
-<span><i>Showing <b>{{filtered.length}}</b> of <b>{{articles.length}}</b> articles</i></span>
-
+<hr>
+<p>Example: enter role (currently only search by title is supported for demo purposes)</p>
 <ul class="search_results article-list">
   <li ng-repeat="article in filtered = (articles | filter: query.result)"  class="animate-repeat">
     <a ng-href="{{$state.href('article')}}{{article.id}}"><strong>{{article.title}}</strong></a>
@@ -27,3 +26,4 @@
     </div>
   </li>
 </ul>
+<span><i>Showing <b>{{filtered.length}}</b> of <b>{{articles.length}}</b> articles</i></span>

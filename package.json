@@ -17,7 +17,7 @@
     "scripts": {
         "start": "node node_modules/grunt-cli/bin/grunt",
         "test": "node node_modules/grunt-cli/bin/grunt test",
-        "postinstall": "node node_modules/bower/bin/bower install"
+        "postinstall": "bower install | grunt release"
     },
     "engines": {
         "node": "0.10.x",
@@ -61,6 +61,7 @@
         "grunt-nodemon": "0.2.x",
         "grunt-concurrent": "0.5.x",
         "grunt-text-replace": "0.3.x",
-        "grunt-coffeelint": "0.0.x"
+        "grunt-coffeelint": "0.0.x",
+        "grunt-ngmin": "0.0.x"
     }
 }

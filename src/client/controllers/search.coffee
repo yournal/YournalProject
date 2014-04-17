@@ -3,8 +3,8 @@ controller = ($scope, Article) ->
   $scope.query = {}
   $scope.query.result = '!'
   $scope.search = (query) ->
-    if !query? || query.length == 0
-      query = '!!'
+    if !(query?) || query.length == 0
+      query = '!'
     $scope.query.result = query
 
 app = angular.module 'yournal.controllers'

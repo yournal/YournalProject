@@ -22,7 +22,6 @@ app = angular.module('yournal', modules.concat([
   'yournal.services',
   'yournal.directives',
   'yournal.controllers',
-  'ui.bootstrap',
   'ui.router',
   'ui.unique'
 ]))
@@ -31,7 +30,7 @@ app = angular.module('yournal', modules.concat([
 angular.module 'yournal.filters', []
 angular.module 'yournal.controllers', []
 angular.module 'yournal.services', []
-angular.module 'yournal.controllers', []
+angular.module 'yournal.directives', []
 
 app.config(['$stateProvider', '$urlRouterProvider',
   ($stateProvider, $urlRouterProvider) ->

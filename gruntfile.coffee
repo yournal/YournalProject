@@ -118,6 +118,12 @@ module.exports = (grunt) ->
         ]
     clean:
       all: ['lib/**/*', 'public/js/**/*', 'public/css/**/*', 'public/views']
+    ngmin:
+      production:
+        expand: true,
+        cwd: 'public/js',
+        src: ['**/*.js'],
+        dest: 'public/js'
     uglify:
       options:
         mangle:
@@ -157,6 +163,11 @@ module.exports = (grunt) ->
         ext: '.css'
     lesslint:
       options:
+        csslint:
+          'adjoining-classes': false
+          'box-sizing': false
+          'important': false
+          'box-model': false
         less:
           paths: ['src/server/styles/**', 'src/client/styles/**']
           imports: ['src/server/styles/**', 'src/client/styles/**']
@@ -203,6 +214,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-lesslint'
   grunt.loadNpmTasks 'grunt-text-replace'
 
+  grunt.loadNpmTasks 'grunt-ngmin' # angular specific
+
   if process.env.NODE_ENV == 'production'
     grunt.registerTask 'default', ['clean:all', 'copy:viewsClient',
       'copy:viewsServer', 'htmlmin', 'lesslint',
@@ -220,7 +233,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'release', ['clean:all', 'copy:viewsClient',
     'copy:viewsServer', 'htmlmin', 'lesslint',
     'less', 'assetver:css', 'cssmin', 'coffeelint', 'coffee:server',
-    'coffee:clientProduction', 'assetver:js', 'uglify']
+    'coffee:clientProduction', 'assetver:js', 'ngmin', 'uglify']
   grunt.registerTask 'test', ['clean:all', 'copy:viewsClient',
     'copy:viewsServer', 'htmlmin', 'lesslint',
     'less', 'assetver:css', 'cssmin', 'coffeelint', 'coffee:server',

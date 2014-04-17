@@ -3,9 +3,11 @@
   {% include '../includes/head.html' %}
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top" data-ng-include="'/views/header.html'" role="navigation"></div>
-    <section class="content">
+    <section class="wrapper">
       <section class="container">
+        <div class="content">
         {% block content %}{% endblock %}
+        </div>
       </section>
     </section>
     {% include '../includes/foot.html' %}
