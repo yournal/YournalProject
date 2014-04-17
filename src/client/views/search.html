@@ -8,14 +8,15 @@
     <button class="btn btn-default" type="button" ng-click="search(query.value)">Go!</button>
   </span>
 </div>
-<ul>
-    <li ng-repeat="article in filtered = (articles | filter: query.result)" class="phone-listing">
-      <h4>{{article.title}}</h4>
-        <strong ng-repeat="author in article.authors">{{author}}, </strong>
-        <br/>
-        <span><u>Keywords:</u> </span>
-        <span ng-repeat="keyword in article.keywords">{{keyword}}, </span>
-        <p>{{article.abstract}}</p>
+<br/>
+<span><i>Showing <b>{{filtered.length}}</b> of <b>{{articles.length}}</b> articles</i></span>
+<ul class="search_results">
+    <li ng-repeat="article in filtered = (articles | filter: query.result)" class="animate-repeat">
+		<h4>{{article.title}}</h4>
+		<strong ng-repeat="author in article.authors">{{author}}, </strong>
+		<br/>
+		<span><u>Keywords:</u> </span>
+		<span ng-repeat="keyword in article.keywords">{{keyword}}, </span>
+		<p class="article_abstract">{{article.abstract}}</p>
     </li>
 </ul>
-Showing {{filtered.length}} of {{articles.length}} articles
