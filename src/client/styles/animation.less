@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  padding-left: 0;
+  padding-left: 15px;
 }
  
 .fade_anim.ng-enter {
@@ -49,8 +49,6 @@
   to { opacity: 0; }
 }
  
- 
-
 .phone-listing.ng-enter,
 .phone-listing.ng-move {
   opacity: 0;
@@ -74,4 +72,14 @@
   height: 0;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.animate-enter {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 1s linear all;
+	opacity: 0;
+}
+ 
+.animate-enter.animate-enter-active {
+	opacity: 1;
 }
