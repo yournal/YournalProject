@@ -2,7 +2,6 @@ path = require 'path'
 fs = require 'fs'
 module.exports = (grunt) ->
   # Task configuration
-  console.log grunt.file.readJSON 'assets.json'
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
     assets: grunt.file.readJSON 'assets.json'

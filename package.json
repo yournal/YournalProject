@@ -15,9 +15,7 @@
     },
     "main": "app.js",
     "scripts": {
-        "start": "node node_modules/grunt-cli/bin/grunt",
-        "test": "node node_modules/grunt-cli/bin/grunt test",
-        "postinstall": "bower install | grunt production"
+        "postinstall": "bower update && grunt production"
     },
     "engines": {
         "node": "0.10.x",
