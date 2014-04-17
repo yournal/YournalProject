@@ -27,6 +27,7 @@ module.exports = (grunt) ->
             NODE_ENV: 'development'
             PORT: '3000'
             LOGGER: 'off'
+            MONGOHQ_URL: 'mongodb://localhost/mydb'
           callback: (nodemon) ->
             nodemon.on 'log', (event) ->
               console.log event.colour

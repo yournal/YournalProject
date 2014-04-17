@@ -4,7 +4,7 @@ _ = require 'lodash'
 
 # Set default environment
 if process.env.NODE_ENV == undefined
-  process.env.NODE_ENV = 'production'
+  process.env.NODE_ENV = 'release'
 
 # Configuration
 dic = require('dependable').container()
