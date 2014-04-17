@@ -9,7 +9,7 @@
   </span>
 </div>
 <ul>
-    <li ng-repeat="article in filtered = (articles | filter: query.result)">
+    <li ng-repeat="article in filtered = (articles | filter: query.result)" class="phone-listing">
       <h4>{{article.title}}</h4>
         <strong ng-repeat="author in article.authors">{{author}}, </strong>
         <br/>

@@ -17,6 +17,7 @@ for index of window.modules
 app = angular.module('yournal', modules.concat([
   'ngRoute',
   'ngResource',
+  'ngAnimate',
   'yournal.filters',
   'yournal.services',
   'yournal.directives',
