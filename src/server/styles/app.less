@@ -22,6 +22,10 @@ body {
   margin-top: 20px;
 }
 
+.inline{
+  display: inline;
+}
+
 /*  comma separated list, append a , after each <li> */
 .list-comma-separated li:after{
   content: ", ";
@@ -37,6 +41,11 @@ ul.article-list > li {
 ul.article-list ul {
   margin-left: 15px;    /* indentation for authors list */
 }
+ul.article-list div.keywords{
+  margin-left: 15px;    /* indentation for keywords list */
+  font-size: 0.86em;
+  font-style: italic;
+}
 
 .authors {
 	margin-left: 15px;
@@ -45,4 +54,3 @@ ul.article-list ul {
 .marginb10 {
 	margin-bottom: 10px;
 }
-

@@ -1,23 +1,29 @@
-<div class="page-header">
+<header class="page-header">
   <h1>Search</h1>
-</div>
-<div class="input-group search-box">
+</header>
+
+<form ng-submit="search(query.value)" class="input-group col-md-4 col-sm-6 col-xs-10">
   <span class="input-group-addon">Search for:</span>
   <input type="text" class="form-control" id="input-search" placeholder="Search" ng-model="query.value">
   <span class="input-group-btn">
-    <button class="btn btn-default" type="button" ng-click="search(query.value)">Go!</button>
+    <input class="btn btn-default" type="submit" value="Go!" />
   </span>
-</div>
-<br/>
-<span><i>Showing <b>{{filtered.length}}</b> of <b>{{articles.length}}</b> articles</i></span>
-<ul class="search_results">
-    <li ng-repeat="article in filtered = (articles | filter: query.result)"  class="animate-repeat">
-		<h4><a ng-href="{{$state.href('article')}}{{article.id}}">{{article.title}}</a></h4>
-		<strong ng-repeat="author in article.authors">{{author}}, </strong>
-		<br/>
-		<span><u>Keywords:</u> </span>
-		<span ng-repeat="keyword in article.keywords">{{keyword}}, </span>
-		<p class="article_abstract">{{article.abstract}}</p>
-    </li>
-</ul>
+</form>
 
+<span><i>Showing <b>{{filtered.length}}</b> of <b>{{articles.length}}</b> articles</i></span>
+
+<ul class="search_results article-list">
+  <li ng-repeat="article in filtered = (articles | filter: query.result)"  class="animate-repeat">
+    <a ng-href="{{$state.href('article')}}{{article.id}}"><strong>{{article.title}}</strong></a>
+    <ul class="list-unstyled list-inline list-comma-separated">
+      <li ng-repeat="author in article.authors">{{author}}</li>
+    </ul>
+      <div class="keywords">
+        Keywords:
+        <ul class="list-unstyled list-inline list-comma-separated inline">
+          <li ng-repeat="keyword in article.keywords">{{keyword}}</li>
+        </ul>
+      </div>
+    </div>
+  </li>
+</ul>
