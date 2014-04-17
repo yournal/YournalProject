@@ -1,0 +1,19 @@
+<div class="container" data-ng-controller="HeaderController">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" ng-href="#!/">Yournal</a>
+  </div>
+  <div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li ng-class="{active: $state.includes('home')}"><a ng-href="{{$state.href('home')}}">Home</a></li>
+      <li ng-class="{active: $state.includes('search')}"><a ng-href="{{$state.href('search')}}">Search</a></li>
+      <li ng-class="{active: $state.includes('current')}"><a ng-href="{{$state.href('current')}}">Current</a></li>
+      <li ng-class="{active: $state.includes('archives')}"><a ng-href="{{$state.href('archives')}}">Archives</a></li>
+    </ul>
+  </div><!--/.nav-collapse -->
+</div>

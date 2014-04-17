@@ -1,5 +1,5 @@
 path = require 'path'
-
+fs = require 'fs'
 module.exports = (grunt) ->
   # Task configuration
   grunt.initConfig
@@ -18,7 +18,7 @@ module.exports = (grunt) ->
       dev:
         script: 'src/server/bootstrap.coffee'
         options:
-          watch: ['src/server/**/*', 'assets.json']
+          watch: ['src/server/**/*', 'assets.json', '.restart']
           ignore: ['src/server/styles/**']
           ext: 'coffee,html,json'
           delay: 0
@@ -26,12 +26,13 @@ module.exports = (grunt) ->
           env:
             NODE_ENV: 'development'
             PORT: '3000'
+            LOGGER: 'off'
           callback: (nodemon) ->
             nodemon.on 'log', (event) ->
               console.log event.colour
             nodemon.on 'restart', () ->
               setTimeout () ->
-                require('fs').writeFileSync '.restart', 'restart'
+                fs.writeFileSync '.reload', 'reload'
               , 1000
     watch:
       coffeeClient:
@@ -65,7 +66,8 @@ module.exports = (grunt) ->
           spawn: false
           livereload: true
       nodemon:
-        files: ['.restart']
+        files: ['.reload', '.restart', 'public/**/*',
+          '!public/css/**/*', '!public/js/**/**', '!public/vendor/**/**']
         options:
           livereload: true
     coffee:
@@ -259,12 +261,14 @@ module.exports = (grunt) ->
           modified = true
           break
     if modified
-      console.log assets
       grunt.config 'assets', assets
       fs.writeFileSync('assets.json', JSON.stringify(assets, null, 4))
 
   # React on single file
   grunt.event.on 'watch', (action, filepath, target) ->
+    if action == 'added' || action == 'deleted'
+        fs.writeFileSync '.restart', 'restart'
+
     coffeeConfig = grunt.config 'coffee'
     copyConfig = grunt.config 'copy'
     replaceConfig = grunt.config 'replace'

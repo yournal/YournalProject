@@ -1,9 +1,7 @@
 service = ($resource) ->
-  return $resource 'json/journals/:journal_id.json', {}, {
+  return $resource 'json/journal.json', {}, {
     query:
       method: 'GET'
-      params: {journal_id: 'journals'}
-      isArray: true
   }
 
 app = angular.module 'yournal.services'

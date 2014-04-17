@@ -20,32 +20,66 @@ app = angular.module('yournal', modules.concat([
   'yournal.filters',
   'yournal.services',
   'yournal.directives',
-  'yournal.controllers'
+  'yournal.controllers',
+  'ui.bootstrap',
+  'ui.router',
+  'ui.unique'
 ]))
 
+# Register modules
+angular.module 'yournal.filters', []
+angular.module 'yournal.controllers', []
 angular.module 'yournal.services', []
 angular.module 'yournal.controllers', []
 
+app.config(['$stateProvider', '$urlRouterProvider',
+  ($stateProvider, $urlRouterProvider) ->
+    $stateProvider.state('home',
+      url: '/'
+      templateUrl: 'views/home.html'
+      controller: 'HomeController'
+    )
+    $stateProvider.state('current',
+      url: '/current'
+      templateUrl: 'views/current.html'
+      controller: 'HomeController'
+    )
+    $stateProvider.state('issue',
+      url: '/issue/:issueId'
+      templateUrl: 'views/issue.html'
+      controller: 'IssueController'
+    )
+    $stateProvider.state('archives',
+      url: '/archives'
+      templateUrl: 'views/archives.html'
+      controller: 'ArchiveController'
+    )
+    $stateProvider.state('journals',
+      url: '/journals'
+      templateUrl: 'views/journals.html'
+      controller: 'IndexController'
+    )
+    $stateProvider.state('journal',
+      url: '/journals/:journal_id'
+      templateUrl: 'views/journal.html'
+      controller: 'JournalController'
+    )
+    $stateProvider.state('search',
+      url: '/search'
+      templateUrl: 'views/search.html'
+      controller: 'SearchController'
+    )
+    $stateProvider.state('article',
+      url: '/article/:articleId'
+      templateUrl: 'views/article.html'
+      controller: 'ArticleController'
+    )
+    $urlRouterProvider.otherwise('/')
+])
 app.config(['$locationProvider', ($locationProvider) ->
   $locationProvider.hashPrefix '!'
 ])
 
-app.config(['$routeProvider', ($routeProvider) ->
-  $routeProvider.when('/view1',
-    templateUrl: 'views/partial1.html',
-    controller: 'ExampleController'
-  )
-  $routeProvider.when('/journals',
-    templateUrl: 'views/journals.html',
-    controller: 'ExampleController'
-  )
-  $routeProvider.when('/journals/:journal_id',
-    templateUrl: 'views/journal.html',
-    controller: 'JournalController'
-  )
-  $routeProvider.when('/article/:articleId',
-    templateUrl: 'views/article.html',
-    controller: 'ArticleController'
-  )
-  $routeProvider.otherwise({redirectTo: '/view1'})
-])
+app.run ($rootScope, $state, $stateParams) ->
+  $rootScope.$state = $state
+  $rootScope.$stateParams = $stateParams

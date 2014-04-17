@@ -1,9 +1,8 @@
-controller = ($scope, $routeParams, Article) ->
-  $scope.article = Article.get({articleId: $routeParams.articleId})
-
+controller = ($scope, $stateParams, Article) ->
+  $scope.article = Article.get({articleId: $stateParams.articleId})
 
 app = angular.module 'yournal.controllers'
 app.controller 'ArticleController', [
-  '$scope', '$routeParams', 'Article', controller
+  '$scope', '$stateParams', 'Article', controller
 ]
 

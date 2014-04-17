@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>Search</h1>
+</div>
+<div class="input-group search-box">
+  <span class="input-group-addon">Search for:</span>
+  <input type="text" class="form-control" id="input-search" placeholder="Search" ng-model="query.value">
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button" ng-click="search(query.value)">Go!</button>
+  </span>
+</div>
+<ul>
+    <li ng-repeat="article in filtered = (articles | filter: query.result)">
+      <h4>{{article.title}}</h4>
+        <strong ng-repeat="author in article.authors">{{author}}, </strong>
+        <br/>
+        <span><u>Keywords:</u> </span>
+        <span ng-repeat="keyword in article.keywords">{{keyword}}, </span>
+        <p>{{article.abstract}}</p>
+    </li>
+</ul>
+Showing {{filtered.length}} of {{articles.length}} articles
