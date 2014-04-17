@@ -7,15 +7,15 @@ module.exports = (grunt) ->
     assets: grunt.file.readJSON 'assets.json'
     concurrent:
       development:
-        tasks: ['nodemon', 'watch']
+        tasks: ['nodemon:development', 'watch']
         options:
           logConcurrentOutput: true
       production:
-        tasks: ['nodemon']
+        tasks: ['nodemon:production']
         options:
           logConcurrentOutput: true
     nodemon:
-      dev:
+      development:
         script: 'src/server/bootstrap.coffee'
         options:
           watch: ['src/server/**/*', 'assets.json', '.restart']
@@ -35,6 +35,17 @@ module.exports = (grunt) ->
               setTimeout () ->
                 fs.writeFileSync '.reload', 'reload'
               , 1000
+      production:
+        script: 'app.js'
+        options:
+          watch: ['!']
+          delay: 0
+          cwd: __dirname
+          env:
+            NODE_ENV: 'production'
+            PORT: '3000'
+            LOGGER: 'on'
+            MONGOHQ_URL: 'mongodb://localhost/mydb'
     watch:
       coffeeClient:
         files: ['src/client/**/*.coffee']
@@ -219,26 +230,29 @@ module.exports = (grunt) ->
 
   if process.env.NODE_ENV == 'production'
     grunt.registerTask 'default', ['clean:all', 'copy:viewsClient',
-      'copy:viewsServer', 'htmlmin', 'lesslint',
-      'less', 'assetver:css', 'cssmin', 'coffeelint', 'coffee:server',
-      'coffee:clientProduction', 'assetver:js', 'uglify',
-      'concurrent:production']
-  else
+    'copy:viewsServer', 'htmlmin', 'lesslint',
+    'less', 'assetver:css', 'cssmin', 'coffeelint', 'coffee:server',
+    'coffee:clientProduction', 'assetver:js', 'ngmin', 'uglify',
+    'concurrent:production']
+  else if process.env.NODE_ENV == 'development'
+    grunt.registerTask 'default', ['clean:all', 'copy:viewsClient',
+    'lesslint', 'less', 'coffeelint', 'coffee:clientDevelopment',
+    'copy:coffeeClient', 'replace', 'concurrent:development']
+  else if process.env.NODE_ENV == 'test'
     grunt.registerTask 'default', ['clean:all', 'copy:viewsClient',
     'lesslint', 'less', 'coffeelint', 'coffee:clientDevelopment',
     'copy:coffeeClient', 'replace', 'concurrent:development']
 
-  grunt.registerTask 'develop', ['clean:all', 'copy:viewsClient',
+  grunt.registerTask 'development', ['clean:all', 'copy:viewsClient',
     'lesslint', 'less', 'coffeelint', 'coffee:clientDevelopment',
     'copy:coffeeClient', 'replace', 'concurrent:development']
-  grunt.registerTask 'release', ['clean:all', 'copy:viewsClient',
+  grunt.registerTask 'production', ['clean:all', 'copy:viewsClient',
     'copy:viewsServer', 'htmlmin', 'lesslint',
     'less', 'assetver:css', 'cssmin', 'coffeelint', 'coffee:server',
     'coffee:clientProduction', 'assetver:js', 'ngmin', 'uglify']
   grunt.registerTask 'test', ['clean:all', 'copy:viewsClient',
-    'copy:viewsServer', 'htmlmin', 'lesslint',
-    'less', 'assetver:css', 'cssmin', 'coffeelint', 'coffee:server',
-    'coffee:clientProduction', 'assetver:js', 'uglify']
+    'lesslint', 'less', 'coffeelint', 'coffee:clientDevelopment',
+    'copy:coffeeClient', 'replace', 'concurrent:development']
 
   # Asset versioning
   crypto = require('crypto')

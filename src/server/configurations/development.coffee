@@ -11,7 +11,7 @@ module.exports =
         port: 27017
         user: ''
         password: ''
-        database: 'yournal'
+        database: 'app24253929'
   session:
     connection: 'mongodb'
     secret: 'd859c8e09d14e2a5ce78c39ed2104ce4'
@@ -21,6 +21,6 @@ module.exports =
         port: 27017
         user: ''
         password: ''
-        db: 'yournal'
+        db: 'app24253929'
         collection: 'sessions'
       )
