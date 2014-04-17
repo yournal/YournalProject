@@ -7,19 +7,14 @@
   	<ul>
   		<li ng-repeat="section in sections | filter: {issueId: issue.id}" class="list-unstyled">
   			<h3>{{section.title}}</h3>
-  			<ul>
+  			<ul class="article-list">
   				<li ng-repeat="article in articles | filter: {sectionId: section.id}">
-  					{{article.title}}
+  					<a ng-href="{{$state.href('article')}}{{article.id}}"><strong>{{article.title}}</strong></a>
+  					<ul class="list-unstyled list-inline list-comma-separated">
+  						<li ng-repeat="author in article.authors">{{author}}</li>
+  					</ul>
   				</li>
   			</ul>
   		</li>
   	</ul>
-  <div ng-repeat="section in sections | filter: {issueId: issue.id}">
-    <h3>{{section.title}}</h3>
-    <div ng-repeat="article in articles | filter: {sectionId: section.id}">
-      <div><a ng-href="{{$state.href('article')}}{{article.id}}">{{article.title}}</a></div>
-      <span ng-repeat="author in article.authors">{{author}}<span ng-show="!$last">, </span></span>
-    </div>
-    <hr>
-  </div>
 </div>
