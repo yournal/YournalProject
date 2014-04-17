@@ -1,8 +1,11 @@
+
+ 
+
 <div class="page-header" ng-repeat="issue in issues | orderBy:'id':true | limitTo: 1">
   <h1>Vol {{issue.volume}}, No {{issue.number}} ({{issue.year}})</h1>
 </div>
 
-<div class="container" ng-repeat="issue in issues | orderBy:'id':true | limitTo: 1">
+<div class="container phone-listing" ng-repeat="issue in issues | orderBy:'id':true | limitTo: 1">
   <div>Table of Contents</div>
   <div ng-repeat="section in sections | filter: {issueId: issue.id}">
     <h3>{{section.title}}</h3>
@@ -13,3 +16,4 @@
     <hr>
   </div>
 </div>
+  
