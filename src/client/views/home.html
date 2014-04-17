@@ -1,17 +1,31 @@
-<div class="page-header">
-  <h1>{{journal.title}}</h1>
+<div class="jumbotron">
+  <div class="col-md-4">
+    <img src="http://placehold.it/250x250" class="img-responsive img-rounded" alt="banner">
+  </div>
+  <div class="col-md-8">
+     <h1>{{journal.title}}</h1>
+  <p>{{journal.description}}</p>
+  </div>
+  <div class="clearfix"></div>
 </div>
-<p>{{journal.description}}</p>
+
+<header class="page-header" ng-repeat="issue in issues | orderBy:'id':true | limitTo: 1">
+  <h1>Volume {{issue.volume}}, No {{issue.number}} <small>({{issue.year}})</small></h1>
+</header>
 
 <div class="container" ng-repeat="issue in issues | orderBy:'id':true | limitTo: 1">
-  <h2>Vol {{issue.volume}}, No {{issue.number}} ({{issue.year}})</h2>
-  <div><i>Table of Contents</i></div>
-  <div ng-repeat="section in sections | filter: {issueId: issue.id}">
-    <h3>{{section.title}}</h3>
-    <div ng-repeat="article in articles | filter: {sectionId: section.id}" class="marginb10">
-      <div><a ng-href="{{$state.href('article')}}{{article.id}}">{{article.title}}</a></div>
-      <div class="authors"><span ng-repeat="author in article.authors">{{author}}<span ng-show="!$last">, </span></span></div>
-    </div>
-    <hr>
-  </div>
+    <h2>Table of Contents</h2>
+    <ul>
+      <li ng-repeat="section in sections | filter: {issueId: issue.id}" class="list-unstyled">
+        <h3>{{section.title}}</h3>
+        <ul class="article-list">
+          <li ng-repeat="article in articles | filter: {sectionId: section.id}">
+            <a ng-href="{{$state.href('article')}}{{article.id}}"><strong>{{article.title}}</strong></a>
+            <ul class="list-unstyled list-inline list-comma-separated">
+              <li ng-repeat="author in article.authors">{{author}}</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
 </div>
