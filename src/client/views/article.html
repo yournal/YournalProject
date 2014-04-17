@@ -1,24 +1,31 @@
-<div class="page-header">
-  <h1>{{article.title}}</h1>
-</div>
+<article>
+	<header class="page-header">
+	  <h1>{{article.title}}</h1>
+	</header>
 
-<div id="container">
-	<div>
+	<div id="container">
+		<section>
+			<div class="row">
+	        	<strong class="col-md-1 text-right">Authors:</strong>
+				<ul class="list-unstyled list-inline list-comma-separated col-md-11">
+					<li ng-repeat="author in article.authors">{{author}}</li>
+				</ul>
+			</div>
+			<div class="row">
+				<strong class="col-md-1 text-right">Keywords:</strong>
+				<ul class="list-unstyled list-inline list-comma-separated col-md-11">
+					<li ng-repeat="keyword in article.keywords"><em>{{keyword}}</em></li>
+				</ul>
+			</div>
+			<div class="row">
+				<strong class="col-md-1 text-right">Abstract:</strong>
+				<p class="col-md-11">{{article.abstract}}</p>
+				
+			</div>
+		</section>
+		<hr>
 
-		<!-- these ul's should be inline, waiting for bootstrap -->
-        <strong>Authors:</strong>
-		<ul>
-			<li ng-repeat="author in article.authors">{{author}}</li>
-		</ul>
-		<strong>Keywords:</strong>
-		<ul>
-			<li ng-repeat="keyword in article.keywords">{{keyword}}</li>
-		</ul>
+		<p>{{article.content}}</p>
 	</div>
 
-	<hr>
-
-	<p>{{article.abstract}}</p>
-	<p>{{article.content}}</p>
-</div>
-
+</article>
