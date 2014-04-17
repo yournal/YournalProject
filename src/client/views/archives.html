@@ -1,13 +1,14 @@
-<div class="page-header">
-  <h1>Archives</h1>
-</div>
+<header class="page-header">
+  	<h1>Archives</h1>
+</header>
 
-<div class="container" ng-repeat="issueGroup in issues | unique:'year' | orderBy:'year':true">
-  <div>{{issueGroup.year}}</div>
-  <div ng-repeat="issue in issues | filter:{year:issueGroup.year}  | orderBy:'id':true">
-  <a ng-href="{{$state.href('issue')}}{{issue.id}}">Vol {{issue.volume}}, No {{issue.number}}</a>
-  </div>
-
-
-
-</div>
+<ul class="list-unstyled">
+	<li ng-repeat="issueGroup in issues | unique:'year' | orderBy:'year':true">
+		<h3>{{issueGroup.year}}</h3>
+		<ul>
+			<li ng-repeat="issue in issues | filter:{year:issueGroup.year}  | orderBy:'id':true" class="marginb10">
+				 <a ng-href="{{$state.href('issue')}}{{issue.id}}"><strong>Volume {{issue.volume}}, No {{issue.number}}</strong></a>
+			</li>
+		</ul>
+	</li>
+</ul>
