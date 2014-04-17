@@ -12,7 +12,7 @@
 <span><i>Showing <b>{{filtered.length}}</b> of <b>{{articles.length}}</b> articles</i></span>
 <ul class="search_results">
     <li ng-repeat="article in filtered = (articles | filter: query.result)" class="animate-repeat">
-		<h4>{{article.title}}</h4>
+		<h4><a ng-href="{{$state.href('article')}}{{article.id}}">{{article.title}}</a></h4>
 		<strong ng-repeat="author in article.authors">{{author}}, </strong>
 		<br/>
 		<span><u>Keywords:</u> </span>
