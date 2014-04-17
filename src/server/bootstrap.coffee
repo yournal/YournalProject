@@ -57,7 +57,7 @@ app.use require('express-session')(
     domain: ''
     httpOnly: true
     maxAge: 60 * 60 * 1000
-  store: config.session.store()
+  #store: config.session.store() # disabled due heroku error
 )
 app.use require('compression')()
 app.use (req, res, next) ->
