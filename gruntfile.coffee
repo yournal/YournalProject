@@ -2,6 +2,7 @@ path = require 'path'
 fs = require 'fs'
 module.exports = (grunt) ->
   # Task configuration
+  console.log grunt.file.readJSON 'assets.json'
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
     assets: grunt.file.readJSON 'assets.json'
@@ -259,7 +260,6 @@ module.exports = (grunt) ->
   fs = require 'fs'
   assets = grunt.file.readJSON 'assets.json'
   grunt.registerMultiTask 'assetver', 'Version assets', () ->
-    ###
     rev = ''
     modified = false
     for file in @files
@@ -292,7 +292,6 @@ module.exports = (grunt) ->
     if modified
       grunt.config 'assets', assets
       fs.writeFileSync('assets.json', JSON.stringify(assets, null, 4))
-    ###
 
   # React on single file
   grunt.event.on 'watch', (action, filepath, target) ->
