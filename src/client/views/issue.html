@@ -1,9 +1,19 @@
-<div class="page-header">
-  <h1>Vol {{issue.volume}}, No {{issue.number}} ({{issue.year}})</h1>
-</div>
+<header class="page-header">
+	<h1>Volume {{issue.volume}}, No {{issue.number}} <small>({{issue.year}})</small></h1>
+</header>
 
 <div class="container">
-  <div>Table of Contents</div>
+  	<h2>Table of Contents</h2>
+  	<ul>
+  		<li ng-repeat="section in sections | filter: {issueId: issue.id}" class="list-unstyled">
+  			<h3>{{section.title}}</h3>
+  			<ul>
+  				<li ng-repeat="article in articles | filter: {sectionId: section.id}">
+  					{{article.title}}
+  				</li>
+  			</ul>
+  		</li>
+  	</ul>
   <div ng-repeat="section in sections | filter: {issueId: issue.id}">
     <h3>{{section.title}}</h3>
     <div ng-repeat="article in articles | filter: {sectionId: section.id}">
