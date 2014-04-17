@@ -36,7 +36,8 @@ app = express()
 app.locals.cache = 'memory' # used for swig in production
 if process.env.NODE_ENV == 'development'
   app.set 'showStackError', true
-  app.use require('morgan')('dev')
+  if process.env.LOGGER == 'on'
+    app.use require('morgan')('dev')
 else
   app.set 'showStackError', false
 app.engine 'html', consolidate[config.express.template]

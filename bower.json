@@ -9,7 +9,9 @@
         "angular-resource": "latest",
         "angular-route": "latest",
         "angular-ui-router": "#master",
+        "angular-ui-utils": "#master",
         "angular-animate": "latest",
-        "bootstrap": "3.0.3"
+        "bootstrap": "3.0.3",
+        "lodash": "latest"
     }
 }

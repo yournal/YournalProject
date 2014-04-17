@@ -22,7 +22,8 @@ app = angular.module('yournal', modules.concat([
   'yournal.directives',
   'yournal.controllers',
   'ui.bootstrap',
-  'ui.router'
+  'ui.router',
+  'ui.unique'
 ]))
 
 # Register modules
@@ -35,13 +36,28 @@ app.config(['$stateProvider', '$urlRouterProvider',
   ($stateProvider, $urlRouterProvider) ->
     $stateProvider.state('home',
       url: '/'
-      templateUrl: 'views/index.html'
-      controller: 'IndexController'
+      templateUrl: 'views/home.html'
+      controller: 'HomeController'
+    )
+    $stateProvider.state('current',
+      url: '/current'
+      templateUrl: 'views/current.html'
+      controller: 'HomeController'
+    )
+    $stateProvider.state('issue',
+      url: '/issue/:issueId'
+      templateUrl: 'views/issue.html'
+      controller: 'IssueController'
+    )
+    $stateProvider.state('archives',
+      url: '/archives'
+      templateUrl: 'views/archives.html'
+      controller: 'ArchiveController'
     )
     $stateProvider.state('journals',
       url: '/journals'
       templateUrl: 'views/journals.html'
-      controller: 'JournalController'
+      controller: 'IndexController'
     )
     $stateProvider.state('journal',
       url: '/journals/:journal_id'
@@ -63,3 +79,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
 app.config(['$locationProvider', ($locationProvider) ->
   $locationProvider.hashPrefix '!'
 ])
+
+app.run ($rootScope, $state, $stateParams) ->
+  $rootScope.$state = $state
+  $rootScope.$stateParams = $stateParams
