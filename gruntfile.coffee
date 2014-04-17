@@ -157,6 +157,11 @@ module.exports = (grunt) ->
         ext: '.css'
     lesslint:
       options:
+        csslint:
+          'adjoining-classes': false
+          'box-sizing': false
+          'important': false
+          'box-model': false
         less:
           paths: ['src/server/styles/**', 'src/client/styles/**']
           imports: ['src/server/styles/**', 'src/client/styles/**']
