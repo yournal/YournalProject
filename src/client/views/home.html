@@ -1,0 +1,17 @@
+<div class="page-header">
+  <h1>{{journal.title}}</h1>
+</div>
+<p>{{journal.description}}</p>
+
+<div class="container" ng-repeat="issue in issues | orderBy:'id':true | limitTo: 1">
+  <h2>Vol {{issue.volume}}, No {{issue.number}} ({{issue.year}})</h2>
+  <div>Table of Contents</div>
+  <div ng-repeat="section in sections | filter: {issueId: issue.id}">
+    <h3>{{section.title}}</h3>
+    <div ng-repeat="article in articles | filter: {sectionId: section.id}">
+      <div><a ng-href="{{$state.href('article')}}{{article.id}}">{{article.title}}</a></div>
+      <span ng-repeat="author in article.authors">{{author}}<span ng-show="!$last">, </span></span>
+    </div>
+    <hr>
+  </div>
+</div>
