@@ -1,6 +1,6 @@
 {
     "js": {
-        "public/js/yournal.d9b429a75a.js": [
+        "public/js/yournal.34c8c5ce9e.js": [
             "public/vendor/jquery/dist/jquery.js",
             "public/vendor/angular/angular.js",
             "public/vendor/angular-animate/angular-animate.js",
@@ -17,7 +17,7 @@
         ]
     },
     "css": {
-        "public/css/yournal.0bb25a21fa.css": [
+        "public/css/yournal.2917391798.css": [
             "public/vendor/bootstrap/dist/css/bootstrap.css",
             "public/css/server/**/*",
             "public/css/client/**/*"
