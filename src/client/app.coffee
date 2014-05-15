@@ -74,6 +74,11 @@ app.config(['$stateProvider', '$urlRouterProvider',
       templateUrl: 'views/article.html'
       controller: 'ArticleController'
     )
+    $stateProvider.state('login',
+      url: '/login'
+      templateUrl: 'views/login.html'
+      controller: 'LoginController'
+    )
     $urlRouterProvider.otherwise('/')
 ])
 app.config(['$locationProvider', ($locationProvider) ->
