@@ -13,5 +13,6 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
 	  <br>
-		<p><a href="">Not our user yet? Register with us!</a> </p>
+		<p ng-class="{active: $state.includes('register')}"><a ng-href="{{$state.href('register')}}">Not our user yet? Register with us!</a> </p>
+		
     </div>
