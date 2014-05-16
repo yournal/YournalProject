@@ -9,6 +9,7 @@
             "public/vendor/angular-ui-router/release/angular-ui-router.js",
             "public/vendor/angular-ui-utils/modules/unique/unique.js",
             "public/vendor/bootstrap/dist/js/bootstrap.js",
+			 "public/vendor/disqus/disqus.js",
             "public/js/app.js",
             "public/js/services/**/*.js",
             "public/js/controllers/**/*.js",
