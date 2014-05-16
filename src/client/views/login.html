@@ -11,8 +11,20 @@
           <input type="checkbox" value="remember-me"> Remember me
         </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		<p ng-class="{active: $state.includes('register')}" class="register"><a ng-href="{{$state.href('register')}}">Not our user yet? Register with us!</a> </p>
       </form>
 	  <br>
-		<p ng-class="{active: $state.includes('register')}"><a ng-href="{{$state.href('register')}}">Not our user yet? Register with us!</a> </p>
+	  <div class="googlebutton">
+	   <span id="signinButton">
+		  <span
+			class="g-signin googlebutton"
+			data-width="wide"
+			data-callback="signinCallback"
+			data-clientid="150391801434-j2mgh41q7dtge80vsol621cmqcocjrgs.apps.googleusercontent.com"
+			data-cookiepolicy="single_host_origin"
+			data-scope="profile">
+		  </span>
+	</span>
+	</div>
+	</div>
 		
-    </div>
