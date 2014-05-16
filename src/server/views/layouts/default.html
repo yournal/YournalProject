@@ -12,5 +12,31 @@
     </section>
     {% include '../includes/foot.html' %}
     <div class="footer" data-ng-include="'/views/footer.html'"></div>
+	
+	<!-- prestavt drugam-->
+	<script type="text/javascript">
+		  (function() {
+		   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		   po.src = 'https://apis.google.com/js/client:plusone.js';
+		   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+		 })();
+		 
+		 function signinCallback(authResult) {
+		  if (authResult['status']['signed_in']) {
+			/*TODO display user's first and last name in navigation bar + display logout button + permit acces to certain pages */
+			gapi.client.load('plus','v1', function(){
+			 var request = gapi.client.plus.people.get({
+			   'userId': 'me'
+			 });
+			 request.execute(function(resp) {
+			   console.log('Retrieved profile for:' + resp.displayName);
+			 });
+			});
+		  } else {
+				console.log('Sign-in state: ' + authResult['error']);
+			
+		  }
+		}
+    </script>
   </body>
 </html>
