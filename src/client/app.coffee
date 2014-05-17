@@ -85,6 +85,21 @@ app.config(['$stateProvider', '$urlRouterProvider',
       templateUrl: 'views/register.html'
       controller: 'RegisterController'
     )
+    $stateProvider.state('newArticle',
+      url: '/articles/new'
+      templateUrl: 'views/newArticle.html'
+      controller: 'ArticleController'
+    )
+    $stateProvider.state('newIssue',
+      url: '/issues/new'
+      templateUrl: 'views/newIssue.html'
+      controller: 'IssueController'
+    )
+    $stateProvider.state('newVolume',
+      url: '/volumes/new'
+      templateUrl: 'views/newVolume.html'
+      controller: ''
+    )
     $urlRouterProvider.otherwise('/')
 ])
 app.config(['$locationProvider', ($locationProvider) ->
