@@ -19,15 +19,15 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="title" class="col-sm-1 control-label">Issue</label>
+        <label for="issue" class="col-sm-1 control-label">Issue</label>
         <div class="col-sm-9">
-          <select ng-model="number" ng-options="issue.number for issue in issues | filter:{volume:volume.volume} | unique:'number' | orderBy:'number'" class="form-control input-lg" id="volume" required></select>
+          <select ng-model="number" ng-options="issue.number for issue in issues | filter:{volume:volume.volume} | unique:'number' | orderBy:'number'" class="form-control input-lg" id="issue" required></select>
         </div>
       </div>
       <div class="form-group">
         <label for="section" class="col-sm-1 control-label">Section</label>
         <div class="col-sm-9">
-          <select ng-model="section.title" ng-options="section.titlefor section in sections" class="form-control input-lg" id="section" required></select>
+          <select ng-model="section" ng-options="section.title for section in sections" class="form-control input-lg" id="section" required></select>
         </div>
       </div>
     <div class="form-group">

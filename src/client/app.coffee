@@ -95,6 +95,11 @@ app.config(['$stateProvider', '$urlRouterProvider',
       templateUrl: 'views/newIssue.html'
       controller: 'IssueController'
     )
+    $stateProvider.state('newSection',
+      url: '/sections/new'
+      templateUrl: 'views/newSection.html'
+      controller: 'SectionController'
+    )
     $stateProvider.state('newVolume',
       url: '/volumes/new'
       templateUrl: 'views/newVolume.html'
