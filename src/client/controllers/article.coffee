@@ -7,5 +7,6 @@ controller = ($scope, $stateParams, $window, Article, Issues, Section) ->
 
 app = angular.module 'yournal.controllers'
 app.controller 'ArticleController', [
-  '$scope', '$stateParams', '$window', 'Article', 'Issues', 'Section', controller
+  '$scope', '$stateParams', '$window', 'Article',
+   'Issues', 'Section', controller
 ]
