@@ -13,6 +13,7 @@ for index of window.modules
   angular.module window.modules[index].module, dependencies
   modules.push window.modules[index]
 
+
 # Register modules
 app = angular.module('yournal', modules.concat([
   'ngRoute',
@@ -22,6 +23,7 @@ app = angular.module('yournal', modules.concat([
   'yournal.services',
   'yournal.directives',
   'yournal.controllers',
+  'yournal.d3',
   'ui.router',
   'ui.unique',
   'angularUtils.directives.dirDisqus'
@@ -31,7 +33,8 @@ app = angular.module('yournal', modules.concat([
 angular.module 'yournal.filters', []
 angular.module 'yournal.controllers', []
 angular.module 'yournal.services', []
-angular.module 'yournal.directives', []
+angular.module 'yournal.d3', []
+angular.module 'yournal.directives', ['yournal.d3']
 
 app.config(['$stateProvider', '$urlRouterProvider',
   ($stateProvider, $urlRouterProvider) ->
