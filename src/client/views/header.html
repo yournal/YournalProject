@@ -14,8 +14,19 @@
       <li ng-class="{active: $state.includes('search')}"><a ng-href="{{$state.href('search')}}">Search</a></li>
       <li ng-class="{active: $state.includes('current')}"><a ng-href="{{$state.href('current')}}">Current</a></li>
       <li ng-class="{active: $state.includes('archives')}"><a ng-href="{{$state.href('archives')}}">Archives</a></li>
-      <li ng-class="{active: $state.includes('login')}"><a ng-href="{{$state.href('login')}}">Login</a></li>
+	    <li ng-class="{active: $state.includes('login')}"><a ng-href="{{$state.href('login')}}">Login</a></li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li ng-class="{active: $state.includes('newArticle')}"><a ng-href="{{$state.href('newArticle')}}">New article</a></li>
+            <li ng-class="{active: $state.includes('newVolume')}"><a ng-href="{{$state.href('newVolume')}}">New volume</a></li>
+            <li ng-class="{active: $state.includes('newIssue')}"><a ng-href="{{$state.href('newIssue')}}">New issue</a></li>
+            <li ng-class="{active: $state.includes('newSection')}"><a ng-href="{{$state.href('newSection')}}">New section</a></li>
+          </ul>
+        </li>
 	    <li ng-class="{active: $state.includes('visualization')}"><a ng-href="{{$state.href('visualization')}}">Visualization</a></li>
+
     </ul>
   </div><!--/.nav-collapse -->
 </div>
