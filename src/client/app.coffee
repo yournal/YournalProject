@@ -23,7 +23,8 @@ app = angular.module('yournal', modules.concat([
   'yournal.directives',
   'yournal.controllers',
   'ui.router',
-  'ui.unique'
+  'ui.unique',
+  'angularUtils.directives.dirDisqus'
 ]))
 
 # Register modules
