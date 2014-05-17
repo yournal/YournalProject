@@ -81,97 +81,6 @@ getFisheye = (d3) ->
 
   return d3
 
-d3fun = (['$window','$timeout','d3Service',($window, $timeout, d3Service) ->
-  return {
-    restrict: 'EA'
-    scope: { data: '=' }
-    link: (scope, element, attrs) ->
-      d3Service.d3().then (d3) ->
-        # d3 is the raw d3 object
-
-        margin = parseInt(attrs.margin) || 20
-        barHeight = parseInt(attrs.barHeight) || 20
-        barPadding = parseInt(attrs.barPadding) || 5
-        #renderTimeout
-
-        svg = d3.select(element[0])
-          .append("svg")
-          .style('width', '100%')
-
-        # Browser onresize event
-        window.onresize = () ->
-          scope.$apply()
-
-        # hard-code data
-        #scope.data = [
-        #  {name: "Greg", score: 98},
-        #  {name: "Ari", score: 96},
-        #  {name: 'Q', score: 75},
-        #  {name: "Loser", score: 48}
-        #]
-
-        # Watch for resize event
-        scope.$watch( () ->
-          angular.element($window)[0].innerWidth
-        , () ->
-          scope.render(scope.data)
-        )
-
-        scope.render = (data) ->
-          # our custom d3 code
-          svg.selectAll('*').remove()
-   
-          #if !data return
-          #if(renderTimeout) clearTimeout(renderTimeout)
-   
-          renderTimeout = $timeout( () ->
-            width = d3.select(element[0])[0][0].offsetWidth - margin
-            height = scope.data.length * (barHeight + barPadding)
-            color = d3.scale.category20()
-            xScale = d3.scale.linear()
-              .domain( [0, d3.max(data, (d) -> d.score)] )
-              .range([0, width])
-   
-            svg.attr('height', height)
-           
-            svg.selectAll('rect')
-              .data(data)
-              .enter()
-              .append('rect')
-              .on('click', (d,i) ->
-                scope.onClick({item: d})
-              )
-              .attr('height', barHeight)
-              .attr('width', 140)
-              .attr('x', Math.round(margin/2))
-              .attr('y', (d,i) ->
-                i * (barHeight + barPadding)
-              )
-              .attr('fill', (d) ->
-                return color(d.score)
-              )
-              .transition()
-              .duration(1000)
-              .attr('width', (d) ->
-                xScale(d.score)
-              )
-
-            svg.selectAll('text')
-              .data(data)
-              .enter()
-              .append('text')
-              .attr('fill', '#fff')
-              .attr('y', (d,i) ->
-                i * (barHeight + barPadding) + 15
-              )
-              .attr('x', 15)
-              .text( (d) ->
-                d.name + " (scored: " + d.score + ")"
-              )
-          , 200)
-  }
-])
-
 d3fish = (['$window','$timeout','d3Service',($window, $timeout, d3Service) ->
   return {
     restrict: 'EA'
@@ -181,8 +90,9 @@ d3fish = (['$window','$timeout','d3Service',($window, $timeout, d3Service) ->
         # d3 is the raw d3 object
         d3 = getFisheye(d3)
 
-        width = 960
-        height = 500
+        width = parseInt(attrs.width) || 960
+        height = parseInt(attrs.height) || 500
+        nodeRadius = 5
 
         color = d3.scale.category20()
         fisheye = d3.fisheye.circular()
@@ -202,77 +112,103 @@ d3fish = (['$window','$timeout','d3Service',($window, $timeout, d3Service) ->
           .attr("width", width)
           .attr("height", height)
 
-        d3.json("json/miserables.json", (data) ->
-          n = data.nodes.length
-          force.nodes(data.nodes).links(data.links)
+        #d3.json("json/miserables.json", (data) ->
+        data = scope.data
+        n = data.nodes.length
+        force.nodes(data.nodes).links(data.links)
 
-          # Initialize the positions deterministically, for better results.
-          data.nodes.forEach( (d, i) ->
-            d.x = d.y = width / n * i
-          )
-
-          # Run the layout a fixed number of times.
-          # The ideal number of times scales with graph complexity.
-          # Of course, don't run too long—you'll hang the page!
-          force.start()
-          for i in [0..n]
-            force.tick()
-          force.stop()
-
-          # Center the nodes in the middle.
-          ox = 0
-          oy = 0
-          data.nodes.forEach( (d) ->
-            ox += d.x
-            oy += d.y
-          )
-
-          ox = ox / n - width / 2
-          oy = oy / n - height / 2
-          data.nodes.forEach( (d) ->
-            d.x -= ox
-            d.y -= oy
-          )
-
-          link = svg.selectAll(".link")
-            .data(data.links)
-            .enter().append("line")
-            .attr("class", "link")
-            .attr("x1", (d) -> d.source.x )
-            .attr("y1", (d) -> d.source.y )
-            .attr("x2", (d) -> d.target.x )
-            .attr("y2", (d) -> d.target.y )
-            .style("stroke-width", (d) -> Math.sqrt(d.value) )
-
-          node = svg.selectAll(".node")
-            .data(data.nodes)
-            .enter().append("circle")
-            .attr("class", "node")
-            .attr("cx", (d) -> d.x )
-            .attr("cy", (d) -> d.y )
-            .attr("r", 4.5 )
-            .style("fill", (d) -> color(d.group) )
-            .call(force.drag)
-
-          svg.on("mousemove", () ->
-            fisheye.focus(d3.mouse(this))
-
-            node.each( (d) -> d.fisheye = fisheye(d) )
-              .attr("cx", (d) -> d.fisheye.x )
-              .attr("cy", (d) -> d.fisheye.y )
-              .attr("r", (d) -> d.fisheye.z * 4.5 )
-
-            link.attr("x1", (d) -> d.source.fisheye.x )
-              .attr("y1", (d) -> d.source.fisheye.y )
-              .attr("x2", (d) -> d.target.fisheye.x )
-              .attr("y2", (d) -> d.target.fisheye.y )
-          )
+        # Initialize the positions deterministically, for better results.
+        data.nodes.forEach( (d, i) ->
+          d.x = d.y = width / n * i
         )
+
+        # Run the layout a fixed number of times.
+        # The ideal number of times scales with graph complexity.
+        # Of course, don't run too long—you'll hang the page!
+        force.start()
+        if n > 50
+          nn = n
+        else
+          nn = 50
+        for i in [0..nn]
+          force.tick()
+        force.stop()
+
+        # Center the nodes in the middle.
+        ox = 0
+        oy = 0
+        data.nodes.forEach( (d) ->
+          ox += d.x
+          oy += d.y
+        )
+
+        ox = ox / n - width / 2
+        oy = oy / n - height / 2
+        data.nodes.forEach( (d) ->
+          d.x -= ox
+          d.y -= oy
+        )
+
+        link = svg.selectAll(".link")
+          .data(data.links)
+          .enter().append("line")
+          .attr("class", "link")
+          .attr("x1", (d) -> d.source.x )
+          .attr("y1", (d) -> d.source.y )
+          .attr("x2", (d) -> d.target.x )
+          .attr("y2", (d) -> d.target.y )
+          .style("stroke-width", (d) -> Math.sqrt(d.value) )
+
+        node = svg.selectAll(".node")
+          .data(data.nodes)
+          .enter().append("circle")
+          .attr("class", "node")
+          .attr("cx", (d) -> d.x )
+          .attr("cy", (d) -> d.y )
+          .attr("data-name", (d) -> d.name )
+          .attr("r", nodeRadius )
+          .style("fill", (d) -> color(d.group) )
+          .call(force.drag)
+
+        tooltip = d3.select("body")
+          .append("div")
+          .attr("class", "d3tooltip")
+          .style("position", "absolute")
+          .style("z-index", "10")
+          .style("visibility", "hidden")
+          .text("a simple tooltip")
+
+        svg.on("mousemove", () ->
+          fisheye.focus(d3.mouse(this))
+
+          node.each( (d) -> d.fisheye = fisheye(d) )
+            .attr("cx", (d) -> d.fisheye.x )
+            .attr("cy", (d) -> d.fisheye.y )
+            .attr("r", (d) -> d.fisheye.z * nodeRadius )
+
+          link.attr("x1", (d) -> d.source.fisheye.x )
+            .attr("y1", (d) -> d.source.fisheye.y )
+            .attr("x2", (d) -> d.target.fisheye.x )
+            .attr("y2", (d) -> d.target.fisheye.y )
+        )
+
+        node.on("mouseover", () ->
+          tooltip.style("visibility", "visible")
+            .text(this.getAttribute "data-name")
+        )
+        node.on("mousemove", () ->
+          tooltip.style("top", (d3.event.pageY-10)+"px")
+            .style("left",(d3.event.pageX+10)+"px")
+        )
+        node.on("mouseout", () ->
+          tooltip.style("visibility", "hidden")
+        )
+        #)
   }
 ])
 
 app = angular.module 'yournal.directives'
-app.directive 'd3Bars', d3fish
+app.directive 'd3Fish', d3fish
 
 
 
