@@ -1,35 +1,34 @@
-controller = ($scope) ->
+controller = ($scope, Article) ->
 
-  $scope.data = {
-    nodes: [
-      {"name":"AAAAAA","group":1}, {"name":"BBBBBBBB","group":1},
-      {"name":"CCCCC","group":1}, {"name":"DDDDD","group":1}
-      {"name":"EEE","group":2}, {"name":"GG","group":2}
-      {"name":"FF","group":2}, {"name":"HH","group":2}
-    ]
-    links: [
-      {"source":0,"target":2,"value":1},
-      {"source":0,"target":3,"value":1},
-      {"source":0,"target":2,"value":1},
-      {"source":0,"target":3,"value":1},
-      {"source":0,"target":4,"value":1},
-      {"source":0,"target":5,"value":1},
-      {"source":0,"target":6,"value":1},
-      {"source":0,"target":7,"value":1},
-      {"source":0,"target":7,"value":1},
-      {"source":1,"target":2,"value":1},
-      {"source":1,"target":3,"value":1},
-      {"source":1,"target":2,"value":1},
-      {"source":1,"target":3,"value":1},
-      {"source":1,"target":4,"value":1},
-      {"source":1,"target":5,"value":1},
-      {"source":1,"target":6,"value":1},
-      {"source":1,"target":7,"value":1},
-      {"source":1,"target":7,"value":1}
-    ]
-  }
+  articlesPromise = Article.query()
+  nodesList = []
+  linksList = []
+  authors = {}
+
+  articlesPromise.$promise.then((articles) ->
+    for article in articles
+      articleNode = { "name": article.title, "group": 1 }
+      target = nodesList.push(articleNode) - 1
+
+      for author in article.authors
+        console.log author
+        if authors[author]?
+          source = authors[author]
+          console.log 'in'
+        else
+          authorNode = { "name": author, "group": 2 }
+          source = nodesList.push(authorNode) - 1
+          console.log 'out'
+        linkNode = {"source": source,"target": target, "value": 1}
+        linksList.push linkNode
+
+    $scope.data = {
+      nodes: nodesList
+      links: linksList
+    }
+  )
 
 app = angular.module 'yournal.controllers'
 app.controller 'VisualizationController', [
-  '$scope', controller
+  '$scope', 'Article', controller
 ]
