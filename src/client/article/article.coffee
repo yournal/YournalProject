@@ -1,4 +1,4 @@
-module = meanstack.module 'yournal.article', [
+module = mean.module 'yournal.article', [
   'yournal.services'
 ]
 
@@ -8,11 +8,11 @@ module.config [
     $stateProvider.state('article',
       url: '/article/:articleId'
       templateUrl: module.mean.resource('article/article.html')
-      controller: module.mean.module('ArticleCtrl')
+      controller: module.mean.namespace('ArticleCtrl')
     )
 ]
 
-module.controller module.mean.module('ArticleCtrl'), [
+module.controller module.mean.namespace('ArticleCtrl'), [
   '$scope',
   '$stateParams',
   'Issue',

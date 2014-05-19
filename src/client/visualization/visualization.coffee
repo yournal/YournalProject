@@ -1,4 +1,4 @@
-module = meanstack.module 'yournal.visualization', [
+module = mean.module 'yournal.visualization', [
   'yournal.directives.fisheye'
 ]
 
@@ -8,11 +8,11 @@ module.config [
     $stateProvider.state('visualization',
       url: '/visualization'
       templateUrl: module.mean.resource('visualization/visualization.html')
-      controller: module.mean.module('VisualisationCtrl')
+      controller: module.mean.namespace('VisualisationCtrl')
     )
 ]
 
-module.controller module.mean.module('VisualisationCtrl'), [
+module.controller module.mean.namespace('VisualisationCtrl'), [
   '$scope',
   'Article',
   ($scope, Article) ->

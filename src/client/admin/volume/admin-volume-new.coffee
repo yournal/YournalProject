@@ -1,4 +1,4 @@
-module = meanstack.module 'yournal.admin.volume.new'
+module = mean.module 'yournal.admin.volume.new'
 
 module.config [
   '$stateProvider',

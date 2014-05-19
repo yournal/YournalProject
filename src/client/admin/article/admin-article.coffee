@@ -1,3 +1,3 @@
-meanstack.module 'yournal.admin.article', [
+mean.module 'yournal.admin.article', [
   'yournal.admin.article.new'
 ]
