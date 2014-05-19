@@ -81,130 +81,136 @@ getFisheye = (d3) ->
 
   return d3
 
-d3fish = (['$window','$timeout','d3Service',($window, $timeout, d3Service) ->
-  return {
-    restrict: 'EA'
-    scope: { data: '=' }
-    link: (scope, element, attrs) ->
-      d3Service.d3().then (d3) ->
-        # d3 is the raw d3 object
-        d3 = getFisheye(d3)
+d3fish = (['$window','$timeout', '$state', 'd3Service',
+  ($window, $timeout, $state, d3Service) ->
+    return {
+      restrict: 'EA'
+      scope: { data: '=' }
+      link: (scope, element, attrs) ->
+        d3Service.d3().then (d3) ->
+          # d3 is the raw d3 object
+          d3 = getFisheye(d3)
 
-        width = parseInt(attrs.width) || 960
-        height = parseInt(attrs.height) || 500
-        nodeRadius = 5
+          width = d3.select(element[0])[0][0].offsetWidth
+          height = width * 0.5
+          nodeRadius = 7.5
 
-        color = d3.scale.category20()
-        fisheye = d3.fisheye.circular()
-          .radius(120)
+          color = d3.scale.category20()
+          fisheye = d3.fisheye.circular()
+            .radius(120)
 
-        force = d3.layout.force()
-          .charge(-240)
-          .linkDistance(40)
-          .size([width, height])
+          force = d3.layout.force()
+            .charge(-240)
+            .linkDistance(40)
+            .size([width, height])
 
-        svg = d3.select(element[0]).append("svg")
-          .attr("width", width)
-          .attr("height", height)
+          svg = d3.select(element[0]).append("svg")
+            .attr("width", width)
+            .attr("height", height)
 
-        svg.append("rect")
-          .attr("class", "background")
-          .attr("width", width)
-          .attr("height", height)
+          svg.append("rect")
+            .attr("class", "rect-background")
+            .attr("width", width)
+            .attr("height", height)
 
-        #d3.json("json/miserables.json", (data) ->
-        data = scope.data
-        n = data.nodes.length
-        force.nodes(data.nodes).links(data.links)
+          scope.$watch('data', (newData) ->
+            scope.render(newData)
+          )
 
-        # Initialize the positions deterministically, for better results.
-        data.nodes.forEach( (d, i) ->
-          d.x = d.y = width / n * i
-        )
+          scope.render = (data) ->
+            if !data?
+              return
+            n = data.nodes.length
+            force.nodes(data.nodes).links(data.links)
 
-        # Run the layout a fixed number of times.
-        # The ideal number of times scales with graph complexity.
-        # Of course, don't run too long—you'll hang the page!
-        force.start()
-        if n > 50
-          nn = n
-        else
-          nn = 50
-        for i in [0..nn]
-          force.tick()
-        force.stop()
+            # Initialize the positions deterministically, for better results.
+            data.nodes.forEach( (d, i) ->
+              d.x = d.y = width / n * i
+            )
 
-        # Center the nodes in the middle.
-        ox = 0
-        oy = 0
-        data.nodes.forEach( (d) ->
-          ox += d.x
-          oy += d.y
-        )
+            # Run the layout a fixed number of times.
+            # The ideal number of times scales with graph complexity.
+            # Of course, don't run too long—you'll hang the page!
+            force.start()
+            if n > 100
+              nn = n
+            else
+              nn = 100
+            for i in [0..nn]
+              force.tick()
+            force.stop()
 
-        ox = ox / n - width / 2
-        oy = oy / n - height / 2
-        data.nodes.forEach( (d) ->
-          d.x -= ox
-          d.y -= oy
-        )
+            # Center the nodes in the middle.
+            ox = 0
+            oy = 0
+            data.nodes.forEach( (d) ->
+              ox += d.x
+              oy += d.y
+            )
 
-        link = svg.selectAll(".link")
-          .data(data.links)
-          .enter().append("line")
-          .attr("class", "link")
-          .attr("x1", (d) -> d.source.x )
-          .attr("y1", (d) -> d.source.y )
-          .attr("x2", (d) -> d.target.x )
-          .attr("y2", (d) -> d.target.y )
-          .style("stroke-width", (d) -> Math.sqrt(d.value) )
+            ox = ox / n - width / 2
+            oy = oy / n - height / 2
+            data.nodes.forEach( (d) ->
+              d.x -= ox
+              d.y -= oy
+            )
 
-        node = svg.selectAll(".node")
-          .data(data.nodes)
-          .enter().append("circle")
-          .attr("class", "node")
-          .attr("cx", (d) -> d.x )
-          .attr("cy", (d) -> d.y )
-          .attr("data-name", (d) -> d.name )
-          .attr("r", nodeRadius )
-          .style("fill", (d) -> color(d.group) )
-          .call(force.drag)
+            link = svg.selectAll(".link")
+              .data(data.links)
+              .enter().append("line")
+              .attr("class", "link")
+              .attr("x1", (d) -> d.source.x )
+              .attr("y1", (d) -> d.source.y )
+              .attr("x2", (d) -> d.target.x )
+              .attr("y2", (d) -> d.target.y )
+              .style("stroke-width", (d) -> Math.sqrt(d.value) )
 
-        tooltip = d3.select("body")
-          .append("div")
-          .attr("class", "d3tooltip")
-          .style("position", "absolute")
-          .style("z-index", "10")
-          .style("visibility", "hidden")
-          .text("a simple tooltip")
+            node = svg.selectAll(".node")
+              .data(data.nodes)
+              .enter().append("circle")
+              .attr("class", "node")
+              .attr("cx", (d) -> d.x )
+              .attr("cy", (d) -> d.y )
+              .attr("data-name", (d) -> d.name )
+              .attr("data-articleId", (d) -> d.id )
+              .attr("r", nodeRadius )
+              .style("fill", (d) -> color(d.group) )
+              .call(force.drag)
 
-        svg.on("mousemove", () ->
-          fisheye.focus(d3.mouse(this))
+            tooltip = d3.select("body")
+              .append("div")
+              .attr("class", "d3tooltip")
+              .style("position", "absolute")
+              .style("z-index", "10")
+              .style("visibility", "hidden")
 
-          node.each( (d) -> d.fisheye = fisheye(d) )
-            .attr("cx", (d) -> d.fisheye.x )
-            .attr("cy", (d) -> d.fisheye.y )
-            .attr("r", (d) -> d.fisheye.z * nodeRadius )
+            svg.on("mousemove", () ->
+              fisheye.focus(d3.mouse(this))
 
-          link.attr("x1", (d) -> d.source.fisheye.x )
-            .attr("y1", (d) -> d.source.fisheye.y )
-            .attr("x2", (d) -> d.target.fisheye.x )
-            .attr("y2", (d) -> d.target.fisheye.y )
-        )
+              node.each( (d) -> d.fisheye = fisheye(d) )
+                .attr("cx", (d) -> d.fisheye.x )
+                .attr("cy", (d) -> d.fisheye.y )
+                .attr("r", (d) -> d.fisheye.z * nodeRadius )
 
-        node.on("mouseover", () ->
-          tooltip.style("visibility", "visible")
-            .text(this.getAttribute "data-name")
-        )
-        node.on("mousemove", () ->
-          tooltip.style("top", (d3.event.pageY-10)+"px")
-            .style("left",(d3.event.pageX+10)+"px")
-        )
-        node.on("mouseout", () ->
-          tooltip.style("visibility", "hidden")
-        )
-        #)
-  }
+              link.attr("x1", (d) -> d.source.fisheye.x )
+                .attr("y1", (d) -> d.source.fisheye.y )
+                .attr("x2", (d) -> d.target.fisheye.x )
+                .attr("y2", (d) -> d.target.fisheye.y )
+            )
+
+            node.on("mouseover", () ->
+              tooltip.style("visibility", "visible")
+                .text(this.getAttribute "data-name")
+            ).on("mousemove", () ->
+              tooltip.style("top", (d3.event.pageY-10)+"px")
+                .style("left",(d3.event.pageX+10)+"px")
+            ).on("mouseout", () ->
+              tooltip.style("visibility", "hidden")
+            ).on("click", () ->
+              id = this.getAttribute "data-articleId"
+              $state.go('article', {articleId: id}) if id?
+            )
+    }
 ])
 
 app = angular.module 'yournal.directives'
