@@ -1,0 +1,6 @@
+<script type="text/javascript">window.meanstack = '<%- @mean.name %>';</script>
+<script type="text/javascript" src="<%= @mean[@mean.name].assets.js['vendor/d3/d3.js'] %>"></script>
+<script type="text/javascript" src="<%= @mean[@mean.name].assets.js['vendor/angular/angular.js'] %>"></script>
+<% for file in @mean[@mean.name].assets.js.collection : %>
+  <script type="text/javascript" src="<%= file %>"></script>
+<% end %>

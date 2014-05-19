@@ -1,0 +1,26 @@
+[data-ui-view].ng-enter, [data-ui-view].ng-leave {
+  position: absolute;
+  min-height: 600px;
+  left: 0;
+  right: 0;
+  -webkit-transition: opacity .3s ease-in-out;
+  -moz-transition: opacity .3s ease-in-out;
+  -o-transition: opacity .3s ease-in-out;
+  transition: opacity .3s ease-in-out;
+}
+
+[data-ui-view].ng-enter {
+  opacity: 0;
+}
+
+[data-ui-view].ng-enter-active {
+  opacity: 1;
+}
+
+[data-ui-view].ng-leave {
+  opacity: 1;
+}
+
+[data-ui-view].ng-leave-active {
+  opacity: 0;
+}

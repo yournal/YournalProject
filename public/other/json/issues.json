@@ -1,0 +1,32 @@
+[
+    {
+        "id": 0,
+        "volume": 2,
+        "number": 2,
+        "year": 2009
+    },
+    {
+        "id": 0,
+        "volume": 2,
+        "number": 1,
+        "year": 2009
+    },
+    {
+        "id": 0,
+        "volume": 1,
+        "number": 1,
+        "year": 2009
+    },
+    {
+        "id": 1,
+        "volume": 2,
+        "number": 1,
+        "year": 2010
+    },
+    {
+        "id": 2,
+        "volume": 2,
+        "number": 2,
+        "year": 2010
+    }
+]

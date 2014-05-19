@@ -1,0 +1,36 @@
+<article>
+  <header class="page-header">
+    <h1>{{article.title}}</h1>
+  </header>
+  <div>
+    <section>
+      <div class="row">
+        <strong class="col-md-1 text-right">Authors:</strong>
+        <ul class="list-unstyled list-inline list-comma-separated col-md-11">
+          <li ng-repeat="author in article.authors">{{author}}</li>
+        </ul>
+      </div>
+      <div class="row">
+        <strong class="col-md-1 text-right">Keywords:</strong>
+        <ul class="list-unstyled list-inline list-comma-separated col-md-11">
+          <li ng-repeat="keyword in article.keywords"><em>{{keyword}}</em></li>
+        </ul>
+      </div>
+      <div class="row">
+        <strong class="col-md-1 text-right">Abstract:</strong>
+        <p class="col-md-11">{{article.abstract}}</p>
+      </div>
+      <div class="row">
+        <ul class="list-unstyled list-inline col-md-11 col-md-offset-1 social-media">
+          <li><div class="fb-share-button" data-href="{{shareUrl}}" data-type="button_count"></div></li>
+          <li><div class="g-plusone" data-size="medium" data-annotation="none"></div></li>
+          <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a></li>
+        </ul>
+      </div>
+    </section>
+    <hr>
+    <p>{{article.content}}</p>
+  </div>
+
+   <div disqus="article.id"></div>
+</article>

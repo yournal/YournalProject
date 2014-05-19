@@ -1,0 +1,21 @@
+<header class="page-header" ng-repeat="issue in issues | orderBy:'id':true | limitTo: 1">
+  <h1>Volume {{issue.volume}}, No {{issue.number}} <small>({{issue.year}})</small></h1>
+</header>
+
+<div class="container" ng-repeat="issue in issues | orderBy:'id':true | limitTo: 1">
+  <h2>Table of Contents</h2>
+  <ul>
+    <li ng-repeat="section in sections | filter: {issueId: issue.id}" class="list-unstyled">
+      <h3>{{section.title}}</h3>
+      <ul class="article-list">
+        <li ng-repeat="article in articles | filter: {sectionId: section.id}">
+          <a ng-href="{{$state.href('article')}}{{article.id}}"><strong>{{article.title}}</strong></a>
+          <ul class="list-unstyled list-inline list-comma-separated">
+            <li ng-repeat="author in article.authors">{{author}}</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <hr>
+</div>
