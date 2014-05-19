@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <% include 'includes/header.html' %>
+  <body data-ng-cloak class="ng-cloak">
+    <div class="header navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-include="'<%= @mean[@mean.name].resource('layout/header.html') %>'"></div>
+    <section class="wrapper">
+      <section class="container">
+        <div class="content">
+        <% content 'main' %>
+        </div>
+      </section>
+    </section>
+    <div class="footer" data-ng-include="'<%= @mean[@mean.name].resource('layout/footer.html') %>'"></div>
+    <% include 'includes/footer.html' %>
+  </body>
+</html>

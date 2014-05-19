@@ -1,0 +1,34 @@
+ <!-- this partial is bound to ArchiveController -->
+ <!-- TODO validate unique issue number -->
+ <!-- TODO don't display volume values in dropdown if year is not selected -->
+ <!-- TODO add models to controller and wire up correctly -->
+ <header class="page-header">
+  <h1>Add new issue</small></h1>
+</header>
+
+<div class="row">
+  <div class="col-md-5">
+    <form role="form" class="form-horizontal" novalidate>
+    <div class="form-group">
+        <label for="year" class="col-sm-3 control-label">Year</label>
+        <div class="col-sm-9">
+          <select ng-model="issueGroup" ng-options="issue.year for issue in issues | unique:'year' | orderBy:'year':true" class="form-control input-lg" id="year" required></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="volume" class="col-sm-3 control-label">Volume</label>
+        <div class="col-sm-9">
+          <select ng-model="issue" ng-options="issue.volume for issue in issues | filter:{year:issueGroup.year} | unique:'volume'" class="form-control input-lg" id="volume" required></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="title" class="col-sm-3 control-label">Issue number</label>
+        <div class="col-sm-9">
+          <input type="number" ng-model="issueNumber" min="1" class="form-control input-lg" placeholder="Issue number" autofocus id="number" required>
+        </div>
+      </div>
+      <button class="btn btn-success btn-lg col-md-offset-3 col-md-3">Save</button>
+    </form>
+  </div>
+</div>
+

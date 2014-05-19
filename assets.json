@@ -1,0 +1,24 @@
+{
+  "js": {
+    "//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js": "public/vendor/angular/angular.js",
+    "//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js": "public/vendor/d3/d3.js",
+    "public/release/meanstack-project.js": [
+      "public/vendor/angular-meanstack/angular-meanstack.js",
+      "public/vendor/angular-resource/angular-resource.js",
+      "public/vendor/angular-animate/angular-animate.js",
+      "public/vendor/angular-bootstrap/ui-bootstrap-tpls.js",
+      "public/vendor/angular-ui-router/release/angular-ui-router.js",
+      "public/vendor/angular-ui-utils/ui-utils.js",
+      "public/vendor/angular-disqus/src/angular-disqus.js",
+      "public/js/**/*.js",
+      "public/js/partials.js"
+    ]
+  },
+  "css": {
+    "public/release/meanstack-project.css": [
+      "public/vendor/bootstrap/dist/css/bootstrap.css",
+      "public/css/**/*"
+    ]
+  },
+  "other": {}
+}

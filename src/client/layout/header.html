@@ -1,0 +1,42 @@
+<div class="container" data-ng-controller="yournal.layout.header.HeaderCtrl">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-ng-click="collapsed = !collapsed">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Yournal</a>
+  </div>
+  <div class="collapse navbar-collapse" data-collapse="collapsed">
+    <ul class="nav navbar-nav">
+      <li data-ng-class="{active: $state.includes('home')}" data-ng-click="collapsed = true">
+        <a data-ng-href="{{$state.href('home')}}">Home</a>
+      </li>
+      <li data-ng-class="{active: $state.includes('search')}" data-ng-click="collapsed = true">
+        <a data-ng-href="{{$state.href('search')}}">Search</a>
+      </li>
+      <li data-ng-class="{active: $state.includes('current')}" data-ng-click="collapsed = true">
+        <a data-ng-href="{{$state.href('current')}}">Current</a>
+      </li>
+      <li data-ng-class="{active: $state.includes('archives')}" data-ng-click="collapsed = true">
+        <a data-ng-href="{{$state.href('archives')}}">Archives</a>
+      </li>
+      <li data-ng-class="{active: $state.includes('visualisation')}" data-ng-click="collapsed = true">
+        <a data-ng-href="{{$state.href('visualisation')}}">Visualisation</a>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li ng-class="{active: $state.includes('article-new')}"><a data-ng-href="{{$state.href('article-new')}}">New article</a></li>
+          <li ng-class="{active: $state.includes('volume-new')}"><a data-ng-href="{{$state.href('volume-new')}}">New volume</a></li>
+          <li ng-class="{active: $state.includes('issue-new')}"><a data-ng-href="{{$state.href('issue-new')}}">New issue</a></li>
+          <li ng-class="{active: $state.includes('section-new')}"><a data-ng-href="{{$state.href('section-new')}}">New section</a></li>
+        </ul>
+      </li>
+      <li data-ng-class="{active: $state.includes('login')}" data-ng-click="collapsed = true">
+        <a data-ng-href="{{$state.href('login')}}">Login</a>
+      </li>
+    </ul>
+  </div>
+</div>

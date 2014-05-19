@@ -1,0 +1,42 @@
+{
+  "name": "angular-meanstack",
+  "version": "0.0.9",
+  "authors": [
+    "Jure Žvelc <jzvelc@gmail.com>"
+  ],
+  "description": "Support library for meanstack-framework client-side development.",
+  "keywords": [
+    "mean",
+    "mongo",
+    "express",
+    "angular"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/meanstackjs/angular-meanstack",
+  "main": "meanstack.js",
+  "dependencies": {
+    "angular": "~1.2.16"
+  },
+  "ignore": [
+    ".editorconfig",
+    ".gitattributes",
+    ".gitignore",
+    "gruntfile.coffee",
+    "documentup.json",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "package.json",
+    "test",
+    "tests"
+  ],
+  "_release": "0.0.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.9",
+    "commit": "6f9a6b87dabad1b0a9b35c1ba8a1ceffd989bf74"
+  },
+  "_source": "git://github.com/meanstackjs/angular-meanstack.git",
+  "_target": "0.0.9",
+  "_originalSource": "angular-meanstack"
+}

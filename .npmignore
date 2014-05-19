@@ -1,0 +1,11 @@
+*
+!package.json
+!public/**
+!bin/**
+!lib/**
+!app.js
+!server.js
+!vhosts.js
+!.assets
+!LICENSE
+!README.md
