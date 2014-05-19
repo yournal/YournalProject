@@ -1,13 +1,13 @@
-module = meanstack.module 'yournal.visualisation', [
+module = meanstack.module 'yournal.visualization', [
   'yournal.directives.fisheye'
 ]
 
 module.config [
   '$stateProvider',
   ($stateProvider) ->
-    $stateProvider.state('visualisation',
-      url: '/visualisation'
-      templateUrl: module.mean.resource('visualisation/visualisation.html')
+    $stateProvider.state('visualization',
+      url: '/visualization'
+      templateUrl: module.mean.resource('visualization/visualization.html')
       controller: module.mean.module('VisualisationCtrl')
     )
 ]
@@ -25,21 +25,19 @@ module.controller module.mean.module('VisualisationCtrl'), [
         articleNode =
           'name': article.title
           'group': 1
+          'id': article.id
         target = nodesList.push(articleNode) - 1
         for author in article.authors
-          console.log author
           if authors[author]?
             source = authors[author]
-            console.log 'in'
           else
             authorNode =
               'name': author
               'group': 2
             source = nodesList.push(authorNode) - 1
-            console.log 'out'
           linkNode =
             'source': source
-            'target': target
+            'target': target,
             'value': 1
           linksList.push linkNode
       $scope.data =
