@@ -8,7 +8,6 @@ module.exports.schema = ($mongoose, YearSchema) ->
       required: true
     years:
       type: [YearSchema]
-      required: true
   )
 
 module.exports.model = ($connection, JournalSchema) ->

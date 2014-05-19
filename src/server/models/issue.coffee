@@ -5,7 +5,6 @@ module.exports.schema = ($mongoose, SectionSchema) ->
       required: true
     sections:
       type: [SectionSchema]
-      required: true
   )
 
 module.exports.model = ($connection, IssueSchema) ->
