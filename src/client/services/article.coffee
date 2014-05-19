@@ -1,9 +1,0 @@
-service = ($resource) ->
-  return $resource 'json/articles/:articleId.json', {}, {
-    query:
-      method: 'GET'
-      isArray: true
-  }
-
-app = angular.module 'yournal.services'
-app.factory 'Article', ['$resource', service]
