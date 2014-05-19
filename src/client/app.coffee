@@ -12,7 +12,7 @@ app = meanstack.module 'yournal', [
   'yournal.user',
   'yournal.archives',
   'yournal.article',
-  'yournal.visualisation',
+  'yournal.visualization',
   'yournal.layout',
 ]
 
