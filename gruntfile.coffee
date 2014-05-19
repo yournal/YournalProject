@@ -180,6 +180,7 @@ module.exports = (grunt) ->
           'box-sizing': false
           'important': false
           'box-model': false
+          'known-properties': false
         less:
           paths: ['src/server/styles/**', 'src/client/styles/**']
           imports: ['src/server/styles/**', 'src/client/styles/**']
