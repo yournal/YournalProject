@@ -1,4 +1,4 @@
-module = meanstack.module 'yournal.layout', ['yournal.layout.header']
+module = mean.module 'yournal.layout', ['yournal.layout.header']
 
 module.config [
   '$stateProvider',

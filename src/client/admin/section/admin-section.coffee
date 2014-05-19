@@ -1,3 +1,3 @@
-meanstack.module 'yournal.admin.section', [
+mean.module 'yournal.admin.section', [
   'yournal.admin.section.new'
 ]

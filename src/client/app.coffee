@@ -1,4 +1,4 @@
-app = meanstack.module 'yournal', [
+app = mean.module 'yournal', [
   'ngResource',
   'ngAnimate',
   'ui.router',
@@ -17,12 +17,12 @@ app = meanstack.module 'yournal', [
 ]
 
 # Bootstrap
-meanstack.ready = (app) ->
+mean.ready = (app) ->
   if window.location.hash is '#_=_'
     window.location.hash = '#!'
-meanstack.bootstrap = (app) ->
+mean.bootstrap = (app) ->
   angular.bootstrap document, [app.name]
-meanstack.init app
+mean.init app
 
 # Config
 app.config([

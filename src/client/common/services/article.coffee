@@ -1,4 +1,4 @@
-module = meanstack.module 'yournal.services'
+module = mean.module 'yournal.services'
 
 module.factory 'Article', [
   '$resource',
