@@ -5,7 +5,6 @@ module.exports.schema = ($mongoose, IssueSchema) ->
       required: true
     issues:
       type: [IssueSchema]
-      required: true
   )
 
 module.exports.model = ($connection, VolumeSchema) ->
