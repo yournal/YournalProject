@@ -27,7 +27,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "prepublish": "bower install && grunt install"
+    "postinstall": "bower install && grunt install"
   },
   "dependencies": {
     "meanstack-framework": "git+https://github.com/meanstackjs/meanstack-framework.git"
