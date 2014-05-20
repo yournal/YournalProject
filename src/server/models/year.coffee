@@ -5,7 +5,6 @@ module.exports.schema = ($mongoose, VolumeSchema) ->
       required: true
     volumes:
       type: [VolumeSchema]
-      required: true
   )
 
 module.exports.model = ($connection, YearSchema) ->

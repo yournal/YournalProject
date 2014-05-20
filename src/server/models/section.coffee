@@ -11,7 +11,6 @@ module.exports.schema = ($mongoose, ArticleSchema) ->
       required: true
     articles:
       type: [ArticleSchema]
-      required: true
   )
 
 module.exports.model = ($connection, SectionSchema) ->
