@@ -1,0 +1,13 @@
+<header class="page-header">
+  <h1>Login</h1>
+</header>
+
+<div>
+  <div class="alert alert-danger animated fadeIn" data-ng-show="loginerror">{{loginerror}}</div>
+  <form class="form-signin" role="form" data-ng-submit="login()">
+    <input type="email" class="form-control" placeholder="Email address" data-ng-model="user.email" required autofocus>
+    <input type="password" class="form-control" placeholder="Password" data-ng-model="user.password" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <p ng-class="{active: $state.includes('register')}" class="register"><a ng-href="{{$state.href('register')}}">Not our user yet? Register with us!</a> </p>
+  </form>
+</div>

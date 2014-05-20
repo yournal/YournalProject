@@ -1,28 +1,29 @@
-module.exports.schema = ($mongoose) ->
+module.exports.schema = ($mongoose, crypto) ->
   validate = (value) ->
     return (@provider and @provider isnt 'local') or value.length
 
   UserSchema = new $mongoose.Schema(
-    name:
+    firstName:
       type: String,
       required: true
-      validate: [validate, 'Name cannot be blank']
+      validate: [validate, 'First name cannot be blank.']
+    lastName:
+      type: String,
+      required: true
+      validate: [validate, 'Last name cannot be blank.']
     email:
       type: String
       required: true
-      match: [/.+\@.+\..+/, 'Please enter a valid email']
-      validate: [validate, 'Email cannot be blank']
-    username:
-      type: String
-      unique: true,
-      validate: [validate, 'Username cannot be blank']
+      unique: true
+      match: [/.+\@.+\..+/, 'Please enter a valid email.']
+      validate: [validate, 'Email cannot be blank.']
     roles:
       type: Array
       default: ['authenticated']
     hashedPassword:
       type: String
       required: true
-      validate: [validate, 'Password cannot be blank']
+      validate: [validate, 'Password cannot be blank.']
     provider:
       type: String
       default: 'local'
@@ -38,7 +39,7 @@ module.exports.schema = ($mongoose) ->
     @_password
 
   UserSchema.pre 'save', (next) ->
-    if @isNew and @provider is local and @password and not @password.length
+    if @isNew and @provider is 'local' and @password and not @password.length
       return next new Error('Invalid password')
     next()
 
