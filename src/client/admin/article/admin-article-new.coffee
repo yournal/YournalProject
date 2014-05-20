@@ -7,6 +7,8 @@ module.config [
       url: '/admin/article/new'
       templateUrl: module.mean.resource('admin/article/admin-article-new.html')
       data:
-        allow: ['admin']
+        access:
+          allow: ['admin']
+          state: 'login'
     )
 ]

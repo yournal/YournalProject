@@ -27,7 +27,7 @@ mean.bootstrap = (app) ->
   injector = angular.injector(['ng'])
   $http = injector.get('$http')
   $http.get('/logged').then (response) ->
-    app.constant 'userData', response.data
+    app.constant 'user', response.data
     angular.bootstrap document, [app.name]
 mean.init app
 
@@ -49,22 +49,26 @@ app.run([
   '$state',
   '$stateParams',
   '$mean',
-  'userData',
-  'user'
-  ($rootScope, $state, $stateParams, $mean, userData, user) ->
+  'user',
+  'User'
+  ($rootScope, $state, $stateParams, $mean, user, User) ->
     $rootScope.$state = $state
     $rootScope.$stateParams = $stateParams
     $rootScope.$mean = $mean # register mean into global scope
 
-    if userData isnt 'unauthorized'
-      user.set userData
+    if user isnt 'unauthorized'
+      User.set user
     else
-      user.remove()
+      User.remove()
 
     $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
-      if toState.data?
-        if (toState.data.deny? and user.authorize toState.data.deny) or (toState.data.allow? and not user.authorize toState.data.allow)
+      if toState.data? and toState.data.access?
+        access = toState.data.access
+        if (access.deny? and User.authorize access.deny) or (access.allow? and not User.authorize access.allow)
           event.preventDefault()
-          $state.transitionTo 'home'
+          if access.state?
+            $state.transitionTo access.state
+          else
+            $state.transitionTo 'home'
 
 ])
