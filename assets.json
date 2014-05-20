@@ -10,6 +10,8 @@
       "public/vendor/angular-ui-router/release/angular-ui-router.js",
       "public/vendor/angular-ui-utils/ui-utils.js",
       "public/vendor/angular-disqus/src/angular-disqus.js",
+      "public/vendor/angular-socialshare/angular-socialshare.js",
+      "public/vendor/twitter/widgets.js",
       "public/js/**/*.js",
       "public/js/partials.js"
     ]

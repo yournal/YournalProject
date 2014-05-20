@@ -5,6 +5,7 @@ app = mean.module 'yournal', [
   'ui.bootstrap',
   'ui.unique',
   'ngDisqus',
+  'djds4rce.angular-socialshare',
   'yournal.admin',
   'yournal.current',
   'yournal.search',
@@ -38,7 +39,7 @@ app.config([
 
 # Run
 app.run(['$rootScope', '$state', '$stateParams', '$mean'
-  ($rootScope, $state, $stateParams, $mean) ->
+  ($rootScope, $state, $stateParams, $mean, $FB) ->
     $rootScope.$state = $state
     $rootScope.$stateParams = $stateParams
     $rootScope.$mean = $mean # register mean into global scope

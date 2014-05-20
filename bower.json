@@ -12,6 +12,7 @@
     "angular-disqus": "~1.1.0",
     "bootstrap": "~3.1.1",
     "d3": "~3.4.7",
-    "less-elements": "latest"
+    "less-elements": "latest",
+    "angular-socialshare": "latest"
   }
 }
