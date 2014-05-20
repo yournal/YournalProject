@@ -30,7 +30,9 @@
     "postinstall": "bower install && grunt install"
   },
   "dependencies": {
-    "meanstack-framework": "git+https://github.com/meanstackjs/meanstack-framework.git"
+    "meanstack-framework": "git+https://github.com/meanstackjs/meanstack-framework.git",
+    "passport": "~0.2.0",
+    "passport-local": "~1.0.0"
   },
   "devDependencies": {
     "meanstack-buildpack-coffee": "git+https://github.com/meanstackjs/meanstack-buildpack-coffee.git",

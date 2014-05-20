@@ -5,6 +5,9 @@ module.exports.config = ($config, $env) ->
   $config.middleware['morgan'] = false
   $config.port = 3000
 
+module.exports.beforeRouting = ($app) ->
+  require('./passport')($app)
+
 module.exports.afterRouting = ($app, $views) ->
   $app.all '/*', (req, res) ->
     #res.statusCode = 404
