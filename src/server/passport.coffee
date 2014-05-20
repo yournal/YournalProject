@@ -29,8 +29,7 @@ module.exports = ($app, $mean, UserModel) ->
 
   $mean.register 'auth', -> (req, res, next) ->
     if !req.isAuthenticated()
-      res.send 401
-    else
-      next()
+      res.statusCode = 401
+    next()
 
   $mean.register 'passport', -> passport

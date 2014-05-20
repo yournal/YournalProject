@@ -1,20 +1,19 @@
 module = mean.module 'yournal.services'
 
-
-module.factory 'user', [
+module.factory 'User', [
   '$q',
   '$timeout',
   '$http',
   '$location',
   ($q, $timeout, $http, $location) ->
-    authenticated: true
+    authorized: true
     firstName: null
     lastName: null
     email: null
     roles: []
 
-    isAuthenticated: (roles) ->
-      if not @authenticated
+    isAuthorized: (roles) ->
+      if not @authorized
         return false
       if roles?
         if typeof roles is 'object'
@@ -29,14 +28,14 @@ module.factory 'user', [
 
     set: (data) ->
       if data
-        @authenticated = true
+        @authorized = true
         @firstName = data.firstName
         @lastName = data.lastName
         @email = data.email
         @roles = data.roles
 
     remove: () ->
-      @authenticated = false
+      @authorized = false
       @firstName = null
       @lastName = null
       @email = null
@@ -46,12 +45,12 @@ module.factory 'user', [
       if roles?
         if typeof roles is 'object'
           for role in roles
-            if role is 'authenticated' and @authenticated
+            if role is 'authorized' and @authorized
               return true
-        else if roles is 'authenticated' and @authenticated
+        else if roles is 'authorized' and @authorized
           return true
 
-      if not @authenticated
+      if not @authorized
         return false
       if roles?
         if typeof roles is 'object'

@@ -1,5 +1,3 @@
-<!-- TODO set max number year to current year -->
-<!-- TODO set scope variables in controller + bind with controller -->
 <header class="page-header">
   <h1>Add new volume</small></h1>
 </header>
@@ -10,7 +8,7 @@
     <div class="form-group">
         <label for="year" class="col-sm-3 control-label">Year</label>
         <div class="col-sm-9">
-          <input type="number" min="2000" max="2014" ng-model="volumeYear" class="form-control input-lg" placeholder="Volume year" autofocus id="year">
+          <input type="number" ng-model="year" min="2000" max="{{maxYear}}" ng-model="volumeYear" class="form-control input-lg" autofocus id="year">
         </div>
       </div>
       <div class="form-group">
@@ -19,7 +17,14 @@
           <input type="number" ng-model="volumeNumber" min="1" class="form-control input-lg" placeholder="Volume number" autofocus id="volumeNumber" required>
         </div>
       </div>
-      <button class="btn btn-success btn-lg col-md-offset-3 col-md-3">Save</button>
+
+       <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+          <button class="btn btn-success btn-lg col-lg-12 col-md-12 col-xs-12">Save</button>
+        </div>
+      </div>
+
+
     </form>
   </div>
 </div>

@@ -25,7 +25,7 @@
       <li data-ng-class="{active: $state.includes('visualization')}" data-ng-click="collapsed = true">
         <a data-ng-href="{{$state.href('visualization')}}">Visualization</a>
       </li>
-      <li class="dropdown">
+      <li class="dropdown" data-ng-show="user.isAuthorized('admin')">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li ng-class="{active: $state.includes('article-new')}"><a data-ng-href="{{$state.href('article-new')}}">New article</a></li>
@@ -34,10 +34,10 @@
           <li ng-class="{active: $state.includes('section-new')}"><a data-ng-href="{{$state.href('section-new')}}">New section</a></li>
         </ul>
       </li>
-      <li data-ng-class="{active: $state.includes('login')}" data-ng-click="collapsed = true" data-ng-show="!user.isAuthenticated()">
+      <li data-ng-class="{active: $state.includes('login')}" data-ng-click="collapsed = true" data-ng-show="!user.isAuthorized()">
         <a data-ng-href="{{$state.href('login')}}">Login</a>
       </li>
-      <li data-ng-class="{active: $state.includes('logout')}" data-ng-show="user.isAuthenticated()">
+      <li data-ng-class="{active: $state.includes('logout')}" data-ng-show="user.isAuthorized()">
         <a data-ng-href="{{$state.href('logout')}}">Logout</a>
       </li>
     </ul>

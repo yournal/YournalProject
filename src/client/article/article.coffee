@@ -18,11 +18,13 @@ module.controller module.mean.namespace('ArticleCtrl'), [
   'Issue',
   'Article',
   'Section',
-  '$FB'
-  ($scope, $stateParams, Issue, Article, Section, $FB) ->
+  'User',
+  '$FB',
+  ($scope, $stateParams, Issue, Article, Section, User, $FB) ->
     $scope.article = Article.getArticle($stateParams.articleId)
     $scope.issues = Issue.getIssues()
     $scope.sections = Section.getSections()
     $FB.init('565410586907554')
     $scope.shareUrl = window.location.href
+    $scope.user = User
 ]

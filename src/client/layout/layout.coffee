@@ -12,8 +12,8 @@ module.config [
 module.controller module.mean.namespace('HeaderCtrl'), [
   '$scope',
   '$rootScope',
-  'user',
-  ($scope, $rootScope, user) ->
+  'User',
+  ($scope, $rootScope, User) ->
     $scope.collapsed = true
-    $scope.user = user
+    $scope.user = User
 ]

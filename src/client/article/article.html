@@ -32,7 +32,11 @@
     <p>{{article.content}}</p>
   </div>
 
-   <div disqus="article.id"></div>
+  <div disqus="article.id" data-ng-show="user.isAuthorized()"></div>
+  <div data-ng-show="!user.isAuthorized()">
+    <br>
+    Please <a ng-href="{{$state.href('login')}}">login</a> or <a ng-href="{{$state.href('register')}}">register</a> to leave a comment.
+  </div>
 </article>
 
 <div id="fb-root"></div>
