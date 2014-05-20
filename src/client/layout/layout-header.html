@@ -1,4 +1,4 @@
-<div class="container" data-ng-controller="yournal.layout.header.HeaderCtrl">
+<div class="container" data-ng-controller="yournal.layout.HeaderCtrl">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-ng-click="collapsed = !collapsed">
       <span class="sr-only">Toggle navigation</span>
@@ -34,8 +34,11 @@
           <li ng-class="{active: $state.includes('section-new')}"><a data-ng-href="{{$state.href('section-new')}}">New section</a></li>
         </ul>
       </li>
-      <li data-ng-class="{active: $state.includes('login')}" data-ng-click="collapsed = true">
+      <li data-ng-class="{active: $state.includes('login')}" data-ng-click="collapsed = true" data-ng-show="!user.isAuthenticated()">
         <a data-ng-href="{{$state.href('login')}}">Login</a>
+      </li>
+      <li data-ng-class="{active: $state.includes('logout')}" data-ng-show="user.isAuthenticated()">
+        <a data-ng-href="{{$state.href('logout')}}">Logout</a>
       </li>
     </ul>
   </div>

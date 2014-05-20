@@ -7,7 +7,7 @@ module.config [
   ($stateProvider) ->
     $stateProvider.state('home',
       url: '/'
-      templateUrl: module.mean.resource('current/home.html')
+      templateUrl: module.mean.resource('current/current-home.html')
       controller: module.mean.namespace('CurrentCtrl')
     )
     $stateProvider.state('current',

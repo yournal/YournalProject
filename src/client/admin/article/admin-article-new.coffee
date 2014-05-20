@@ -6,5 +6,7 @@ module.config [
     $stateProvider.state('article-new',
       url: '/admin/article/new'
       templateUrl: module.mean.resource('admin/article/admin-article-new.html')
+      data:
+        allow: ['admin']
     )
 ]
