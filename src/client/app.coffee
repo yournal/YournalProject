@@ -7,6 +7,7 @@ app = mean.module 'yournal', [
   'ngDisqus',
   'yournal.interceptors',
   'yournal.services',
+  'djds4rce.angular-socialshare',
   'yournal.admin',
   'yournal.current',
   'yournal.search',
