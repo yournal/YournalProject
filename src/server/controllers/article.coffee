@@ -11,15 +11,15 @@ module.exports = ($views, IssueModel, ArticleModel) ->
           500
       section = document.sections.id(req.params.section)
       if not section?
-        return res.send
+        return res.json
           err: {msg: 'Section does not exist.'}
           500
       article = section.articles.id(req.params.article)
       if not article?
-        return res.send
+        return res.json
           err: {msg: 'Article does not exist.'}
           500
-      res.send article
+      res.json article
     )
 
   getArticles: (req, res) ->
@@ -34,10 +34,10 @@ module.exports = ($views, IssueModel, ArticleModel) ->
           500
       section = document.sections.id(req.params.section)
       if not section?
-        return res.send
+        return res.json
           err: {msg: 'Section does not exist.'}
           500
-      res.send section.articles
+      res.json section.articles
     )
 
   getAllArticles: (req, res) ->
@@ -62,7 +62,7 @@ module.exports = ($views, IssueModel, ArticleModel) ->
             a.issue = issue.number
             a.section = section._id
             articles.push a
-      res.send articles
+      res.json articles
     )
 
   createArticle: (req, res) ->
@@ -119,12 +119,12 @@ module.exports = ($views, IssueModel, ArticleModel) ->
           500
       section = document.sections.id(req.params.section)
       if not section?
-        return res.send
+        return res.json
           err: {msg: 'Section does not exist.'}
           500
       section.articles.push article
       document.save (err) ->
         if err
           return res.status(400).send('Unkown error occured.')
-        res.send article
+        res.json article
     )

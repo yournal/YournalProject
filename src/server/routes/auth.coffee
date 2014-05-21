@@ -4,14 +4,14 @@ module.exports = ($router, $route, $views, passport, auth, UserCtrl) ->
 
   $route.get '/logged', (req, res) ->
     if req.isAuthenticated()
-      res.send req.user
+      res.json req.user
     else
       res.send 'unauthorized'
 
   $route.post '/login',  passport.authenticate('local',
     failureFlash: true
   ), (req, res) ->
-    res.send req.user
+    res.json req.user
 
   $route.delete '/logout', (req, res) ->
     req.logOut()
