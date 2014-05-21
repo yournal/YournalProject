@@ -13,7 +13,7 @@
 <p>Example: enter role (currently only search by title is supported for demo purposes)</p>
 <ul class="search_results article-list">
   <li ng-repeat="article in filtered = (articles | filter: query.result)"  class="animate-repeat">
-    <a ng-href="{{$state.href('article')}}{{article.id}}"><strong>{{article.title}}</strong></a>
+    <a ng-href="{{$state.href('article', {year: article.year, volume: article.volume, number: article.issue, section: article.section, article: article._id})}}"><strong>{{article.title}}</strong></a>
     <ul class="list-unstyled list-inline list-comma-separated">
       <li ng-repeat="author in article.authors">{{author}}</li>
     </ul>
