@@ -5,7 +5,7 @@ module.exports = ($views, IssueModel) ->
         return res.json
           err: err
           500
-      res.send json
+      res.json json
     )
 
   getIssues: (req, res) ->
@@ -44,7 +44,7 @@ module.exports = ($views, IssueModel) ->
         return res.json
           err: err
           500
-      res.send json
+      res.json json
     )
 
   deleteIssue: (req, res) ->
@@ -80,4 +80,4 @@ module.exports = ($views, IssueModel) ->
         if err.code is 11000
           return res.status(400).send('Issue already exists.')
         return res.status(400).send('Please fill all the required fields.')
-      res.send issue
+      res.json issue
