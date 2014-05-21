@@ -12,6 +12,48 @@ module.config [
           allow: ['admin']
           state: 'login'
     )
+    $stateProvider.state('issue-edit',
+      url: '/admin/issue/edit/:year/:volume/:number'
+      templateUrl: module.mean.resource('admin/issue/admin-issue-edit.html')
+      controller: module.mean.namespace('IssueEditCtrl')
+      data:
+        access:
+          allow: ['admin']
+          state: 'login'
+    )
+]
+
+module.controller module.mean.namespace('IssueEditCtrl'), [
+  '$scope',
+  '$stateParams',
+  'Issue',
+  ($scope, $stateParams, Issue) ->
+    $scope.year = parseInt($stateParams.year)
+    $scope.volume = parseInt($stateParams.volume)
+    $scope.number = parseInt($stateParams.number)
+    $scope.maxYear = new Date().getFullYear()
+    $scope.error = []
+    $scope.response = null
+
+    $scope.updateIssue = () ->
+      Issue.update
+        year: $scope.year
+        volume: $scope.volume
+        number: $scope.number
+      ,
+        (response) ->
+          $scope.response = response
+          $scope.error = []
+          $scope.volume = null
+          $scope.number = null
+      ,
+        (err) ->
+          $scope.response = null
+          if typeof err.data isnt 'object'
+            $scope.error = [msg: err.data]
+          else
+            $scope.error = err.data
+
 ]
 
 module.controller module.mean.namespace('IssueNewCtrl'), [
@@ -24,7 +66,7 @@ module.controller module.mean.namespace('IssueNewCtrl'), [
     $scope.response = null
 
     $scope.createIssue = () ->
-      Issue.save
+      Issue.update
         year: $scope.year
         volume: $scope.volume
         number: $scope.number
