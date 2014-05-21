@@ -54,6 +54,11 @@ module.exports = ($views, IssueModel) ->
           err: err
           500
 
+      if not document?
+        return res.json
+          err: {msg: 'Issue does not exist.'}
+          500
+          
       document.remove()
 
       res.send document
