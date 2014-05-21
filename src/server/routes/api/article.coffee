@@ -1,11 +1,14 @@
 module.exports = ($router, $route, auth, ArticleCtrl) ->
-  $route.get '/articles', (req, res) ->
+  $route.get '/issues/:year/:volume/:number/sections/:section/articles', (req, res) ->
     ArticleCtrl.getArticles req, res
 
-  $route.get '/articles/:id', (req, res) ->
+  $route.get '/articles', (req, res) ->
+    ArticleCtrl.getAllArticles req, res
+
+  $route.get '/issues/:year/:volume/:number/sections/:section/articles/:article', (req, res) ->
     ArticleCtrl.getArticle req, res
 
-  $route.get '/articles/new/:t/:a/:k/:abstract/:content', auth, (req, res) ->
+  $route.post '/issues/:year/:volume/:number/sections/:section/articles', (req, res) ->
     ArticleCtrl.createArticle req, res
 
   $router.use '/api', $route

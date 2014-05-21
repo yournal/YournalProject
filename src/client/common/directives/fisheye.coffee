@@ -179,7 +179,11 @@ module.directive 'fisheye', ([
             .attr('cx', (d) -> d.x )
             .attr('cy', (d) -> d.y )
             .attr('data-name', (d) -> d.name )
-            .attr('data-articleId', (d) -> d.id )
+            .attr('data-_id', (d) -> d._id )
+            .attr('data-year', (d) -> d.year )
+            .attr('data-volume', (d) -> d.volume )
+            .attr('data-issue', (d) -> d.issue )
+            .attr('data-section', (d) -> d.section )
             .attr('r', nodeRadius )
             .style('fill', (d) -> color(d.group) )
             .call(force.drag)
@@ -214,7 +218,12 @@ module.directive 'fisheye', ([
           ).on('mouseout', () ->
             tooltip.style('visibility', 'hidden')
           ).on('click', () ->
-            id = this.getAttribute 'data-articleId'
-            $state.go('article', {articleId: id}) if id?
+            id = this.getAttribute 'data-_id'
+            if id?
+              year = this.getAttribute 'data-year'
+              volume = this.getAttribute 'data-volume'
+              issue = this.getAttribute 'data-issue'
+              section = this.getAttribute 'data-section'
+              $state.go('article', {year: year, volume: volume, number: issue, section: section, article: id}) if id?
           )
 ])

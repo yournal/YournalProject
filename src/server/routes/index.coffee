@@ -14,4 +14,8 @@ module.exports = ($router, $route, $views, passport, auth, UserCtrl) ->
   $route.get '/visualization', (req, res) ->
     $views.index.render(req, res)
 
+  $route.all '/api/*', (req, res) ->
+    res.statusCode = 404
+    res.send 'Invalid API call.'
+
   $router.use '/', $route

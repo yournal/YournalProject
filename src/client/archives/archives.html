@@ -7,7 +7,7 @@
     <h3>{{issueGroup.year}}</h3>
     <ul class="article-list">
       <li ng-repeat="issue in issues | filter:{year:issueGroup.year}  | orderBy:'id':true">
-         <a ng-href="{{$state.href('issue')}}{{issue.id}}"><strong>Volume {{issue.volume}}, No {{issue.number}}</strong></a>
+         <a ng-href="{{$state.href('issue', {year: issue.year, volume: issue.volume, number: issue.number})}}"><strong>Volume {{issue.volume}}, No {{issue.number}}</strong></a>
       </li>
     </ul>
   </li>

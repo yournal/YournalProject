@@ -16,5 +16,5 @@ module.controller module.mean.namespace('ArchivesCtrl'), [
   '$scope',
   'Issue',
   ($scope, Issue) ->
-    $scope.issues = Issue.getIssues()
+    $scope.issues = Issue.query(filter: 'sections')
 ]

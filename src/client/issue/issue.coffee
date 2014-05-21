@@ -6,7 +6,7 @@ module.config [
   '$stateProvider',
   ($stateProvider) ->
     $stateProvider.state('issue',
-      url: '/issue/:issueId'
+      url: '/issue/:year/:volume/:number'
       templateUrl: module.mean.resource('issue/issue.html')
       controller: module.mean.namespace('IssueCtrl')
     )
@@ -19,8 +19,8 @@ module.controller module.mean.namespace('IssueCtrl'), [
   'Article',
   'Section',
   ($scope, $stateParams, Issue, Article, Section) ->
-    $scope.issue = Issue.getIssue($stateParams.issueId)
-    $scope.issues = Issue.getIssues()
-    $scope.articles = Article.getArticles()
-    $scope.sections = Section.getSections()
+    $scope.issue = Issue.get
+      year: $stateParams.year
+      volume: $stateParams.volume
+      number: $stateParams.number
 ]

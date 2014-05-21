@@ -8,7 +8,6 @@ module.exports.schema = ($mongoose) ->
       required: true
     keywords:
       type: [String]
-      required: true
     abstract:
       type: String
       required: true

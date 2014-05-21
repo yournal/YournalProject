@@ -1,33 +1,60 @@
-module.exports = ($views, SectionModel) ->
-
-  getSections: (req, res) ->
-    SectionModel.find({}, (err, json) ->
+module.exports = ($views, IssueModel, SectionModel) ->
+  getSection: (req, res) ->
+    IssueModel.findOne({
+      year: req.params.year,
+      volume: req.params.volume,
+      number: req.params.number
+    }, (err, document) ->
       if err
         return res.json
           err: err
           500
-      res.send json
+      section = document.sections.id(req.params.section)
+      if not section?
+        return res.send
+          err: {msg: 'Section does not exist.'}
+          500
+      res.send section
     )
 
-  getSection: (req, res) ->
-    SectionModel.find(req.params.id, (err, json) ->
+  getSections: (req, res) ->
+    IssueModel.findOne(req.params, (err, document) ->
       if err
         return res.json
           err: err
           500
-      res.send json
+      res.send document.sections
     )
 
   createSection: (req, res) ->
+    req.checkBody('title', 'Title is required.').notEmpty()
+    req.checkBody('abbreviation', 'Abbreviation is required.').notEmpty()
+    req.checkBody('abbreviation', 'Abbreviation must be 2 characters length.').len(2, 2)
+    req.checkBody('policyStatement', 'Policy statement is required.').notEmpty()
+
+    req.checkParams('year', 'Wrong year format provided.').isInt()
+    req.checkParams('volume', 'Wrong volume format provided.').isInt()
+    req.checkParams('number', 'Wrong number format provided.').isInt()
+
+    errors = req.validationErrors()
+    if errors
+      return res.status(400).send errors
+
     section = new SectionModel(
-      title: req.params.t,
-      abbreviation: req.params.a,
-      policyStatement: req.params.p,
+      title: req.body.title,
+      abbreviation: req.body.abbreviation,
+      policyStatement: req.body.policyStatement,
       articles: []
     )
-    section.save (err) ->
+
+    IssueModel.findOne(req.params, (err, document) ->
       if err
         return res.json
           err: err
           500
-      res.send 'Section created.'
+      document.sections.push section
+      document.save (err) ->
+        if err
+          return res.status(400).send('Please fill all the required fields.')
+        res.send section
+    )

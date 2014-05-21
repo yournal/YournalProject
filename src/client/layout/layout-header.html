@@ -28,10 +28,10 @@
       <li class="dropdown" data-ng-show="user.isAuthorized('admin')">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li ng-class="{active: $state.includes('article-new')}"><a data-ng-href="{{$state.href('article-new')}}">New article</a></li>
-          <li ng-class="{active: $state.includes('volume-new')}"><a data-ng-href="{{$state.href('volume-new')}}">New volume</a></li>
+
           <li ng-class="{active: $state.includes('issue-new')}"><a data-ng-href="{{$state.href('issue-new')}}">New issue</a></li>
           <li ng-class="{active: $state.includes('section-new')}"><a data-ng-href="{{$state.href('section-new')}}">New section</a></li>
+          <li ng-class="{active: $state.includes('article-new')}"><a data-ng-href="{{$state.href('article-new')}}">New article</a></li>
         </ul>
       </li>
       <li data-ng-class="{active: $state.includes('login')}" data-ng-click="collapsed = true" data-ng-show="!user.isAuthorized()">

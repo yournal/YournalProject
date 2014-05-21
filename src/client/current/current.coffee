@@ -21,11 +21,11 @@ module.controller module.mean.namespace('CurrentCtrl'), [
   '$scope',
   'Journal',
   'Issue',
-  'Article',
-  'Section',
-  ($scope, Journal, Issue, Article, Section) ->
+  ($scope, Journal, Issue) ->
     $scope.journal = Journal.getJournal()
-    $scope.issues = Issue.getIssues()
-    $scope.articles = Article.getArticles()
-    $scope.sections = Section.getSections()
+    issue = Issue.query(sort: ['year', 'volume', 'number'], order: -1, limit: 1)
+    issue.$promise.then (data) ->
+      if data.length > 0
+        $scope.issue = data[0]
+
 ]
