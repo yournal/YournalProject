@@ -6,9 +6,26 @@
   <li ng-repeat="issueGroup in issues | unique:'year' | orderBy:'year':true">
     <h3>{{issueGroup.year}}</h3>
     <ul class="article-list">
+     <div class="row">
+     
       <li ng-repeat="issue in issues | filter:{year:issueGroup.year}  | orderBy:'id':true">
+   		<div class="col-sm-2">
          <a ng-href="{{$state.href('issue', {year: issue.year, volume: issue.volume, number: issue.number})}}"><strong>Volume {{issue.volume}}, No {{issue.number}}</strong></a>
+        </div>
+ 		<div class="col-sm-10">
+         <a class="btn btn-primary btn-xs" ng-href="{{$state.href('issue-edit', {year: issue.year, volume: issue.volume, number: issue.number})}}">
+		    <span class="glyphicon glyphicon-pencil"></span>
+		  </a>
+	
+		  <button type="button" class="btn btn-danger btn-xs">
+		    <span class="glyphicon glyphicon-remove"></span>
+		  </button>
+		</div>
       </li>
+
+        </div>
+      <br>
+      <br>
     </ul>
   </li>
 </ul>

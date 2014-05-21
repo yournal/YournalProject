@@ -1,0 +1,40 @@
+<header class="page-header">
+  <h1>Edit issue</small></h1>
+</header>
+
+<div class="row">
+
+  <div class="alert alert-success animated fadeIn" data-ng-show="response">Issue updated: {{response.year}}, Volume {{response.volume}}, No {{response.number}}</div>
+  <div data-ng-repeat="err in error">
+      <div class="alert alert-danger animated fadeIn">{{err.msg}}</div>
+  </div>
+  <div class="col-md-5">
+    <form role="form" class="form-horizontal" data-ng-submit="updateIssue()">
+    <div class="form-group">
+        <label for="year" class="col-sm-3 control-label">Year</label>
+        <div class="col-sm-9">
+          <input type="number" required ng-model="year" min="2000" max="{{maxYear}}" class="form-control input-lg" autofocus id="year">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="volumeNumber" class="col-sm-3 control-label">Number</label>
+        <div class="col-sm-9">
+        <input type="number" required ng-model="volume" min="1" class="form-control input-lg" placeholder="Volume number" autofocus id="volumeNumber" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="title" class="col-sm-3 control-label">Issue number</label>
+        <div class="col-sm-9">
+          <input type="number" required ng-model="number" min="1" class="form-control input-lg" placeholder="Issue number" autofocus id="number" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+          <button type="submit" class="btn btn-success btn-lg col-lg-12 col-md-12 col-xs-12">Update</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
