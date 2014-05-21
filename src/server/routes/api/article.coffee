@@ -11,4 +11,7 @@ module.exports = ($router, $route, auth, ArticleCtrl) ->
   $route.post '/issues/:year/:volume/:number/sections/:section/articles', (req, res) ->
     ArticleCtrl.createArticle req, res
 
+  $route.delete '/issues/:year/:volume/:number/sections/:section/articles/:article', (req, res) ->
+    ArticleCtrl.deleteArticle req, res
+
   $router.use '/api', $route

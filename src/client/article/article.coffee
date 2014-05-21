@@ -18,8 +18,9 @@ module.controller module.mean.namespace('ArticleCtrl'), [
   '$stateParams',
   'Article',
   'User',
+  'Error'
   '$FB',
-  ($scope, $state, $stateParams, Article, User, $FB) ->
+  ($scope, $state, $stateParams, Article, User, Error, $FB) ->
     $scope.article = Article.get(
       year: $stateParams.year
       volume: $stateParams.volume
@@ -35,4 +36,26 @@ module.controller module.mean.namespace('ArticleCtrl'), [
       (err) ->
         $state.go('404')
     )
+
+    $scope.delete = () ->
+      Article.delete(
+        year: $stateParams.year
+        volume: $stateParams.volume
+        number: $stateParams.number
+        section: $stateParams.section
+        article: $stateParams.article
+      , (response) ->
+        Error.add {
+          success: true
+          msg: 'Article "' + response.title + '" successfully deleted.'
+        }
+        $state.go('home')
+      ,
+        (err) ->
+          Error.add {
+            success: false
+            msg: err.msg
+          }
+          $state.go('home')
+      )
 ]
