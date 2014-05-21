@@ -1,4 +1,4 @@
-module.exports.schema = ($mongoose, YearSchema) ->
+module.exports.schema = ($mongoose) ->
   new $mongoose.Schema(
     title:
       type: String,
@@ -6,8 +6,6 @@ module.exports.schema = ($mongoose, YearSchema) ->
     description:
       type: String,
       required: true
-    years:
-      type: [YearSchema]
   )
 
 module.exports.model = ($connection, JournalSchema) ->

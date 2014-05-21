@@ -4,6 +4,10 @@ module.config [
   '$stateProvider',
   ($stateProvider) ->
     $stateProvider.state('404',
+      url: '/404'
+      templateUrl: module.mean.resource('layout/layout-404.html')
+    )
+    $stateProvider.state('error',
       url: '/*resource'
       templateUrl: module.mean.resource('layout/layout-404.html')
     )

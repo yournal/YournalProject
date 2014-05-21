@@ -1,11 +1,11 @@
 module.exports = ($router, $route, auth, IssueCtrl) ->
-  $route.get '/issues', (req, res) ->
+  $route.get '/issues/:year?/:volume?', (req, res) ->
     IssueCtrl.getIssues req, res
 
-  $route.get '/issues/:id', (req, res) ->
+  $route.get '/issues/:year/:volume/:number', (req, res) ->
     IssueCtrl.getIssue req, res
 
-  $route.get '/issues/new/:number', auth, (req, res) ->
+  $route.post '/issues/:year/:volume/:number', (req, res) ->
     IssueCtrl.createIssue req, res
 
   $router.use '/api', $route

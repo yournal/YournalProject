@@ -3,19 +3,15 @@ module = mean.module 'yournal.services'
 module.factory 'Article', [
   '$resource',
   ($resource) ->
-    getArticles: () ->
-      data = $resource(
-        module.mean.asset("other/json/articles.json"), {},
-          query:
-            method: 'GET'
-            isArray: true
-      )
-      data.query()
-    getArticle: (id) ->
-      data = $resource(
-        module.mean.asset("other/json/articles/#{id}.json"), {},
-          query:
-            method: 'GET'
-      )
-      data.get()
+    $resource 'api/issues/:year/:volume/:number/sections/:section/articles/:article',
+      year: '@year'
+      volume: '@volume'
+      number: '@number'
+      section: '@section'
+      article: '@article'
+    ,
+      all:
+        url: 'api/articles'
+        method: 'GET'
+        isArray: true
 ]

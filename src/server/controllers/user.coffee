@@ -22,7 +22,6 @@ module.exports = (UserModel) ->
 
       user.save (err) ->
         if err
-          console.log err
           if err.code is 11000
             return res.status(400).send('Email is already registered.')
           return res.status(400).send('Please fill all the required fields.')

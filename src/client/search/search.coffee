@@ -16,10 +16,10 @@ module.controller module.mean.namespace('SearchCtrl'), [
   '$scope',
   'Article',
   ($scope, Article) ->
-    $scope.articles = Article.getArticles()
+    $scope.articles = Article.all()
     $scope.query = {}
     $scope.query.result = '!'
-    $scope.module = (query) ->
+    $scope.search = (query) ->
       if !(query?) || query.length == 0
         query = '!'
       $scope.query.result = query
