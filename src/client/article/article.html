@@ -2,7 +2,14 @@
   <header class="page-header">
     <h1>{{article.title}}</h1>
   </header>
-  <button ng-show="user.isAuthorized('admin')" ng-click="delete()" class="btn btn-danger pull-right">Delete</button>
+  <div ng-show="user.isAuthorized('admin')" class="pull-right">
+    <button type="button" class="btn btn-primary btn-sm">
+      <span class="glyphicon glyphicon-star"></span>
+    </button>
+    <button ng-click="delete()" class="btn btn-danger btn-sm">
+       <span class="glyphicon glyphicon-remove"></span>
+    </button>
+  </div>
   <div>
     <section>
       <div class="row">
