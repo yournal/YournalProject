@@ -8,4 +8,7 @@ module.exports = ($router, $route, auth, SectionCtrl) ->
   $route.post '/issues/:year/:volume/:number/sections', (req, res) ->
     SectionCtrl.createSection req, res
 
+  $route.delete '/issues/:year/:volume/:number/sections/:section', (req, res) ->
+    SectionCtrl.deleteSection req, res
+
   $router.use '/api', $route

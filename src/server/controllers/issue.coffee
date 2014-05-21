@@ -47,6 +47,18 @@ module.exports = ($views, IssueModel) ->
       res.json json
     )
 
+  deleteIssue: (req, res) ->
+    IssueModel.findOne(req.params, (err, document) ->
+      if err
+        return res.json
+          err: err
+          500
+
+      document.remove()
+
+      res.send document
+    )
+
   createIssue: (req, res) ->
     issue = new IssueModel(
       year: req.params.year,
