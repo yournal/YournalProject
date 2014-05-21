@@ -39,6 +39,7 @@ module.controller module.mean.namespace('VisualisationCtrl'), [
               'name': author
               'group': 2
             source = nodesList.push(authorNode) - 1
+            authors[author] = source
           linkNode =
             'source': source
             'target': target,
