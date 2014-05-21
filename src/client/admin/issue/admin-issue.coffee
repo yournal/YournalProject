@@ -66,7 +66,7 @@ module.controller module.mean.namespace('IssueNewCtrl'), [
     $scope.response = null
 
     $scope.createIssue = () ->
-      Issue.update
+      Issue.save
         year: $scope.year
         volume: $scope.volume
         number: $scope.number
