@@ -128,3 +128,32 @@ module.exports = ($views, IssueModel, ArticleModel) ->
           return res.status(400).send('Unkown error occured.')
         res.json article
     )
+
+  deleteArticle: (req, res) ->
+    IssueModel.findOne({
+      year: req.params.year,
+      volume: req.params.volume,
+      number: req.params.number
+    }, (err, document) ->
+      if err
+        return res.json
+          err: err
+          500
+      section = document.sections.id(req.params.section)
+      if not section?
+        return res.json
+          err: {msg: 'Section does not exist.'}
+          500
+      article = section.articles.id(req.params.article)
+      if not article?
+        return res.json
+          err: {msg: 'Article does not exist.'}
+          500
+
+      article.remove()
+      document.save (err) ->
+        if err
+          return res.status(400).send('Unkown error occured.')
+
+      res.json article
+    )

@@ -1,14 +1,14 @@
 <header class="page-header">
-  <h1>Add new article</h1>
+  <h1>Edit article</h1>
 </header>
 
 <div class="row">
-  <div class="alert alert-success animated fadeIn" data-ng-show="response">Article created: {{response.title}}</div>
+  <div class="alert alert-success animated fadeIn" data-ng-show="response">Section updated: {{response.title}}</div>
   <div data-ng-repeat="err in error">
       <div class="alert alert-danger animated fadeIn">{{err.msg}}</div>
   </div>
   <div class="col-md-12 pull-left">
-    <form role="form" class="form-horizontal" data-ng-submit="createArticle()" name="articleForm">
+    <form role="form" class="form-horizontal" data-ng-submit="updateArticle()" name="articleForm">
       <div class="form-group">
         <label for="year" class="col-sm-1 control-label">Year</label>
         <div class="col-sm-9">
@@ -75,7 +75,7 @@
         <div class="col-sm-9 col-sm-offset-1">
           <button type="reset" class="btn btn-primary btn-lg col-lg-5 col-md-5 col-xs-5">Reset</button>
           <span class="col-lg-2 col-md-2 col-xs-2"></span>
-          <button type="submit" class="btn btn-success btn-lg col-lg-5 col-md-5 col-xs-5">Save</button>
+          <button type="submit" class="btn btn-success btn-lg col-lg-5 col-md-5 col-xs-5">Update</button>
         </div>
       </div>
     </form>
