@@ -26,6 +26,32 @@ module.exports = ($views, IssueModel, SectionModel) ->
       res.send document.sections
     )
 
+  deleteSection: (req, res) ->
+    IssueModel.findOne({
+      year: req.params.year,
+      volume: req.params.volume,
+      number: req.params.number
+    }, (err, document) ->
+      if err
+        return res.json
+          err: err
+          500
+
+      section = document.sections.id(req.params.section)
+
+      if not section?
+        return res.send
+          err: {msg: 'Section does not exist.'}
+          500
+
+      section.remove()
+
+      document.save (err) ->
+        if err
+          return res.status(400).send('Unknown error occured.')
+        res.json section
+    )
+
   createSection: (req, res) ->
     req.checkBody('title', 'Title is required.').notEmpty()
     req.checkBody('abbreviation', 'Abbreviation is required.').notEmpty()

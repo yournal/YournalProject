@@ -34,7 +34,7 @@ module.exports = ($views, IssueModel, ArticleModel) ->
           500
       section = document.sections.id(req.params.section)
       if not section?
-        return res.send
+        return res.json
           err: {msg: 'Section does not exist.'}
           500
       res.send section.articles
