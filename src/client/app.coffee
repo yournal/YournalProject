@@ -17,6 +17,8 @@ app = mean.module 'yournal', [
   'yournal.article',
   'yournal.visualization',
   'yournal.layout',
+  'angulartics',
+  'angulartics.google.analytics'
 ]
 
 # Bootstrap
