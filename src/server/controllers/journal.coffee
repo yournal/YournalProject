@@ -6,7 +6,7 @@ module.exports = ($views, JournalModel) ->
         return res.json
           err: err
           500
-      res.send json
+      res.json json
     )
 
   getJournal: (req, res) ->
@@ -15,7 +15,7 @@ module.exports = ($views, JournalModel) ->
         return res.json
           err: err
           500
-      res.send json
+      res.json json
     )
 
   createJournal: (req, res) ->

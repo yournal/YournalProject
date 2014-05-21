@@ -11,10 +11,10 @@ module.exports = ($views, IssueModel, SectionModel) ->
           500
       section = document.sections.id(req.params.section)
       if not section?
-        return res.send
+        return res.json
           err: {msg: 'Section does not exist.'}
           500
-      res.send section
+      res.json section
     )
 
   getSections: (req, res) ->
@@ -23,7 +23,7 @@ module.exports = ($views, IssueModel, SectionModel) ->
         return res.json
           err: err
           500
-      res.send document.sections
+      res.json document.sections
     )
 
   createSection: (req, res) ->
@@ -38,7 +38,7 @@ module.exports = ($views, IssueModel, SectionModel) ->
 
     errors = req.validationErrors()
     if errors
-      return res.status(400).send errors
+      return res.status(400).json errors
 
     section = new SectionModel(
       title: req.body.title,
@@ -56,5 +56,5 @@ module.exports = ($views, IssueModel, SectionModel) ->
       document.save (err) ->
         if err
           return res.status(400).send('Please fill all the required fields.')
-        res.send section
+        res.json section
     )
