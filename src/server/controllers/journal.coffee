@@ -2,26 +2,21 @@ exports.controller = {}
 
 exports.controller.JournalCtrl = (JournalModel) ->
 
-  getJournals: (req, res) ->
-    JournalModel.find({}, (err, json) ->
-      if err
-        return res.json 500, err: err
-      res.json json
-    )
-
   getJournal: (req, res) ->
-    JournalModel.find(req.params.id, (err, json) ->
-      if err
-        return res.json 500, err: err
-      res.json json
-    )
+    JournalModel.findOne (err, doc) ->
+      if not doc?
+        doc = new JournalModel()
+        doc.save()
+      res.json doc
 
-  createJournal: (req, res) ->
-    journal = new JournalModel(
-      title: req.params.t,
-      description: req.params.d
-    )
-    journal.save (err) ->
-      if err
-        return res.json 500, err: err
-      res.send 'Journal created.'
+  updateJournal: (req, res) ->
+    req.checkBody('title', 'Title is required.').notEmpty()
+    req.checkBody('description', 'Description is required.').notEmpty()
+    
+    JournalModel.findOne (err, doc) ->
+      doc.title = req.body.title
+      doc.description = req.body.description
+      doc.save (err) ->
+        if err
+          return res.status(400).send 'Unkown error occured.'
+        res.json doc

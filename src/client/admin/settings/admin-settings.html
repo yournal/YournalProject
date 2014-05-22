@@ -1,0 +1,31 @@
+<header class="page-header">
+  <h1>Yournal Settings</h1>
+</header>
+
+<div class="row">
+  <div class="alert alert-success animated fadeIn" data-ng-show="response">Settings saved.</div>
+  <div data-ng-repeat="err in error">
+      <div class="alert alert-danger animated fadeIn">{{err.msg}}</div>
+  </div>
+  <div class="col-md-12 col-sm-12 pull-left">
+    <form role="form" class="form-horizontal" data-ng-submit="saveSettings()" name="settingsForm">
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">Journal title</label>
+        <div class="col-sm-9">
+          <input type="text" ng-model="journal.title" class="form-control input-lg" placeholder="Journal title" autofocus id="title"  required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-9">
+          <textarea  required class="form-control input-lg" ng-model="journal.description" placeholder="Please enter a description here." id="description" rows="4"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-2">
+          <button type="submit" class="btn btn-success btn-lg col-lg-12 col-md-12 col-xs-12">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
