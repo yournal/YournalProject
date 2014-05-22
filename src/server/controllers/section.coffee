@@ -1,4 +1,7 @@
-module.exports = ($views, IssueModel, SectionModel) ->
+exports.controller = {}
+
+exports.controller.SectionCtrl = (IssueModel, SectionModel) ->
+
   getSection: (req, res) ->
     IssueModel.findOne({
       year: req.params.year,
@@ -6,23 +9,17 @@ module.exports = ($views, IssueModel, SectionModel) ->
       number: req.params.number
     }, (err, document) ->
       if err
-        return res.json
-          err: err
-          500
+        return res.json 500, err: err
       section = document.sections.id(req.params.section)
       if not section?
-        return res.json
-          err: {msg: 'Section does not exist.'}
-          500
+        return res.json 500, err: {msg: 'Section does not exist.'}
       res.json section
     )
 
   getSections: (req, res) ->
     IssueModel.findOne(req.params, (err, document) ->
       if err
-        return res.json
-          err: err
-          500
+        return res.json 500, err: err
       res.json document.sections
     )
 
@@ -33,22 +30,14 @@ module.exports = ($views, IssueModel, SectionModel) ->
       number: req.params.number
     }, (err, document) ->
       if err
-        return res.json
-          err: err
-          500
-
+        return res.json 500, err: err
       section = document.sections.id(req.params.section)
-
       if not section?
-        return res.send
-          err: {msg: 'Section does not exist.'}
-          500
-
+        return res.json 500, err: {msg: 'Section does not exist.'}
       section.remove()
-
       document.save (err) ->
         if err
-          return res.status(400).send('Unknown error occured.')
+          return res.status(400).send 'Unknown error occured.'
         res.json section
     )
 
@@ -75,12 +64,10 @@ module.exports = ($views, IssueModel, SectionModel) ->
 
     IssueModel.findOne(req.params, (err, document) ->
       if err
-        return res.json
-          err: err
-          500
+        return res.json 500, err: err
       document.sections.push section
       document.save (err) ->
         if err
-          return res.status(400).send('Please fill all the required fields.')
+          return res.status(400).send 'Please fill all the required fields.'
         res.json section
     )

@@ -1,4 +1,7 @@
-module.exports = ($views, IssueModel, ArticleModel) ->
+exports.controller = {}
+
+exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
+
   getArticle: (req, res) ->
     IssueModel.findOne({
       year: req.params.year,
@@ -6,19 +9,13 @@ module.exports = ($views, IssueModel, ArticleModel) ->
       number: req.params.number
     }, (err, document) ->
       if err
-        return res.json
-          err: err
-          500
+        return res.json 500, err: err
       section = document.sections.id(req.params.section)
       if not section?
-        return res.json
-          err: {msg: 'Section does not exist.'}
-          500
+        return res.json 500, err: {msg: 'Section does not exist.'}
       article = section.articles.id(req.params.article)
       if not article?
-        return res.json
-          err: {msg: 'Article does not exist.'}
-          500
+        return res.json 500, err: {msg: 'Article does not exist.'}
       res.json article
     )
 
@@ -29,23 +26,17 @@ module.exports = ($views, IssueModel, ArticleModel) ->
       number: req.params.number
     }, (err, document) ->
       if err
-        return res.json
-          err: err
-          500
+        return res.json 500, err: err
       section = document.sections.id(req.params.section)
       if not section?
-        return res.json
-          err: {msg: 'Section does not exist.'}
-          500
+        return res.json 500, err: {msg: 'Section does not exist.'}
       res.json section.articles
     )
 
   getAllArticles: (req, res) ->
     IssueModel.find({}, (err, document) ->
       if err
-        return res.json
-          err: err
-          500
+        return res.json 500, err: err
       articles = []
       for issue in document
         for section in issue.sections
@@ -78,7 +69,7 @@ module.exports = ($views, IssueModel, ArticleModel) ->
 
     errors = req.validationErrors()
     if errors
-      return res.status(400).send errors
+      return res.status(400).json errors
 
     authors = req.body.authors.split(',')
     for k, v of authors
@@ -119,13 +110,11 @@ module.exports = ($views, IssueModel, ArticleModel) ->
           500
       section = document.sections.id(req.params.section)
       if not section?
-        return res.json
-          err: {msg: 'Section does not exist.'}
-          500
+        return res.json 500, err: {msg: 'Section does not exist.'}
       section.articles.push article
       document.save (err) ->
         if err
-          return res.status(400).send('Unkown error occured.')
+          return res.status(400).send 'Unkown error occured.'
         res.json article
     )
 
@@ -136,24 +125,16 @@ module.exports = ($views, IssueModel, ArticleModel) ->
       number: req.params.number
     }, (err, document) ->
       if err
-        return res.json
-          err: err
-          500
+        return res.json 500, err: err
       section = document.sections.id(req.params.section)
       if not section?
-        return res.json
-          err: {msg: 'Section does not exist.'}
-          500
+        return res.json 500, err: {msg: 'Section does not exist.'}
       article = section.articles.id(req.params.article)
       if not article?
-        return res.json
-          err: {msg: 'Article does not exist.'}
-          500
-
+        return res.json 500, err: {msg: 'Article does not exist.'}
       article.remove()
       document.save (err) ->
         if err
-          return res.status(400).send('Unkown error occured.')
-
+          return res.status(400).send 'Unkown error occured.'
       res.json article
     )

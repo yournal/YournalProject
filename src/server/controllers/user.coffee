@@ -1,4 +1,7 @@
-module.exports = (UserModel) ->
+exports.controller = {}
+
+exports.controller.UserCtrl = (UserModel) ->
+
   create: (req, res, next) ->
     user = new UserModel req.body
     user.provider = 'local'
@@ -12,7 +15,7 @@ module.exports = (UserModel) ->
     errors = req.validationErrors()
 
     if errors
-      return res.status(400).send(errors)
+      return res.status(400).json errors
 
     UserModel.count {}, (err, count) ->
       if count is 0
@@ -23,8 +26,8 @@ module.exports = (UserModel) ->
       user.save (err) ->
         if err
           if err.code is 11000
-            return res.status(400).send('Email is already registered.')
-          return res.status(400).send('Please fill all the required fields.')
+            return res.status(400).send 'Email is already registered.'
+          return res.status(400).send 'Please fill all the required fields.'
 
         req.logIn user, (err) ->
           if err

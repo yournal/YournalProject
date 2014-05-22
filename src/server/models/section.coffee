@@ -1,4 +1,7 @@
-module.exports.schema = ($mongoose, ArticleSchema) ->
+exports.schema = {}
+exports.model = {}
+
+exports.schema.SectionSchema = ($mongoose, ArticleSchema) ->
   new $mongoose.Schema(
     title:
       type: String,
@@ -13,5 +16,5 @@ module.exports.schema = ($mongoose, ArticleSchema) ->
       type: [ArticleSchema]
   )
 
-module.exports.model = ($connection, SectionSchema) ->
+exports.model.SectionModel = ($connection, SectionSchema) ->
   $connection.model('Section', SectionSchema)

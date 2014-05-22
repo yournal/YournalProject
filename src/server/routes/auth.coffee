@@ -1,5 +1,5 @@
-module.exports = ($router, $route, $views, passport, auth, UserCtrl) ->
-  $route.get '/admin/*', auth, (req, res) ->
+exports.route = ($route, $views, passport, auth, UserCtrl) ->
+  $route.get '/admin/*', auth(['admin']), (req, res) ->
     $views.index.render(req, res)
 
   $route.get '/logged', (req, res) ->
@@ -18,5 +18,3 @@ module.exports = ($router, $route, $views, passport, auth, UserCtrl) ->
     res.send 200
 
   $route.post '/register', UserCtrl.create
-
-  $router.use '/', $route

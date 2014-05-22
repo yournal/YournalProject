@@ -1,4 +1,7 @@
-module.exports.schema = ($mongoose) ->
+exports.schema = {}
+exports.model = {}
+
+exports.schema.JournalSchema = ($mongoose) ->
   new $mongoose.Schema(
     title:
       type: String,
@@ -8,5 +11,5 @@ module.exports.schema = ($mongoose) ->
       required: true
   )
 
-module.exports.model = ($connection, JournalSchema) ->
+exports.model.JournalModel = ($connection, JournalSchema) ->
   $connection.model('Journal', JournalSchema)

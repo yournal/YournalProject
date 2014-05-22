@@ -1,4 +1,7 @@
-module.exports.schema = ($mongoose, crypto) ->
+exports.schema = {}
+exports.model = {}
+
+exports.schema.UserSchema = ($mongoose, crypto) ->
   validate = (value) ->
     return (@provider and @provider isnt 'local') or value.length
 
@@ -44,10 +47,13 @@ module.exports.schema = ($mongoose, crypto) ->
     next()
 
   UserSchema.methods =
+
     authenticate: (plainText) ->
       @hashPassword(plainText) is @hashedPassword
+
     makeSalt: ->
       crypto.randomBytes(16).toString('base64')
+
     hashPassword: (password) ->
       if not password or !@salt
         return ''
@@ -56,6 +62,5 @@ module.exports.schema = ($mongoose, crypto) ->
 
   return UserSchema
 
-
-module.exports.model = ($connection, UserSchema) ->
+exports.model.UserModel = ($connection, UserSchema) ->
   $connection.model('User', UserSchema)

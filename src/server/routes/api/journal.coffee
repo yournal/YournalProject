@@ -1,11 +1,11 @@
-module.exports = ($router, $route, auth, JournalCtrl) ->
+exports.route = ($route, auth, JournalCtrl) ->
   $route.get '/journals', (req, res) ->
     JournalCtrl.getJournals req, res
 
   $route.get '/journals/:id', (req, res) ->
     JournalCtrl.getJournal req, res
 
-  $route.get '/journals/new/:t/:d', auth, (req, res) ->
+  $route.post '/journals/new/:t/:d', auth(['admin']), (req, res) ->
     JournalCtrl.createJournal req, res
 
-  $router.use '/api', $route
+  return '/api'

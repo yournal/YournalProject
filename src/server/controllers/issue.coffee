@@ -1,10 +1,11 @@
-module.exports = ($views, IssueModel) ->
+exports.controller = {}
+
+exports.controller.IssueCtrl = (IssueModel) ->
+
   getIssue: (req, res) ->
     IssueModel.findOne(req.params, (err, json) ->
       if err
-        return res.json
-          err: err
-          500
+        return res.json 500, err: err
       res.json json
     )
 
@@ -41,27 +42,18 @@ module.exports = ($views, IssueModel) ->
 
     IssueModel.find(params, fields, query, (err, json) ->
       if err
-        return res.json
-          err: err
-          500
+        return res.json 500, err: err
       res.json json
     )
 
   deleteIssue: (req, res) ->
     IssueModel.findOne(req.params, (err, document) ->
       if err
-        return res.json
-          err: err
-          500
-
+        return res.json 500, err: err
       if not document?
-        return res.json
-          err: {msg: 'Issue does not exist.'}
-          500
-          
+        return res.json 500, err: {msg: 'Issue does not exist.'}
       document.remove()
-
-      res.send document
+      res.json document
     )
 
   createIssue: (req, res) ->
@@ -78,11 +70,11 @@ module.exports = ($views, IssueModel) ->
 
     errors = req.validationErrors()
     if errors
-      return res.status(400).send errors
+      return res.status(400).json errors
 
     issue.save (err) ->
       if err
         if err.code is 11000
-          return res.status(400).send('Issue already exists.')
-        return res.status(400).send('Please fill all the required fields.')
+          return res.status(400).send 'Issue already exists.'
+        return res.status(400).send 'Please fill all the required fields.'
       res.json issue
