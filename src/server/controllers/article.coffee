@@ -120,8 +120,8 @@ exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
 
   deleteArticle: (req, res) ->
     IssueModel.findOne({
-      year: req.params.year,
-      volume: req.params.volume,
+      year: req.params.year
+      volume: req.params.volume
       number: req.params.number
     }, (err, document) ->
       if err
@@ -137,4 +137,36 @@ exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
         if err
           return res.status(400).send 'Unkown error occured.'
       res.json article
+    )
+
+  updateArticle: (req, res) ->
+    IssueModel.findOne({
+      year: req.params.year
+      volume: req.params.volume
+      number: req.params.number
+    }, (err, document) ->
+      if err
+        return res.json 500, err: err
+
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
+
+      section = document.sections.id(req.params.section)
+      if not section?
+        return res.json 500, err: {msg: 'Section does not exist.'}
+      article = section.articles.id(req.params.article)
+      if not article?
+        return res.json 500, err: {msg: 'Article does not exist.'}
+      
+      article.title = req.body.title
+      article.authors = req.body.authors
+      article.keywords = req.body.keywords
+      article.abstract = req.body.abstract
+      article.content = req.body.content
+
+      document.save (err) ->
+        if err
+          return res.status(400).send 'Unkown error occured.'
+
+        res.json article
     )

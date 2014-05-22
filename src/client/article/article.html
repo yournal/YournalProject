@@ -3,9 +3,9 @@
     <h1>{{article.title}}</h1>
   </header>
   <div ng-show="user.isAuthorized('admin')" class="pull-right">
-    <button type="button" class="btn btn-primary btn-sm">
-      <span class="glyphicon glyphicon-star"></span>
-    </button>
+    <a class="btn btn-primary btn-sm" ng-href="{{$state.href('article-edit', {year: year, volume: volume, number: number, section: section, article: article._id})}}">
+      <span class="glyphicon glyphicon-pencil"></span>
+    </a>
     <button ng-click="delete()" class="btn btn-danger btn-sm">
        <span class="glyphicon glyphicon-remove"></span>
     </button>

@@ -7,4 +7,7 @@ module.factory 'Section', [
       year: '@year'
       volume: '@volume'
       number: '@number'
+    ,
+    update:
+      method: 'PUT'
 ]

@@ -14,4 +14,7 @@ module.factory 'Article', [
         url: 'api/articles'
         method: 'GET'
         isArray: true
+      update:
+        method: 'PUT'
+
 ]

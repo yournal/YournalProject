@@ -9,7 +9,7 @@ exports.route = ($route, auth, IssueCtrl) ->
     IssueCtrl.createIssue req, res
 
   $route.put '/issues/:year/:volume/:number', auth(['admin']), (req, res) ->
-    res.send 'dela'
+    IssueCtrl.updateIssue req, res
 
   $route.delete '/issues/:year/:volume/:number', auth(['admin']), (req, res) ->
     IssueCtrl.deleteIssue req, res

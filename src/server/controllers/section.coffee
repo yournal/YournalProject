@@ -71,3 +71,30 @@ exports.controller.SectionCtrl = (IssueModel, SectionModel) ->
           return res.status(400).send 'Please fill all the required fields.'
         res.json section
     )
+
+  updateSection: (req, res) ->
+    IssueModel.findOne({
+      year: req.params.year
+      volume: req.params.volume
+      number: req.params.number
+    }, (err, document) ->
+      if err
+        return res.json 500, err: err
+
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
+
+      section = document.sections.id(req.params.section)
+      if not section?
+        return res.json 500, err: {msg: 'Section does not exist.'}
+      
+      section.title = req.body.title
+      section.abbreviation = req.body.abbreviation
+      section.policyStatement = req.body.policyStatement
+
+      document.save (err) ->
+        if err
+          return res.status(400).send 'Unkown error occured.'
+
+        res.json section
+    )

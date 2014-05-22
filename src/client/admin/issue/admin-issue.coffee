@@ -25,30 +25,62 @@ module.config [
 
 module.controller module.mean.namespace('IssueEditCtrl'), [
   '$scope',
+  '$state',
   '$stateParams',
   'Issue',
-  ($scope, $stateParams, Issue) ->
-    $scope.year = parseInt($stateParams.year)
-    $scope.volume = parseInt($stateParams.volume)
-    $scope.number = parseInt($stateParams.number)
+  ($scope, $state, $stateParams, Issue) ->
+    year = parseInt($stateParams.year)
+    volume = parseInt($stateParams.volume)
+    number = parseInt($stateParams.number)
+
+    issue = Issue.get(
+      year: year
+      volume: volume
+      number: number
+    ,
+      (response) ->
+        return
+    ,
+      (err) ->
+        $state.go '404'
+    )
+
+    $scope.year = year
+    $scope.volume = volume
+    $scope.number = number
     $scope.maxYear = new Date().getFullYear()
     $scope.error = []
     $scope.response = null
 
     $scope.updateIssue = () ->
       Issue.update
+        year: year
+        volume: volume
+        number: number
+      ,
         year: $scope.year
         volume: $scope.volume
         number: $scope.number
       ,
         (response) ->
           $scope.response = response
+          year = $scope.year
+          volume = $scope.volume
+          number = $scope.number
+
+          $state.go 'issue-edit',
+            year: year
+            volume: volume
+            number: number
+
           $scope.error = []
-          $scope.volume = null
-          $scope.number = null
       ,
         (err) ->
           $scope.response = null
+          $scope.year = year
+          $scope.volume = volume
+          $scope.number = number
+
           if typeof err.data isnt 'object'
             $scope.error = [msg: err.data]
           else
