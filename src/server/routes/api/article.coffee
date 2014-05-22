@@ -14,4 +14,7 @@ exports.route = ($route, auth, ArticleCtrl) ->
   $route.delete '/issues/:year/:volume/:number/sections/:section/articles/:article', auth(['admin']), (req, res) ->
     ArticleCtrl.deleteArticle req, res
 
+  $route.put '/issues/:year/:volume/:number/sections/:section/articles/:article', auth(['admin']), (req, res) ->
+    ArticleCtrl.updateArticle req, res
+
   return '/api'

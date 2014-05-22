@@ -9,46 +9,22 @@
   </div>
   <div class="col-md-5">
     <form role="form" class="form-horizontal" data-ng-submit="updateSection()">
-      <div class="form-group">
-        <label for="year" class="col-sm-3 control-label">Year</label>
-        <div class="col-sm-9">
-          <select ng-model="year" ng-options="issue.year as issue.year for issue in issues | unique:'year' | orderBy:'year':true" class="form-control input-lg" id="year" required>
-            <option value="">Select year</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="volume" class="col-sm-3 control-label">Volume</label>
-        <div class="col-sm-9">
-          <select ng-model="volume" ng-options="issue.volume as issue.volume for issue in issues | filter:{year:year} | unique:'volume' | orderBy:'volume'" class="form-control input-lg" id="volume" required>
-            <option value="">Select volume</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="issue" class="col-sm-3 control-label">Issue</label>
-        <div class="col-sm-9">
-          <select ng-model="issue" ng-options="issue.number as issue.number for issue in issues | filter:{year:year,volume:volume} | unique:'number' | orderBy:'number'" class="form-control input-lg" id="issue" required>
-            <option value="">Select issue number</option>
-          </select>
-        </div>
-      </div>
       <div class="form-group" >
         <label for="sectionName" class="col-sm-3 control-label">Section name</label>
         <div class="col-sm-9">
-          <input type="text" ng-model="title" class="form-control input-lg" placeholder="Section name" id="sectionName" required />
+          <input type="text" ng-model="section.title" class="form-control input-lg" placeholder="Section name" id="sectionName" required />
         </div>
       </div>
       <div class="form-group" >
         <label for="abbreviation" class="col-sm-3 control-label">Abbreviation</label>
         <div class="col-sm-9">
-          <input type="text" ng-model="abbreviation" class="form-control input-lg" placeholder="Abbreviation [AB]" maxlength="2" id="abbreviation" required />
+          <input type="text" ng-model="section.abbreviation" class="form-control input-lg" placeholder="Abbreviation [AB]" maxlength="2" id="abbreviation" required />
         </div>
       </div>
       <div class="form-group" >
         <label for="policyStatement" class="col-sm-3 control-label">Policy statement</label>
         <div class="col-sm-9">
-          <textarea rows="8" ng-model="policyStatement" class="form-control textarea-lg" id="policyStatement" required></textarea>
+          <textarea rows="8" ng-model="section.policyStatement" class="form-control textarea-lg" id="policyStatement" required></textarea>
         </div>
       </div>
       <div class="form-group">

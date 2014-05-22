@@ -20,7 +20,6 @@ module.controller module.mean.namespace('ArchivesCtrl'), [
     $scope.issues = Issue.query(filter: 'sections')
     $scope.user = User
 
-
     $scope.deleteIssue = (issue) ->
       Issue.delete(
         year: issue.year

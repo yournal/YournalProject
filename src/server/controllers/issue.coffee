@@ -6,7 +6,10 @@ exports.controller.IssueCtrl = (IssueModel) ->
     IssueModel.findOne(req.params, (err, json) ->
       if err
         return res.json 500, err: err
-      res.json json
+      if json?
+        res.json json
+      else
+        res.json 404, err: 'Issue does not exist.'
     )
 
   getIssues: (req, res) ->
@@ -78,3 +81,31 @@ exports.controller.IssueCtrl = (IssueModel) ->
           return res.status(400).send 'Issue already exists.'
         return res.status(400).send 'Please fill all the required fields.'
       res.json issue
+
+  updateIssue: (req, res) ->
+    req.assert('year', 'Wrong year format required.').isInt()
+    req.assert('volume', 'Wrong volume format required.').isInt()
+    req.assert('number', 'Wrong number format required.').isInt()
+    errors = req.validationErrors()
+    if errors
+      return res.status(400).json errors
+
+    IssueModel.findOne(req.params, (err, document) ->
+      if err
+        return res.json 500, err: err
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
+
+      document.year = req.body.year
+      document.volume = req.body.volume
+      document.number = req.body.number
+
+      document.save (err) ->
+        if err
+          return res.status(400).send 'Please fill all the required fields.'
+        res.json document
+    )
+
+    
+
+   

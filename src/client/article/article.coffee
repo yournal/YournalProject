@@ -21,6 +21,11 @@ module.controller module.mean.namespace('ArticleCtrl'), [
   'Error'
   '$FB',
   ($scope, $state, $stateParams, Article, User, Error, $FB) ->
+    $scope.year = parseInt $stateParams.year
+    $scope.volume = parseInt $stateParams.volume
+    $scope.number = parseInt $stateParams.number
+    $scope.section = $stateParams.section
+
     $scope.article = Article.get(
       year: $stateParams.year
       volume: $stateParams.volume
