@@ -1,9 +1,0 @@
-{
-	"id" : 2,
-	"title" : "Firing Modes of Dopamine Neurons Drive Bidirectional GIRK Channel Plasticity",
-	"authors" : ["Arnaud L. Lalive", "Michaelanne B. Munoz", "Camilla Bellone", "Paul A. Slesinger", "Christian Lüscher", "Kelly R. Tan"],
-	"keywords" : [ "dopamine neuron", "G-protein-coupled receptors", "GIRK channels", "phasic/tonic firing", "plasticity", "slow inhibition" ],
-	"abstract" : "G-protein-coupled inwardly rectifying potassium (GIRK) channels contribute esting membrane potential of many neurons, including dopamine (DA) neurons in the ventral tegmental area (VTA)",
-	"content" : "G-protein-coupled inwardly rectifying potassium (GIRK) channels contribute to the resting membrane potential of many neurons, including dopamine (DA) neurons in the ventral tegmental area (VTA). VTA DA neurons are bistable, firing in two modes: one characterized by bursts of action potentials, the other by tonic firing at a lower frequency. Here we provide evidence that these firing modes drive bidirectional plasticity of GIRK channel-mediated currents. In acute midbrain slices of mice, we observed that in vitro burst activation of VTA DA neurons potentiated GIRK currents whereas tonic firing depressed these currents. This plasticity was not specific to the metabotropic receptor activating the GIRK channels, as direct activation of GIRK channels by nonhydrolyzable GTP also potentiated the currents. The plasticity of GIRK currents required NMDA receptor and CaMKII activation, and involved protein trafficking through specific PDZ domains of GIRK2c and GIRK3 subunit isoforms. Prolonged tonic firing may thus enhance the probability to switch into burst-firing mode, which then potentiates GIRK currents and favors the return to baseline. In conclusion, activity-dependent GIRK channel plasticity may represent a slow destabilization process favoring the switch between the two firing modes of VTA DA neurons.",
-	"sectionId" : 1
-}
