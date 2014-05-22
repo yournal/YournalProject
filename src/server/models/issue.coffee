@@ -1,4 +1,7 @@
-module.exports.schema = ($mongoose, SectionSchema) ->
+exports.schema = {}
+exports.model = {}
+
+exports.schema.IssueSchema = ($mongoose, SectionSchema) ->
   IssueSchema = new $mongoose.Schema(
     year:
       type: Number,
@@ -22,5 +25,5 @@ module.exports.schema = ($mongoose, SectionSchema) ->
 
   return IssueSchema
 
-module.exports.model = ($connection, IssueSchema) ->
+exports.model.IssueModel = ($connection, IssueSchema) ->
   $connection.model('Issue', IssueSchema)

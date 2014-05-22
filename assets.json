@@ -18,8 +18,8 @@
     ]
   },
   "css": {
+    "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css": "public/vendor/bootstrap/dist/css/bootstrap.css",
     "public/release/meanstack-project.css": [
-      "public/vendor/bootstrap/dist/css/bootstrap.css",
       "public/css/**/*"
     ]
   },

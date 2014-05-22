@@ -6,6 +6,7 @@
   <meta name="fragment" content="!">
   <meta charset="utf-8">
   <base href="<%- @mean.mount %>">
+  <link rel="stylesheet" href="<%= @mean[@mean.name].assets.css['vendor/bootstrap/dist/css/bootstrap.css'] %>">
   <% for file in @mean[@mean.name].assets.css.collection : %>
     <link rel="stylesheet" href="<%= file %>">
   <% end %>

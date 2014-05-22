@@ -1,5 +1,6 @@
 module.exports = ($app, $mean, UserModel) ->
   LocalStrategy = require('passport-local').Strategy
+
   passport = require 'passport'
 
   passport.serializeUser (user, done) ->
@@ -27,9 +28,25 @@ module.exports = ($app, $mean, UserModel) ->
   $app.use passport.initialize()
   $app.use passport.session()
 
-  $mean.register 'auth', -> (req, res, next) ->
+  $mean.register 'auth', -> (roles) -> (req, res, next) ->
     if !req.isAuthenticated()
-      res.statusCode = 401
-    next()
+      res.send 401, 'Unauthorized access.'
+    else
+      if roles?
+        authenticated = false
+        if typeof roles is 'object'
+          for role in roles
+            if role in req.user.roles
+              authenticated = true
+              break
+        else
+          if roles in req.user.roles
+            authenticated = true
+        if not authenticated
+          res.send 401, 'Unauthorized access.'
+        else
+          next()
+      else
+        next()
 
   $mean.register 'passport', -> passport
