@@ -1,4 +1,4 @@
-exports.route = ($route, $views, passport, auth, UserCtrl) ->
+exports.route = ($route, $views, passport, csrf, auth, UserCtrl) ->
   $route.get '/admin/*', auth(['admin']), (req, res) ->
     $views.index.render(req, res)
 
@@ -8,7 +8,7 @@ exports.route = ($route, $views, passport, auth, UserCtrl) ->
     else
       res.send 'unauthorized'
 
-  $route.post '/login',  passport.authenticate('local',
+  $route.post '/login', csrf, passport.authenticate('local',
     failureFlash: true
   ), (req, res) ->
     res.json req.user

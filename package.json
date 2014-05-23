@@ -38,6 +38,7 @@
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
     "crypto": "~0.0.3",
+    "csurf": "~1.2.0",
     "html-minifier": "0.5.x"
   }
 }

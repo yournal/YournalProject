@@ -90,7 +90,8 @@ module.controller module.mean.namespace('RegisterCtrl'), [
   '$state',
   '$http',
   'User',
-  ($rootScope, $scope, $state, $http, User) ->
+  'Message',
+  ($rootScope, $scope, $state, $http, User, Message) ->
     $scope.user = {}
     $scope.register = ->
       $scope.registerError = []
