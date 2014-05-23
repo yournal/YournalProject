@@ -6,7 +6,8 @@
     <section class="wrapper">
       <section class="container">
         <div class="content">
-        <% content 'main' %>
+          <div class="message" data-ng-include="'<%= @mean[@mean.name].resource('layout/layout-message.html') %>'"></div>
+          <% content 'main' %>
         </div>
       </section>
     </section>

@@ -1,12 +1,13 @@
 <header class="page-header">
   <h1>Add new section to issue</small></h1>
 </header>
-
+<alert type="success" data-ng-show="response" close="response = null">
+  Section created: {{response.title}} [{{response.abbreviation}}]
+</alert>
+<alert type="danger" data-ng-repeat="err in error" close="error.splice($index, 1)">
+  {{err.msg}}
+</alert>
 <div class="row">
-  <div class="alert alert-success animated fadeIn" data-ng-show="response">Section created: {{response.title}} [{{response.abbreviation}}]</div>
-  <div data-ng-repeat="err in error">
-      <div class="alert alert-danger animated fadeIn">{{err.msg}}</div>
-  </div>
   <div class="col-md-5">
     <form role="form" class="form-horizontal" data-ng-submit="createSection()">
       <div class="form-group">
@@ -20,7 +21,7 @@
       <div class="form-group">
         <label for="volume" class="col-sm-3 control-label">Volume</label>
         <div class="col-sm-9">
-          <select ng-model="volume" ng-options="issue.volume as issue.volume for issue in issues | filter:{year:year} | unique:'volume' | orderBy:'volume'" class="form-control input-lg" id="volume" required>
+          <select ng-model="volume" ng-options="issue.volume as issue.volume for issue in issues | filter:{year:year}:true | unique:'volume' | orderBy:'volume'" class="form-control input-lg" id="volume" required>
             <option value="">Select volume</option>
           </select>
         </div>
@@ -28,7 +29,7 @@
       <div class="form-group">
         <label for="issue" class="col-sm-3 control-label">Issue</label>
         <div class="col-sm-9">
-          <select ng-model="issue" ng-options="issue.number as issue.number for issue in issues | filter:{year:year,volume:volume} | unique:'number' | orderBy:'number'" class="form-control input-lg" id="issue" required>
+          <select ng-model="issue" ng-options="issue.number as issue.number for issue in issues | filter:{year:year,volume:volume}:true | unique:'number' | orderBy:'number'" class="form-control input-lg" id="issue" required>
             <option value="">Select issue number</option>
           </select>
         </div>

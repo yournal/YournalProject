@@ -23,6 +23,35 @@ module.config [
     )
 ]
 
+module.controller module.mean.namespace('IssueNewCtrl'), [
+  '$scope',
+  'Issue',
+  ($scope, Issue) ->
+    $scope.year = new Date().getFullYear()
+    $scope.maxYear = $scope.year
+    $scope.error = []
+    $scope.response = null
+
+    $scope.createIssue = () ->
+      Issue.save
+        year: $scope.year
+        volume: $scope.volume
+        number: $scope.number
+      ,
+        (response) ->
+          $scope.response = response
+          $scope.error = []
+          $scope.volume = null
+          $scope.number = null
+      ,
+        (err) ->
+          $scope.response = null
+          if typeof err.data isnt 'object'
+            $scope.error = [msg: err.data]
+          else
+            $scope.error = err.data
+]
+
 module.controller module.mean.namespace('IssueEditCtrl'), [
   '$scope',
   '$state',
@@ -85,35 +114,32 @@ module.controller module.mean.namespace('IssueEditCtrl'), [
             $scope.error = [msg: err.data]
           else
             $scope.error = err.data
-
 ]
 
-module.controller module.mean.namespace('IssueNewCtrl'), [
+module.controller module.mean.namespace('DeleteCtrl'), [
   '$scope',
+  '$rootScope',
   'Issue',
-  ($scope, Issue) ->
-    $scope.year = new Date().getFullYear()
-    $scope.maxYear = $scope.year
-    $scope.error = []
-    $scope.response = null
+  'Message',
+  ($scope, $rootScope, Issue, Message) ->
+    $scope.delete = (year, volume, number) ->
+      data =
+        year: parseInt year
+        volume: parseInt volume
+        number: parseInt number
 
-    $scope.createIssue = () ->
-      Issue.save
-        year: $scope.year
-        volume: $scope.volume
-        number: $scope.number
+      Issue.delete(
+        data
       ,
         (response) ->
-          $scope.response = response
-          $scope.error = []
-          $scope.volume = null
-          $scope.number = null
+          Message.add
+            success: true
+            msg: 'Issue successfully deleted.'
+          $rootScope.$emit 'rebind'
       ,
         (err) ->
-          $scope.response = null
-          if typeof err.data isnt 'object'
-            $scope.error = [msg: err.data]
-          else
-            $scope.error = err.data
-
+          Message.add
+            success: false
+            msg: err.msg
+      )
 ]

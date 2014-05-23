@@ -52,8 +52,9 @@ app.run([
   '$stateParams',
   '$mean',
   'user',
-  'User'
-  ($rootScope, $state, $stateParams, $mean, user, User) ->
+  'User',
+  'Message',
+  ($rootScope, $state, $stateParams, $mean, user, User, Message) ->
     $rootScope.$state = $state
     $rootScope.$stateParams = $stateParams
     $rootScope.$mean = $mean # register mean into global scope
@@ -73,4 +74,13 @@ app.run([
           else
             $state.transitionTo 'home'
 
+    $rootScope.previousState = {}
+    $rootScope.currentState = {}
+    $rootScope.$on '$stateChangeSuccess', (ev, to, toParams, from, fromParams) ->
+      $rootScope.previousState =
+        state: from.name
+        params: fromParams
+      $rootScope.currentState =
+        state: to.name
+        params: toParams
 ])
