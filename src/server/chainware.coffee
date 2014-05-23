@@ -1,8 +1,7 @@
 path = require 'path'
 
 module.exports.config = ($mean, $config, $dir, $env) ->
-  $config.database.uri = \
-    process.env.MONGODB_DATABASE or 'mongodb://localhost/yournal'
+  $config.database.uri = process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or process.env.MONGODB_DATABASE or 'mongodb://localhost/yournal'
   $config.secret = '89fds978fs7bc8x2aem3'
   $config.middleware['morgan'] = false
   $config.port = 3000
