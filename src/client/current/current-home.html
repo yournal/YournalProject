@@ -7,17 +7,43 @@
 </div>
 
 <header class="page-header">
-  <h1>Volume {{issue.volume}}, No {{issue.number}} <small>({{issue.year}})</small></h1>
+  <h1 class="inline-block">Volume {{issue.volume}}, No {{issue.number}} <small>({{issue.year}})</small></h1>
+  <span ng-show="user.isAuthorized('admin')" class="marginl50">
+    <a class="btn btn-primary btn-lg" ng-href="{{$state.href('issue-edit', {year: issue.year, volume: issue.volume, number: issue.number})}}">
+      <span class="glyphicon glyphicon-pencil"></span>
+    </a>
+    <button type="button" ng-controller="yournal.admin.issue.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number)" class="btn btn-danger btn-lg">
+      <span class="glyphicon glyphicon-remove"></span>
+    </button>
+  </span>
 </header>
 
-<div>
+<div class="container">
   <h2>Table of Contents</h2>
   <ul>
-    <li ng-repeat="section in issue.sections" class="list-unstyled">
-      <h3>{{section.title}}</h3>
+    <li ng-repeat="section in issue.sections" class="list-unstyled animate-repeat">
+      <h3>{{section.title}}
+        <span ng-show="user.isAuthorized('admin')" class="marginl50">
+          <a class="btn btn-primary btn-xs" ng-href="{{$state.href('section-edit', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id})}}">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </a>
+          <button type="button" ng-controller="yournal.admin.section.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number, section._id)" class="btn btn-danger btn-xs">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </span>
+      </h3>
+
       <ul class="article-list">
         <li ng-repeat="article in section.articles">
           <a ng-href="{{$state.href('article', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id, article: article._id})}}"><strong>{{article.title}}</strong></a>
+          <span ng-show="user.isAuthorized('admin')" class="marginl50">
+            <a class="btn btn-primary btn-xs" ng-href="{{$state.href('article-edit', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id, article: article._id})}}">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <button type="button" ng-controller="yournal.admin.article.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number, section._id, article._id)" class="btn btn-danger btn-xs">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </span>
           <ul class="list-unstyled list-inline list-comma-separated">
             <li ng-repeat="author in article.authors">{{author}}</li>
           </ul>
@@ -26,3 +52,4 @@
     </li>
   </ul>
 </div>
+
