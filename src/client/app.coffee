@@ -28,7 +28,7 @@ mean.ready = (app) ->
 mean.bootstrap = (app) ->
   injector = angular.injector(['ng'])
   $http = injector.get('$http')
-  $http.get('/logged').then (response) ->
+  $http.get('/auth').then (response) ->
     app.constant 'user', response.data
     angular.bootstrap document, [app.name]
 mean.init app

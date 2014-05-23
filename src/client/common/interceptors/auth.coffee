@@ -6,8 +6,9 @@ module.config ['$httpProvider', ($httpProvider) ->
 
 module.factory 'authInterceptor', [
   '$q',
+  '$window',
   '$location',
-  ($q, $location) ->
+  ($q, $window, $location) ->
     response: (response) ->
       if response.status is 401
         $location.path '/login'
@@ -17,5 +18,8 @@ module.factory 'authInterceptor', [
       if response.status is 401
         $location.path '/login'
         $q.reject response
+      else if response.status is 403
+        $window.location = '/logout'
+        return
       return $q.reject response
 ]

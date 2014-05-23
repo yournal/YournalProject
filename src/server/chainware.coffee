@@ -6,7 +6,7 @@ module.exports.config = ($mean, $config, $dir, $env) ->
   $config.middleware['morgan'] = false # disabled morgan because of grunt
   $config.port = 3000
   $config.views.dir = path.resolve "#{$dir.app}/views/"
-  $mean.register 'crypto', require 'crypto'
+  $mean.register 'crypto', -> require 'crypto'
 
   # Production specificc configuration
   if $env is 'production'
@@ -22,7 +22,24 @@ module.exports.config = ($mean, $config, $dir, $env) ->
         removeScriptTypeAttributes: true
         removeStyleLinkTypeAttributes: true
 
-module.exports.beforeRouting = ($mean) ->
+module.exports.beforeRouting = ($mean, $app) ->
+  csurf = require('csurf')()
+
+  # CSRF protection
+  $mean.register 'csrf', ->
+    return (req, res, next) ->
+      csurf(req, res, next)
+
+  # CSRF token generator
+  $mean.register 'token', ->
+    return (req, res, next) ->
+      setToken = () ->
+        if req.csrfToken?
+          res.cookie 'XSRF-TOKEN', req.csrfToken()
+        next()
+      csrf = csurf(req, res, setToken)
+      return csrf
+
   $mean.resolve require('./passport')
 
 module.exports.afterRouting = ($app, $views) ->
