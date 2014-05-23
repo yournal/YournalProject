@@ -23,18 +23,21 @@ module.exports.config = ($mean, $config, $dir, $env) ->
         removeStyleLinkTypeAttributes: true
 
 module.exports.beforeRouting = ($mean, $app) ->
-  csurf = require 'csurf'
+  csurf = require('csurf')()
 
   # CSRF protection
   $mean.register 'csrf', ->
     return (req, res, next) ->
-      csurf()(req, res, next)
+      csurf(req, res, next)
 
   # CSRF token generator
   $mean.register 'token', ->
     return (req, res, next) ->
-      csrf = csurf()(req, res, next)
-      res.cookie 'XSRF-TOKEN', req.csrfToken()
+      setToken = () ->
+        if req.csrfToken?
+          res.cookie 'XSRF-TOKEN', req.csrfToken()
+        next()
+      csrf = csurf(req, res, setToken)
       return csrf
 
   $mean.resolve require('./passport')
