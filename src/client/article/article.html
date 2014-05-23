@@ -6,8 +6,8 @@
     <a class="btn btn-primary btn-sm" ng-href="{{$state.href('article-edit', {year: year, volume: volume, number: number, section: section, article: article._id})}}">
       <span class="glyphicon glyphicon-pencil"></span>
     </a>
-    <button ng-click="delete()" class="btn btn-danger btn-sm">
-       <span class="glyphicon glyphicon-remove"></span>
+    <button type="button" ng-controller="yournal.admin.article.DeleteCtrl" ng-click="delete(year, volume, number, section, article._id, 'home')" class="btn btn-danger btn-sm">
+      <span class="glyphicon glyphicon-remove"></span>
     </button>
   </div>
   <div>

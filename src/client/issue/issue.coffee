@@ -1,5 +1,7 @@
 module = mean.module 'yournal.issue', [
-  'yournal.services'
+  'yournal.services',
+  'yournal.admin.section',
+  'yournal.admin.article'
 ]
 
 module.config [
@@ -14,40 +16,20 @@ module.config [
 
 module.controller module.mean.namespace('IssueCtrl'), [
   '$scope',
+  '$rootScope',
   '$stateParams',
   'Issue',
   'Article',
   'Section',
   'User'
-  ($scope, $stateParams, Issue, Article, Section, User) ->
-
-    
-
-    $scope.refreshIssue = () ->
+  ($scope, $rootScope, $stateParams, Issue, Article, Section, User) ->
+    bind = ->
       $scope.issue = Issue.get
         year: $stateParams.year
         volume: $stateParams.volume
         number: $stateParams.number
-
-    $scope.deleteSection = (section) ->
-      Section.delete(
-        year: $stateParams.year
-        volume: $stateParams.volume
-        number: $stateParams.number
-        section: section._id
-      , (response) ->
-        $scope.err =
-          success: true
-          msg: 'Section "' + response.title + '" successfully deleted.'
-        $scope.refreshIssue()
-      ,
-        (err) ->
-          console.log err
-          $scope.err =
-            success: false
-            msg: 'There was an error. ' + err.data.err.msg
-    )
-
     $scope.user = User
-    $scope.refreshIssue()
+    $rootScope.$on 'rebind', ->
+      bind()
+    bind()
 ]

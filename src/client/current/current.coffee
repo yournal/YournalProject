@@ -21,12 +21,10 @@ module.controller module.mean.namespace('CurrentCtrl'), [
   '$scope',
   'Journal',
   'Issue',
-  'Error'
-  ($scope, Journal, Issue, Error) ->
+  ($scope, Journal, Issue) ->
     $scope.journal = Journal.get()
     issue = Issue.query(sort: ['year', 'volume', 'number'], order: -1, limit: 1)
     issue.$promise.then (data) ->
       if data.length > 0
         $scope.issue = data[0]
-    $scope.errors = Error.get()
 ]

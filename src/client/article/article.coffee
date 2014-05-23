@@ -1,5 +1,6 @@
 module = mean.module 'yournal.article', [
-  'yournal.services'
+  'yournal.services',
+  'yournal.admin.article'
 ]
 
 module.config [
@@ -13,14 +14,15 @@ module.config [
 ]
 
 module.controller module.mean.namespace('ArticleCtrl'), [
+  '$rootScope',
   '$scope',
   '$state',
   '$stateParams',
   'Article',
   'User',
-  'Error'
+  'Message'
   '$FB',
-  ($scope, $state, $stateParams, Article, User, Error, $FB) ->
+  ($rootScope, $scope, $state, $stateParams, Article, User, Message, $FB) ->
     $scope.year = parseInt $stateParams.year
     $scope.volume = parseInt $stateParams.volume
     $scope.number = parseInt $stateParams.number
@@ -41,26 +43,4 @@ module.controller module.mean.namespace('ArticleCtrl'), [
       (err) ->
         $state.go('404')
     )
-
-    $scope.delete = () ->
-      Article.delete(
-        year: $stateParams.year
-        volume: $stateParams.volume
-        number: $stateParams.number
-        section: $stateParams.section
-        article: $stateParams.article
-      , (response) ->
-        Error.add {
-          success: true
-          msg: 'Article "' + response.title + '" successfully deleted.'
-        }
-        $state.go('home')
-      ,
-        (err) ->
-          Error.add {
-            success: false
-            msg: err.msg
-          }
-          $state.go('home')
-      )
 ]

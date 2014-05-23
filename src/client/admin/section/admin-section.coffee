@@ -23,6 +23,39 @@ module.config [
     )
 ]
 
+module.controller module.mean.namespace('SectionNewCtrl'), [
+  '$scope',
+  'Issue',
+  'Section',
+  ($scope, Issue, Section) ->
+    $scope.issues = Issue.query(filter: ['sections'])
+
+    $scope.createSection = () ->
+      section = new Section(
+        title: $scope.title
+        abbreviation: $scope.abbreviation
+        policyStatement: $scope.policyStatement
+      )
+      section.$save
+        year: $scope.year
+        volume: $scope.volume
+        number: $scope.issue
+      ,
+        (response) ->
+          $scope.response = response
+          $scope.error = []
+          $scope.title = ''
+          $scope.abbreviation = ''
+          $scope.policyStatement = ''
+      ,
+        (err) ->
+          $scope.response = null
+          if typeof err.data isnt 'object'
+            $scope.error = [msg: err.data]
+          else
+            $scope.error = err.data
+]
+
 module.controller module.mean.namespace('SectionEditCtrl'), [
   '$scope',
   '$stateParams',
@@ -71,36 +104,45 @@ module.controller module.mean.namespace('SectionEditCtrl'), [
 
 ]
 
-module.controller module.mean.namespace('SectionNewCtrl'), [
+module.controller module.mean.namespace('DeleteCtrl'), [
   '$scope',
-  'Issue',
+  '$rootScope',
+  '$state',
+  '$stateParams',
   'Section',
-  ($scope, Issue, Section) ->
-    $scope.issues = Issue.query(filter: ['sections'])
+  'Message',
+  ($scope, $rootScope, $state, $stateParams, Section, Message) ->
+    $scope.delete = (year, volume, number, section) ->
+      data =
+        year: parseInt year
+        volume: parseInt volume
+        number: parseInt number
+        section: section
 
-    $scope.createSection = () ->
-      section = new Section(
-        title: $scope.title
-        abbreviation: $scope.abbreviation
-        policyStatement: $scope.policyStatement
-      )
-
-      section.$save
-        year: $scope.year
-        volume: $scope.volume
-        number: $scope.issue
+      section = Section.get(
+        data
       ,
         (response) ->
-          $scope.response = response
-          $scope.error = []
-          $scope.title = ''
-          $scope.abbreviation = ''
-          $scope.policyStatement = ''
+          return
       ,
         (err) ->
-          $scope.response = null
-          if typeof err.data isnt 'object'
-            $scope.error = [msg: err.data]
-          else
-            $scope.error = err.data
+          Message.add
+            success: false
+            msg: 'Section does not exist.'
+      )
+
+      Section.delete(
+        data
+      ,
+        (response) ->
+          Message.add
+            success: true
+            msg: 'Section "' + response.title + '" successfully deleted.'
+          $rootScope.$emit 'rebind'
+      ,
+        (err) ->
+          Message.add
+            success: false
+            msg: err.msg
+      )
 ]
