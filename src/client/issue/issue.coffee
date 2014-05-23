@@ -15,14 +15,12 @@ module.config [
 ]
 
 module.controller module.mean.namespace('IssueCtrl'), [
-  '$scope',
   '$rootScope',
+  '$scope',
   '$stateParams',
   'Issue',
-  'Article',
-  'Section',
-  'User'
-  ($scope, $rootScope, $stateParams, Issue, Article, Section, User) ->
+  'User',
+  ($rootScope, $scope, $stateParams, Issue, User) ->
     bind = ->
       $scope.issue = Issue.get
         year: $stateParams.year

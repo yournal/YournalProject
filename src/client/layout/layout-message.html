@@ -1,7 +1,7 @@
-<div data-ng-controller="yournal.layout.MessageCtrl" data-ng-show="messages">
-  <div data-ng-repeat="message in messages">
-    <alert type="{{message.type}}" close="messages.splice($index, 1)">
-      <div data-ng-bind-html="message.msg"></div>
+<div ng-controller="yournal.layout.MessageCtrl" ng-show="messages">
+  <div ng-repeat="message in messages">
+    <alert type="{{message.type}}" close="messages.splice($index, 1)" ng-show="!message.expired" class="message-hide">
+      <div ng-bind-html="message.msg"></div>
     </alert>
   </div>
 </div>

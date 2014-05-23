@@ -6,7 +6,7 @@ module.config [
     $stateProvider.state('issue-new',
       url: '/admin/issue/new'
       templateUrl: module.mean.resource('admin/issue/admin-issue-new.html')
-      controller: module.mean.namespace('IssueNewCtrl')
+      controller: module.mean.namespace('NewCtrl')
       data:
         access:
           allow: ['admin']
@@ -15,7 +15,7 @@ module.config [
     $stateProvider.state('issue-edit',
       url: '/admin/issue/edit/:year/:volume/:number'
       templateUrl: module.mean.resource('admin/issue/admin-issue-edit.html')
-      controller: module.mean.namespace('IssueEditCtrl')
+      controller: module.mean.namespace('EditCtrl')
       data:
         access:
           allow: ['admin']
@@ -23,7 +23,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('IssueNewCtrl'), [
+module.controller module.mean.namespace('NewCtrl'), [
   '$scope',
   'Issue',
   ($scope, Issue) ->
@@ -52,7 +52,7 @@ module.controller module.mean.namespace('IssueNewCtrl'), [
             $scope.error = err.data
 ]
 
-module.controller module.mean.namespace('IssueEditCtrl'), [
+module.controller module.mean.namespace('EditCtrl'), [
   '$scope',
   '$state',
   '$stateParams',
@@ -127,7 +127,6 @@ module.controller module.mean.namespace('DeleteCtrl'), [
         year: parseInt year
         volume: parseInt volume
         number: parseInt number
-
       Issue.delete(
         data
       ,
@@ -138,8 +137,15 @@ module.controller module.mean.namespace('DeleteCtrl'), [
           $rootScope.$emit 'rebind'
       ,
         (err) ->
+          if err.data?
+            err = err.data
+            if err.err?
+              if err.err.msg?
+                err = err.err.msg
+              else
+                err = 'Unkown error.'
           Message.add
             success: false
-            msg: err.msg
+            msg: err
       )
 ]

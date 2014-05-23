@@ -43,7 +43,7 @@ exports.schema.UserSchema = ($mongoose, crypto) ->
 
   UserSchema.pre 'save', (next) ->
     if @isNew and @provider is 'local' and @password and not @password.length
-      return next new Error('Invalid password')
+      return next new Error('Invalid password.')
     next()
 
   UserSchema.methods =

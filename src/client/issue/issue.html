@@ -1,6 +1,6 @@
 <header class="page-header">
   <h1 class="inline-block">Volume {{issue.volume}}, No {{issue.number}} <small>({{issue.year}})</small></h1>
-    <span ng-show="user.isAuthorized('admin')" class="marginl50">
+  <span ng-show="user.isAuthorized('admin')" class="large-edit">
     <a class="btn btn-primary btn-lg" ng-href="{{$state.href('issue-edit', {year: issue.year, volume: issue.volume, number: issue.number})}}">
       <span class="glyphicon glyphicon-pencil"></span>
     </a>
@@ -9,28 +9,24 @@
     </button>
   </span>
 </header>
-
-<div class="alert animated fadeIn" data-ng-show="err" ng-class="err.success ? 'alert-success' : 'alert-danger'">{{err.msg}}</div>
-
+<div class="alert" ng-show="err" ng-class="err.success ? 'alert-success' : 'alert-danger'">{{err.msg}}</div>
 <div class="container">
   <h2>Table of Contents</h2>
-  <ul>
+  <ul ng-if="issue.sections.length > 0">
     <li ng-repeat="section in issue.sections" class="list-unstyled animate-repeat">
-      <h3>{{section.title}}
-        <span ng-show="user.isAuthorized('admin')" class="marginl50">
-          <a class="btn btn-primary btn-xs" ng-href="{{$state.href('section-edit', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id})}}">
-            <span class="glyphicon glyphicon-pencil"></span>
-          </a>
-          <button type="button" ng-controller="yournal.admin.section.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number, section._id)" class="btn btn-danger btn-xs">
-            <span class="glyphicon glyphicon-remove"></span>
-          </button>
-        </span>
-      </h3>
-
+      <h3 class="inline-rmargin">{{section.title}}</h3>
+      <span ng-show="user.isAuthorized('admin')" class="small-edit">
+        <a class="btn btn-primary btn-xs" ng-href="{{$state.href('section-edit', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id})}}">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <button type="button" ng-controller="yournal.admin.section.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number, section._id)" class="btn btn-danger btn-xs">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </span>
       <ul class="article-list">
         <li ng-repeat="article in section.articles">
-          <a ng-href="{{$state.href('article', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id, article: article._id})}}"><strong>{{article.title}}</strong></a>
-          <span ng-show="user.isAuthorized('admin')" class="marginl50">
+          <a class="inline-rmargin" ng-href="{{$state.href('article', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id, article: article._id})}}"><strong>{{article.title}}</strong></a>
+          <span ng-show="user.isAuthorized('admin')" class="small-edit small-edit-margin">
           <a class="btn btn-primary btn-xs" ng-href="{{$state.href('article-edit', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id, article: article._id})}}">
             <span class="glyphicon glyphicon-pencil"></span>
           </a>
@@ -42,7 +38,9 @@
             <li ng-repeat="author in article.authors">{{author}}</li>
           </ul>
         </li>
+        <li ng-if="section.articles.length === 0">No articles found.</li>
       </ul>
     </li>
   </ul>
+  <h3 class="marginl50" ng-if="issue.sections.length === 0">No sections found.</h3>
 </div>

@@ -6,7 +6,7 @@ module.config [
     $stateProvider.state('article-new',
       url: '/admin/article/new'
       templateUrl: module.mean.resource('admin/article/admin-article-new.html')
-      controller: module.mean.namespace('ArticleNewCtrl')
+      controller: module.mean.namespace('NewCtrl')
       data:
         access:
           allow: ['admin']
@@ -15,7 +15,7 @@ module.config [
     $stateProvider.state('article-edit',
       url: '/admin/article/edit/:year/:volume/:number/:section/:article'
       templateUrl: module.mean.resource('admin/article/admin-article-edit.html')
-      controller: module.mean.namespace('ArticleEditCtrl')
+      controller: module.mean.namespace('EditCtrl')
       data:
         access:
           allow: ['admin']
@@ -23,7 +23,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('ArticleNewCtrl'), [
+module.controller module.mean.namespace('NewCtrl'), [
   '$scope',
   'Issue',
   'Article',
@@ -81,7 +81,7 @@ module.controller module.mean.namespace('ArticleNewCtrl'), [
 
 
 
-module.controller module.mean.namespace('ArticleEditCtrl'), [
+module.controller module.mean.namespace('EditCtrl'), [
   '$scope',
   '$state',
   '$stateParams',
@@ -149,17 +149,6 @@ module.controller module.mean.namespace('DeleteCtrl'), [
         section: section
         article: article
 
-      article = Article.get(
-        data
-      ,
-        (response) ->
-          return
-      ,
-        (err) ->
-          Message.add
-            success: false
-            msg: 'Article does not exist.'
-      )
 
       Article.delete(
         data
@@ -175,8 +164,18 @@ module.controller module.mean.namespace('DeleteCtrl'), [
             $state.go redirect
       ,
         (err) ->
+          if err.data?
+            err = err.data
+            if err.err?
+              if err.err.msg?
+                err = err.err.msg
+              else
+                err = 'Unkown error.'
           Message.add
             success: false
-            msg: err.msg
+            msg: err
       )
+
 ]
+
+

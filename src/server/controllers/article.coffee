@@ -10,6 +10,8 @@ exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
     }, (err, document) ->
       if err
         return res.json 500, err: err
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
       section = document.sections.id(req.params.section)
       if not section?
         return res.json 500, err: {msg: 'Section does not exist.'}
@@ -27,6 +29,8 @@ exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
     }, (err, document) ->
       if err
         return res.json 500, err: err
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
       section = document.sections.id(req.params.section)
       if not section?
         return res.json 500, err: {msg: 'Section does not exist.'}
@@ -37,6 +41,8 @@ exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
     IssueModel.find({}, (err, document) ->
       if err
         return res.json 500, err: err
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
       articles = []
       for issue in document
         for section in issue.sections
@@ -108,6 +114,8 @@ exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
         return res.json
           err: err
           500
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
       section = document.sections.id(req.params.section)
       if not section?
         return res.json 500, err: {msg: 'Section does not exist.'}
@@ -126,6 +134,8 @@ exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
     }, (err, document) ->
       if err
         return res.json 500, err: err
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
       section = document.sections.id(req.params.section)
       if not section?
         return res.json 500, err: {msg: 'Section does not exist.'}
@@ -147,17 +157,14 @@ exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
     }, (err, document) ->
       if err
         return res.json 500, err: err
-
       if not document?
         return res.json 500, err: {msg: 'Issue does not exist.'}
-
       section = document.sections.id(req.params.section)
       if not section?
         return res.json 500, err: {msg: 'Section does not exist.'}
       article = section.articles.id(req.params.article)
       if not article?
         return res.json 500, err: {msg: 'Article does not exist.'}
-      
       article.title = req.body.title
       article.authors = req.body.authors
       article.keywords = req.body.keywords

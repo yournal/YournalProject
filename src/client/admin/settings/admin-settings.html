@@ -1,15 +1,15 @@
 <header class="page-header">
   <h1>Yournal Settings</h1>
 </header>
-<alert type="success" data-ng-show="response" close="response = null">
+<alert type="success" ng-show="response" close="response = null">
   Settings saved.
 </alert>
-<alert type="danger" data-ng-repeat="err in error" close="error.splice($index, 1)">
+<alert type="danger" ng-repeat="err in error" close="error.splice($index, 1)">
   {{err.msg}}
 </alert>
 <div class="row">
   <div class="col-md-12 col-sm-12 pull-left">
-    <form role="form" class="form-horizontal" data-ng-submit="saveSettings()" name="settingsForm">
+    <form role="form" class="form-horizontal" ng-submit="save()" name="settingsForm">
     <div class="form-group">
         <label for="title" class="col-sm-2 control-label">Journal title</label>
         <div class="col-sm-9">

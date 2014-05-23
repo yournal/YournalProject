@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="en">
   <% include 'includes/header.html' %>
-  <body data-ng-cloak class="ng-cloak">
-    <div class="header navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-include="'<%= @mean[@mean.name].resource('layout/layout-header.html') %>'"></div>
+  <body ng-cloak class="ng-cloak">
+    <div class="header navbar navbar-inverse navbar-fixed-top" role="navigation" ng-include="'<%= @mean[@mean.name].resource('layout/layout-header.html') %>'"></div>
     <section class="wrapper">
       <section class="container">
         <div class="content">
-          <div class="message" data-ng-include="'<%= @mean[@mean.name].resource('layout/layout-message.html') %>'"></div>
+          <div class="message" ng-include="'<%= @mean[@mean.name].resource('layout/layout-message.html') %>'"></div>
           <% content 'main' %>
         </div>
       </section>
     </section>
-    <div class="footer" data-ng-include="'<%= @mean[@mean.name].resource('layout/layout-footer.html') %>'"></div>
+    <div class="footer" ng-include="'<%= @mean[@mean.name].resource('layout/layout-footer.html') %>'"></div>
     <% include 'includes/footer.html' %>
   </body>
 </html>

@@ -1,31 +1,32 @@
 <header class="page-header">
     <h1>Archives</h1>
 </header>
-
-<div class="alert animated fadeIn" data-ng-show="err" ng-class="err.success ? 'alert-success' : 'alert-danger'">{{err.msg}}</div>
-
-<ul class="list-unstyled">
-  <li ng-repeat="issueGroup in issues | unique:'year' | orderBy:'year':true">
-    <h3>{{issueGroup.year}}</h3>
-    <ul class="article-list">
-      <li ng-repeat="issue in issues | filter:{year:issueGroup.year}  | orderBy:'id':true">
-     		<span>
-          <a ng-href="{{$state.href('issue', {year: issue.year, volume: issue.volume, number: issue.number})}}">
-              <strong>Volume {{issue.volume}}, No {{issue.number}}</strong>
-          </a>
-        </span>
-        <span ng-show="user.isAuthorized('admin')" class="marginl50">
-          <a class="btn btn-primary btn-xs" ng-href="{{$state.href('issue-edit', {year: issue.year, volume: issue.volume, number: issue.number})}}">
-  		      <span class="glyphicon glyphicon-pencil"></span>
-  		    </a>
-          <button type="button" ng-controller="yournal.admin.issue.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number)" class="btn btn-danger btn-xs">
-            <span class="glyphicon glyphicon-remove"></span>
-          </button>
-  		  </span>
-      </li>
-
-      <br>
-      <br>
-    </ul>
-  </li>
-</ul>
+<div ng-if="issues.length > 0">
+  <ul class="list-unstyled">
+    <li ng-repeat="issueGroup in issues | unique:'year' | orderBy:'year':true">
+      <h3>{{issueGroup.year}}</h3>
+      <ul class="article-list">
+        <li ng-repeat="issue in issues | filter:{year:issueGroup.year}  | orderBy:'id':true">
+       		<span class="inline-rmargin">
+            <a ng-href="{{$state.href('issue', {year: issue.year, volume: issue.volume, number: issue.number})}}">
+                <strong>Volume {{issue.volume}}, No {{issue.number}}</strong>
+            </a>
+          </span>
+          <span ng-show="user.isAuthorized('admin')" class="small-edit small-edit-margin">
+            <a class="btn btn-primary btn-xs" ng-href="{{$state.href('issue-edit', {year: issue.year, volume: issue.volume, number: issue.number})}}">
+    		      <span class="glyphicon glyphicon-pencil"></span>
+    		    </a>
+            <button type="button" ng-controller="yournal.admin.issue.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number)" class="btn btn-danger btn-xs">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+    		  </span>
+        </li>
+        <br>
+        <br>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div ng-if="issues.length === 0" class="container">
+  <h2>No issues found.</h2>
+</div>

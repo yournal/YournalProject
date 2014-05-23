@@ -1,14 +1,14 @@
 <article>
   <header class="page-header">
     <h1 class="inline-block">{{article.title}}</h1>
-      <div ng-show="user.isAuthorized('admin')" class="inline-block">
-    <a class="btn btn-primary btn-lg" ng-href="{{$state.href('article-edit', {year: year, volume: volume, number: number, section: section, article: article._id})}}">
-      <span class="glyphicon glyphicon-pencil"></span>
-    </a>
-    <button type="button" ng-controller="yournal.admin.article.DeleteCtrl" ng-click="delete(year, volume, number, section, article._id, 'home')" class="btn btn-danger btn-lg">
-      <span class="glyphicon glyphicon-remove"></span>
-    </button>
-  </div>
+    <span ng-show="user.isAuthorized('admin')" class="large-edit">
+      <a class="btn btn-primary btn-lg" ng-href="{{$state.href('article-edit', {year: year, volume: volume, number: number, section: section, article: article._id})}}">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </a>
+      <button type="button" ng-controller="yournal.admin.article.DeleteCtrl" ng-click="delete(year, volume, number, section, article._id, 'home')" class="btn btn-danger btn-lg">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </span>
   </header>
   <div>
     <section>
@@ -40,8 +40,8 @@
     <p>{{article.content}}</p>
   </div>
 
-  <div disqus="article.id" data-ng-show="user.isAuthorized()"></div>
-  <div data-ng-show="!user.isAuthorized()">
+  <div disqus="article.id" ng-show="user.isAuthorized()"></div>
+  <div ng-show="!user.isAuthorized()">
     <br>
     Please <a ng-href="{{$state.href('login')}}">login</a> or <a ng-href="{{$state.href('register')}}">register</a> to leave a comment.
   </div>

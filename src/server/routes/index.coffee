@@ -2,6 +2,10 @@ exports.route = ($route, $views, passport, auth, UserCtrl) ->
   $route.get '/', (req, res) ->
     $views.index.render(req, res)
 
+  $route.get '/404', (req, res) ->
+    res.status 404
+    $views.index.render(req, res)
+
   $route.get '/search', (req, res) ->
     $views.index.render(req, res)
 
@@ -23,5 +27,8 @@ exports.route = ($route, $views, passport, auth, UserCtrl) ->
   $route.get '/register', (req, res) ->
     $views.index.render(req, res)
 
-  $route.all '/api/*', (req, res) ->
-    res.send 404, 'Invalid API call.'
+  $route.get '/issue/:year/:volume/:issue', (req, res) ->
+    $views.index.render(req, res)
+
+  $route.get '/issue/:year/:volume/:issue/sections/:section/article/:article', (req, res) ->
+    $views.index.render(req, res)

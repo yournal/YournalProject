@@ -1,6 +1,4 @@
 module.exports = ($app, $mean, UserModel) ->
-  LocalStrategy = require('passport-local').Strategy
-
   passport = require 'passport'
 
   passport.serializeUser (user, done) ->
@@ -10,6 +8,8 @@ module.exports = ($app, $mean, UserModel) ->
     UserModel.findOne _id: id, '-salt -hashedPassword', (err, user) ->
       done err, user
 
+  # Local strategy
+  LocalStrategy = require('passport-local').Strategy
   passport.use new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
@@ -18,16 +18,18 @@ module.exports = ($app, $mean, UserModel) ->
       if err
         return done err
       if not user
-        return done null, false, message: 'Unknown user.'
+        return done {msg: 'Unknown user.', status: 401}, false
       if not user.authenticate password
-        return done null, false, message: 'Invalid password.'
+        return done {msg: 'Invalid password.', status: 401}, false
       return done null, user
     )
   )
 
+  # Register passport middleware
   $app.use passport.initialize()
   $app.use passport.session()
 
+  # Auth middleware
   $mean.register 'auth', -> (roles) -> (req, res, next) ->
     if !req.isAuthenticated()
       res.send 401, 'Unauthorized access.'
