@@ -40,7 +40,7 @@
     <p>{{article.content}}</p>
   </div>
 
-  <div disqus="article.id" ng-show="user.isAuthorized()"></div>
+  <div disqus="article._id" ng-show="user.isAuthorized()"></div>
   <div ng-show="!user.isAuthorized()">
     <br>
     Please <a ng-href="{{$state.href('login')}}">login</a> or <a ng-href="{{$state.href('register')}}">register</a> to leave a comment.
