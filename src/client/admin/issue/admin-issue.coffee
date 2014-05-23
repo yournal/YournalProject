@@ -46,6 +46,7 @@ module.controller module.mean.namespace('NewCtrl'), [
       ,
         (err) ->
           $scope.response = null
+
           if typeof err.data isnt 'object'
             $scope.error = [msg: err.data]
           else

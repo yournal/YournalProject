@@ -1,8 +1,8 @@
-exports.route = ($route, $views, passport, csrf, auth, UserCtrl) ->
+exports.route = ($route, $views, passport, token, csrf, auth, UserCtrl) ->
   $route.get '/admin/*', auth(['admin']), (req, res) ->
     $views.index.render(req, res)
 
-  $route.get '/logged', (req, res) ->
+  $route.get '/auth', token, (req, res) ->
     if req.isAuthenticated()
       res.json req.user
     else

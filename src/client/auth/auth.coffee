@@ -79,7 +79,7 @@ module.controller module.mean.namespace('LoginCtrl'), [
           $scope.loginError = [msg: err]
         else
           if err.error?
-            err = [msg: err.error.msg]
+            err = [msg: err.error.message]
           $scope.loginError = err
       )
 ]

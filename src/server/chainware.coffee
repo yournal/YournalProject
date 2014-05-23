@@ -28,9 +28,15 @@ module.exports.beforeRouting = ($mean, $app) ->
   # CSRF protection
   $mean.register 'csrf', ->
     return (req, res, next) ->
+      csurf()(req, res, next)
+
+  # CSRF token generator
+  $mean.register 'token', ->
+    return (req, res, next) ->
       csrf = csurf()(req, res, next)
       res.cookie 'XSRF-TOKEN', req.csrfToken()
       return csrf
+
   $mean.resolve require('./passport')
 
 module.exports.afterRouting = ($app, $views) ->
