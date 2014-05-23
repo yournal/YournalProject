@@ -12,6 +12,15 @@ module.config [
           deny: ['authorized']
           state: 'home'
     )
+    $stateProvider.state('register',
+      url: '/register'
+      templateUrl: module.mean.resource('auth/auth-register.html')
+      controller: module.mean.namespace('RegisterCtrl')
+      data:
+        access:
+          deny: ['authorized']
+          state: 'home'
+    )
     $stateProvider.state('logout',
       url: '/logout'
       controller: module.mean.namespace('LogoutCtrl')
@@ -20,67 +29,71 @@ module.config [
           allow: ['authorized']
           state: 'home'
     )
-    $stateProvider.state('register',
-      url: '/register'
-      templateUrl: module.mean.resource('auth/auth-register.html')
-      data:
-        access:
-          deny: ['authorized']
-          state: 'home'
-    )
 ]
 
 module.controller module.mean.namespace('LogoutCtrl'), [
   '$rootScope',
-  '$location',
+  '$state',
   '$http',
   'User',
-  ($rootScope, $location, $http, User) ->
+  'Message',
+  ($rootScope, $state, $http, User, Message) ->
     $http.delete('/logout').success((response) ->
       User.remove()
       $rootScope.$emit 'loggedOut'
-      $location.url '/'
+      Message.add
+        success: true
+        msg: 'You are now logged out.'
+        type: 'info'
+      $state.go 'home'
     )
 ]
 
 module.controller module.mean.namespace('LoginCtrl'), [
-  '$window',
-  '$scope',
   '$rootScope',
+  '$scope',
+  '$state'
   '$http',
-  '$location',
   'User',
-  ($window, $scope, $rootScope, $http, $location, User) ->
+  'Message',
+  ($rootScope, $scope, $state, $http, User, Message) ->
     $scope.user = {}
-    $scope.login = () ->
+    $scope.login = ->
       $http.post('/login',
         email: $scope.user.email
         password: $scope.user.password
       ).success((response) ->
-        $scope.loginError = 0
+        $scope.loginError = []
         if response isnt 'unauthorized'
           User.set response
           $rootScope.$emit 'loggedIn'
         else
           User.remove()
           $rootScope.$emit 'loggedOut'
-        $location.url '/'
-      ).error(() ->
-        $scope.loginerror = 'Authentication failed.'
+        Message.add
+          success: true
+          msg: 'You are now logged in.'
+        $state.go 'home'
+      ).error((err) ->
+        if typeof err isnt 'object'
+          $scope.loginError = [msg: err]
+        else
+          if err.error?
+            err = [msg: err.error.msg]
+          $scope.loginError = err
       )
 ]
 
 module.controller module.mean.namespace('RegisterCtrl'), [
-  '$window',
-  '$scope',
   '$rootScope',
+  '$scope',
+  '$state',
   '$http',
-  '$location',
   'User',
-  ($window, $scope, $rootScope, $http, $location, User) ->
+  ($rootScope, $scope, $state, $http, User) ->
     $scope.user = {}
-    $scope.register = () ->
-      $scope.registerError = null
+    $scope.register = ->
+      $scope.registerError = []
       $http.post('/register',
         firstName: $scope.user.firstName
         lastName: $scope.user.lastName
@@ -88,7 +101,7 @@ module.controller module.mean.namespace('RegisterCtrl'), [
         password: $scope.user.password
         confirmPassword: $scope.user.confirmPassword
       ).success((response) ->
-        $scope.registerError = 0
+        $scope.registerError = []
         $rootScope.$emit 'registered'
         $http.post('/login',
           email: $scope.user.email
@@ -100,12 +113,17 @@ module.controller module.mean.namespace('RegisterCtrl'), [
           else
             User.remove()
             $rootScope.$emit 'loggedOut'
-          $location.url '/'
+          Message.add
+            success: true
+            msg: 'You are now logged in.'
+          $state.go 'home'
         )
       ).error((err) ->
         if typeof err isnt 'object'
           $scope.registerError = [msg: err]
         else
+          if err.error?
+            err = [msg: err.error.msg]
           $scope.registerError = err
       )
 ]

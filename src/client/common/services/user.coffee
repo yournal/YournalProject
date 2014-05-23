@@ -1,11 +1,8 @@
 module = mean.module 'yournal.services'
 
 module.factory 'User', [
-  '$q',
-  '$timeout',
   '$http',
-  '$location',
-  ($q, $timeout, $http, $location) ->
+  ($http) ->
     authorized: true
     firstName: null
     lastName: null

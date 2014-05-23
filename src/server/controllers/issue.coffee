@@ -3,11 +3,11 @@ exports.controller = {}
 exports.controller.IssueCtrl = (IssueModel) ->
 
   getIssue: (req, res) ->
-    IssueModel.findOne(req.params, (err, json) ->
+    IssueModel.findOne(req.params, (err, document) ->
       if err
         return res.json 500, err: err
-      if json?
-        res.json json
+      if document?
+        res.json document
       else
         res.json 404, err: 'Issue does not exist.'
     )
@@ -43,10 +43,12 @@ exports.controller.IssueCtrl = (IssueModel) ->
     if req.query.limit?
       query['limit'] = req.query.limit
 
-    IssueModel.find(params, fields, query, (err, json) ->
+    IssueModel.find(params, fields, query, (err, document) ->
       if err
         return res.json 500, err: err
-      res.json json
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
+      res.json document
     )
 
   deleteIssue: (req, res) ->
@@ -79,7 +81,7 @@ exports.controller.IssueCtrl = (IssueModel) ->
       if err
         if err.code is 11000
           return res.status(400).send 'Issue already exists.'
-        return res.status(400).send 'Please fill all the required fields.'
+        return res.status(400).send 'Unknown error occured.'
       res.json issue
 
   updateIssue: (req, res) ->
@@ -102,10 +104,10 @@ exports.controller.IssueCtrl = (IssueModel) ->
 
       document.save (err) ->
         if err
-          return res.status(400).send 'Please fill all the required fields.'
+          return res.status(400).send 'Unknown error occured.'
         res.json document
     )
 
-    
 
-   
+
+

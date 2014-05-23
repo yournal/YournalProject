@@ -20,7 +20,7 @@ module.controller module.mean.namespace('SettingsCtrl'), [
   ($scope, Journal) ->
     $scope.journal = Journal.get()
 
-    $scope.saveSettings = () ->
+    $scope.save = ->
       $scope.journal.$update(
         (response) ->
           $scope.response = response

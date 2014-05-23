@@ -6,7 +6,7 @@ module.config [
     $stateProvider.state('section-new',
       url: '/admin/section/new'
       templateUrl: module.mean.resource('admin/section/admin-section-new.html')
-      controller: module.mean.namespace('SectionNewCtrl')
+      controller: module.mean.namespace('NewCtrl')
       data:
         access:
           allow: ['admin']
@@ -15,7 +15,7 @@ module.config [
     $stateProvider.state('section-edit',
       url: '/admin/section/edit/:year/:volume/:number/:section'
       templateUrl: module.mean.resource('admin/section/admin-section-edit.html')
-      controller: module.mean.namespace('SectionEditCtrl')
+      controller: module.mean.namespace('EditCtrl')
       data:
         access:
           allow: ['admin']
@@ -23,7 +23,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('SectionNewCtrl'), [
+module.controller module.mean.namespace('NewCtrl'), [
   '$scope',
   'Issue',
   'Section',
@@ -56,7 +56,7 @@ module.controller module.mean.namespace('SectionNewCtrl'), [
             $scope.error = err.data
 ]
 
-module.controller module.mean.namespace('SectionEditCtrl'), [
+module.controller module.mean.namespace('EditCtrl'), [
   '$scope',
   '$stateParams',
   'Section'
@@ -119,18 +119,6 @@ module.controller module.mean.namespace('DeleteCtrl'), [
         number: parseInt number
         section: section
 
-      section = Section.get(
-        data
-      ,
-        (response) ->
-          return
-      ,
-        (err) ->
-          Message.add
-            success: false
-            msg: 'Section does not exist.'
-      )
-
       Section.delete(
         data
       ,
@@ -141,8 +129,15 @@ module.controller module.mean.namespace('DeleteCtrl'), [
           $rootScope.$emit 'rebind'
       ,
         (err) ->
+          if err.data?
+            err = err.data
+            if err.err?
+              if err.err.msg?
+                err = err.err.msg
+              else
+                err = 'Unkown error.'
           Message.add
             success: false
-            msg: err.msg
+            msg: err
       )
 ]

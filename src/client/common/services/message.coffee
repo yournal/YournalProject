@@ -11,6 +11,8 @@ module.factory 'Message', [
         messages = []
         return dispatch
       add: (message) ->
+        if not message.expire
+          message.expire = 2000
         if not message.type?
           if message.success
             message.type = 'success'

@@ -1,15 +1,15 @@
 <header class="page-header">
   <h1>Edit article</h1>
 </header>
-<alert type="success" data-ng-show="response" close="response = null">
+<alert type="success" ng-show="response" close="response = null">
   Article updated: {{response.title}}
 </alert>
-<alert type="danger" data-ng-repeat="err in error" close="error.splice($index, 1)">
+<alert type="danger" ng-repeat="err in error" close="error.splice($index, 1)">
   {{err.msg}}
 </alert>
 <div class="row">
   <div class="col-md-12 pull-left">
-    <form role="form" class="form-horizontal" data-ng-submit="updateArticle()" name="articleForm">
+    <form role="form" class="form-horizontal" ng-submit="updateArticle()" name="articleForm">
     <div class="form-group">
         <label for="title" class="col-sm-1 control-label">Title</label>
         <div class="col-sm-9">

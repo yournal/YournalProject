@@ -59,11 +59,13 @@ app.run([
     $rootScope.$stateParams = $stateParams
     $rootScope.$mean = $mean # register mean into global scope
 
+    # Set current user
     if user isnt 'unauthorized'
       User.set user
     else
       User.remove()
 
+    # Prevent access to unauthorized users
     $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
       if toState.data? and toState.data.access?
         access = toState.data.access
@@ -73,14 +75,4 @@ app.run([
             $state.transitionTo access.state
           else
             $state.transitionTo 'home'
-
-    $rootScope.previousState = {}
-    $rootScope.currentState = {}
-    $rootScope.$on '$stateChangeSuccess', (ev, to, toParams, from, fromParams) ->
-      $rootScope.previousState =
-        state: from.name
-        params: fromParams
-      $rootScope.currentState =
-        state: to.name
-        params: toParams
 ])

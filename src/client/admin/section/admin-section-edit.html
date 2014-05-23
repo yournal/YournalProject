@@ -1,15 +1,15 @@
 <header class="page-header">
   <h1>Edit section</small></h1>
 </header>
-<alert type="success" data-ng-show="response" close="response = null">
+<alert type="success" ng-show="response" close="response = null">
   Section updated: {{response.title}} [{{response.abbreviation}}]
 </alert>
-<alert type="danger" data-ng-repeat="err in error" close="error.splice($index, 1)">
+<alert type="danger" ng-repeat="err in error" close="error.splice($index, 1)">
   {{err.msg}}
 </alert>
 <div class="row">
   <div class="col-md-5">
-    <form role="form" class="form-horizontal" data-ng-submit="updateSection()">
+    <form role="form" class="form-horizontal" ng-submit="updateSection()">
       <div class="form-group" >
         <label for="sectionName" class="col-sm-3 control-label">Section name</label>
         <div class="col-sm-9">

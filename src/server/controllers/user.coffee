@@ -13,7 +13,6 @@ exports.controller.UserCtrl = (UserModel) ->
     req.assert('confirmPassword', 'Passwords do not match.').equals(req.body.password)
 
     errors = req.validationErrors()
-
     if errors
       return res.status(400).json errors
 
@@ -27,7 +26,7 @@ exports.controller.UserCtrl = (UserModel) ->
         if err
           if err.code is 11000
             return res.status(400).send 'Email is already registered.'
-          return res.status(400).send 'Please fill all the required fields.'
+          return res.status(400).send 'Unknown error occured.'
 
         req.logIn user, (err) ->
           if err
@@ -35,5 +34,3 @@ exports.controller.UserCtrl = (UserModel) ->
           return res.redirect '/'
 
         res.status 200
-
-

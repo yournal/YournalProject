@@ -1,9 +1,11 @@
-[data-ui-view] {
+@import (reference) "app.less";
+
+[ui-view] {
   display: inline-block;
   width: 100%;
 }
 
-[data-ui-view].ng-enter, [data-ui-view].ng-leave {
+[ui-view].ng-enter, [ui-view].ng-leave {
   position: absolute;
   min-height: 600px;
   left: 0;
@@ -14,18 +16,33 @@
   transition: opacity .3s ease-in-out;
 }
 
-[data-ui-view].ng-enter {
+[ui-view].ng-enter {
   opacity: 0;
 }
 
-[data-ui-view].ng-enter-active {
+[ui-view].ng-enter-active {
   opacity: 1;
 }
 
-[data-ui-view].ng-leave {
+[ui-view].ng-leave {
   opacity: 1;
 }
 
-[data-ui-view].ng-leave-active {
+[ui-view].ng-leave-active {
   opacity: 0;
+}
+
+.message-hide.ng-hide-add, .message-hide.ng-hide-remove {
+  .transition(0.4s, linear);
+  display: block !important;
+}
+
+.message-hide.ng-hide-add.ng-hide-add-active,
+.message-hide.ng-hide-remove {
+  opacity: 0;
+}
+
+.message-hide.ng-hide-add,
+.message-hide.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
 }

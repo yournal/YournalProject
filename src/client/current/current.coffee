@@ -18,12 +18,12 @@ module.config [
 ]
 
 module.controller module.mean.namespace('CurrentCtrl'), [
+  '$rootScope',
   '$scope',
-  '$rootScope'
   'Journal',
   'Issue',
-  'User'
-  ($scope, $rootScope, Journal, Issue, User) ->
+  'User',
+  ($rootScope, $scope, Journal, Issue, User) ->
     $scope.journal = Journal.get()
     $scope.user = User
     bind = ->

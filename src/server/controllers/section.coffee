@@ -10,6 +10,8 @@ exports.controller.SectionCtrl = (IssueModel, SectionModel) ->
     }, (err, document) ->
       if err
         return res.json 500, err: err
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
       section = document.sections.id(req.params.section)
       if not section?
         return res.json 500, err: {msg: 'Section does not exist.'}
@@ -20,6 +22,8 @@ exports.controller.SectionCtrl = (IssueModel, SectionModel) ->
     IssueModel.findOne(req.params, (err, document) ->
       if err
         return res.json 500, err: err
+      if not document?
+        return res.json 500, err: {msg: 'Issue does not exist.'}
       res.json document.sections
     )
 
@@ -72,7 +76,7 @@ exports.controller.SectionCtrl = (IssueModel, SectionModel) ->
       document.sections.push section
       document.save (err) ->
         if err
-          return res.status(400).send 'Please fill all the required fields.'
+          return res.status(400).send 'Unknown error occured.'
         res.json section
     )
 
