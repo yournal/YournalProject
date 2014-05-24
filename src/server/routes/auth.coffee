@@ -8,10 +8,17 @@ exports.route = ($route, $views, passport, token, csrf, auth, UserCtrl) ->
     else
       res.send 'unauthorized'
 
-  $route.post '/login', csrf, passport.authenticate('local',
-    failureFlash: true
-  ), (req, res) ->
-    res.json req.user
+  $route.post '/login', csrf, (req, res, next) ->
+    passport.authenticate('local', (err, user, info) ->
+      if err?
+        return next err
+      if not user
+        return res.send 401, info.message
+      req.logIn user, (err) ->
+        if err?
+          return next err
+        return res.json user
+    )(req, res, next)
 
   $route.delete '/logout', (req, res) ->
     req.logOut()
