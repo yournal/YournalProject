@@ -36,10 +36,7 @@ module.exports.beforeRouting = ($mean, $app) ->
       setToken = () ->
         res.cookie 'XSRF-TOKEN', req.csrfToken()
         next()
-      if not req.cookies['XSRF-TOKEN']?
-        csrf = csurf(req, res, setToken)
-        return csrf
-      return next()
+      csurf(req, res, setToken)
 
   $mean.resolve require('./passport')
 

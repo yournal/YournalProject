@@ -18,13 +18,9 @@ module.exports = ($app, $mean, UserModel) ->
       if err
         return done err
       if not user
-        error = new Error('Unknown user.')
-        error.status = 401
-        return done error, false
+        return done null, false, message: 'Unknown user.'
       if not user.authenticate password
-        error = new Error('Invalid password.')
-        error.status = 401
-        return done error, false
+        return done null, false, message: 'Invalid password.'
       return done null, user
     )
   )
