@@ -43,7 +43,7 @@ module.controller module.mean.namespace('ArticleCtrl'), [
     $scope.number = parseInt $stateParams.number
     $scope.section = $stateParams.section
     $scope.article = article
-    $FB.init('565410586907554')
+    $FB.init('328179763996125')
     $scope.url = $window.location.href
     $scope.user = User
 ]
