@@ -10,36 +10,40 @@ module.config [
       url: '/issue/:year/:volume/:number/sections/:section/article/:article'
       templateUrl: module.mean.resource('article/article.html')
       controller: module.mean.namespace('ArticleCtrl')
+      resolve:
+        article: ['$rootScope', '$stateParams', '$state', 'Article',
+          ($rootScope, $stateParams, $state, Article) ->
+            $rootScope.loading = true
+            Article.get(
+              year: $stateParams.year
+              volume: $stateParams.volume
+              number: $stateParams.number
+              section: $stateParams.section
+              article: $stateParams.article
+            , (response) ->
+              return
+            ,
+              (err) ->
+                $state.go('404')
+            ).$promise
+        ]
     )
 ]
 
 module.controller module.mean.namespace('ArticleCtrl'), [
+  '$window',
   '$scope',
-  '$state',
   '$stateParams',
-  'Article',
+  'article',
   'User',
-  'Message'
   '$FB',
-  ($scope, $state, $stateParams, Article, User, Message, $FB) ->
+  ($window, $scope, $stateParams, article, User, $FB) ->
     $scope.year = parseInt $stateParams.year
     $scope.volume = parseInt $stateParams.volume
     $scope.number = parseInt $stateParams.number
     $scope.section = $stateParams.section
-
-    $scope.article = Article.get(
-      year: $stateParams.year
-      volume: $stateParams.volume
-      number: $stateParams.number
-      section: $stateParams.section
-      article: $stateParams.article
-    , (response) ->
-      $FB.init('565410586907554')
-      $scope.shareUrl = window.location.href
-      $scope.user = User
-      return
-    ,
-      (err) ->
-        $state.go('404')
-    )
+    $scope.article = article
+    $FB.init('565410586907554')
+    $scope.url = $window.location.href
+    $scope.user = User
 ]

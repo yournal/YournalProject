@@ -11,23 +11,37 @@ module.config [
       url: '/issue/:year/:volume/:number'
       templateUrl: module.mean.resource('issue/issue.html')
       controller: module.mean.namespace('IssueCtrl')
+      resolve:
+        issue: ['$rootScope', '$state', '$stateParams', 'Issue',
+          ($rootScope, $state, $stateParams, Issue) ->
+            $rootScope.loading = true
+            issue = Issue.get
+              year: $stateParams.year
+              volume: $stateParams.volume
+              number: $stateParams.number
+            , (response) ->
+              return
+            ,
+              (err) ->
+                $state.go('404')
+            return issue.$promise
+        ]
     )
 ]
 
 module.controller module.mean.namespace('IssueCtrl'), [
   '$rootScope',
   '$scope',
-  '$stateParams',
-  'Issue',
+  '$state',
+  'issue',
   'User',
-  ($rootScope, $scope, $stateParams, Issue, User) ->
-    bind = ->
-      $scope.issue = Issue.get
-        year: $stateParams.year
-        volume: $stateParams.volume
-        number: $stateParams.number
+  ($rootScope, $scope, $state, issue, User) ->
+    $scope.issue = issue
     $scope.user = User
-    $rootScope.$on 'rebind', ->
-      bind()
-    bind()
+
+    $scope.deleteSection = (sectionIndex) ->
+      $scope.issue.sections.splice sectionIndex, 1
+
+    $scope.deleteArticle = (sectionIndex, articleIndex) ->
+      $scope.issue.sections[sectionIndex].articles.splice articleIndex, 1
 ]

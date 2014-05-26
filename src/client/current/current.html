@@ -5,10 +5,11 @@
       <a class="btn btn-primary btn-lg" ng-href="{{$state.href('issue-edit', {year: issue.year, volume: issue.volume, number: issue.number})}}">
         <span class="glyphicon glyphicon-pencil"></span>
       </a>
-      <button type="button" ng-controller="yournal.admin.issue.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number)" class="btn btn-danger btn-lg">
+      <button type="button" ng-controller="yournal.admin.issue.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number, 'reload')" class="btn btn-danger btn-lg">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
     </span>
+
   </header>
   <div class="container">
     <h2>Table of Contents</h2>
@@ -19,7 +20,7 @@
           <a class="btn btn-primary btn-xs" ng-href="{{$state.href('section-edit', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id})}}">
             <span class="glyphicon glyphicon-pencil"></span>
           </a>
-          <button type="button" ng-controller="yournal.admin.section.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number, section._id)" class="btn btn-danger btn-xs">
+          <button type="button" ng-controller="yournal.admin.section.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number, section._id); deleteSection($index)" class="btn btn-danger btn-xs">
             <span class="glyphicon glyphicon-remove"></span>
           </button>
         </span>
@@ -30,7 +31,7 @@
               <a class="btn btn-primary btn-xs" ng-href="{{$state.href('article-edit', {year: issue.year, volume: issue.volume, number: issue.number, section: section._id, article: article._id})}}">
                 <span class="glyphicon glyphicon-pencil"></span>
               </a>
-              <button type="button" ng-controller="yournal.admin.article.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number, section._id, article._id)" class="btn btn-danger btn-xs">
+              <button type="button" ng-controller="yournal.admin.article.DeleteCtrl" ng-click="delete(issue.year, issue.volume, issue.number, section._id, article._id); deleteArticle($parent.$parent.$index, $index)" class="btn btn-danger btn-xs">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
             </span>

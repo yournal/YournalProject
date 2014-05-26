@@ -20,6 +20,28 @@ module.config [
         access:
           allow: ['admin']
           state: 'login'
+      resolve:
+        section: ['$rootScope', '$state', '$stateParams', 'Section', 'Message',
+          ($rootScope, $state, $stateParams, Section, Message) ->
+            $rootScope.loading = true
+            Section.get(
+              year: $stateParams.year
+              volume: $stateParams.volume
+              number: $stateParams.number
+              section: $stateParams.section
+            ,
+              (response) ->
+                return
+            ,
+              (err) ->
+                Message.add
+                  success: false
+                  persist: 1
+                  expire: -1
+                  msg: 'Section not found.'
+                $state.go '404'
+            ).$promise
+        ]
     )
 ]
 
@@ -59,35 +81,18 @@ module.controller module.mean.namespace('NewCtrl'), [
 module.controller module.mean.namespace('EditCtrl'), [
   '$scope',
   '$stateParams',
+  'section',
   'Section'
-  ($scope, $stateParams, Section) ->
-    year = parseInt($stateParams.year)
-    volume = parseInt($stateParams.volume)
-    number = parseInt($stateParams.number)
-    sectionId = $stateParams.section
-
-    section = Section.get(
-      year: year
-      volume: volume
-      number: number
-      section: sectionId
-    ,
-      (response) ->
-        return
-    ,
-      (err) ->
-        $state.go '404'
-    )
-
+  ($scope, $stateParams, section, Section) ->
     $scope.section = section
     $scope.error = []
     $scope.response = null
     $scope.updateSection = () ->
       Section.update
-        year: year
-        volume: volume
-        number: number
-        section: sectionId
+        year: $stateParams.year
+        volume: $stateParams.volume
+        number: $stateParams.number
+        section: $stateParams.section
       ,
         section
       ,
@@ -107,12 +112,11 @@ module.controller module.mean.namespace('EditCtrl'), [
 module.controller module.mean.namespace('DeleteCtrl'), [
   '$scope',
   '$rootScope',
-  '$state',
   '$stateParams',
   'Section',
   'Message',
-  ($scope, $rootScope, $state, $stateParams, Section, Message) ->
-    $scope.delete = (year, volume, number, section) ->
+  ($scope, $rootScope, $stateParams, Section, Message) ->
+    $scope.delete = (year, volume, number, section, redirect) ->
       data =
         year: parseInt year
         volume: parseInt volume
@@ -126,7 +130,18 @@ module.controller module.mean.namespace('DeleteCtrl'), [
           Message.add
             success: true
             msg: 'Section "' + response.title + '" successfully deleted.'
-          $rootScope.$emit 'rebind'
+
+          if redirect
+            if redirect is 'reload'
+              $state.go($state.current, $stateParams,
+                reload: true
+                inherit: false
+                notify: true
+              )
+            else if redirect is 'previous'
+              $state.go $state.previous
+            else
+              $state.go redirect
       ,
         (err) ->
           if err.data?

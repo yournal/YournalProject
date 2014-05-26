@@ -8,6 +8,8 @@ app = mean.module 'yournal', [
   'yournal.interceptors',
   'yournal.services',
   'djds4rce.angular-socialshare',
+  'duScroll',
+  'yournal.gplus',
   'yournal.admin',
   'yournal.current',
   'yournal.search',
@@ -47,6 +49,7 @@ app.config([
 
 # Run
 app.run([
+  '$document',
   '$rootScope',
   '$state',
   '$stateParams',
@@ -54,7 +57,7 @@ app.run([
   'user',
   'User',
   'Message',
-  ($rootScope, $state, $stateParams, $mean, user, User, Message) ->
+  ($document, $rootScope, $state, $stateParams, $mean, user, User, Message) ->
     $rootScope.$state = $state
     $rootScope.$stateParams = $stateParams
     $rootScope.$mean = $mean # register mean into global scope
@@ -66,7 +69,9 @@ app.run([
       User.remove()
 
     # Prevent access to unauthorized users
+    $state.previous = $state.current
     $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+      $document.scrollTop 0, 200
       if toState.data? and toState.data.access?
         access = toState.data.access
         if (access.deny? and User.authorize access.deny) or (access.allow? and not User.authorize access.allow)
@@ -75,4 +80,7 @@ app.run([
             $state.transitionTo access.state
           else
             $state.transitionTo 'home'
+    $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
+      $state.previous = fromState
+      $rootScope.loading = false
 ])

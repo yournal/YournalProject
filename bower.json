@@ -14,6 +14,7 @@
     "d3": "~3.4.7",
     "less-elements": "latest",
     "angular-socialshare": "latest",
-    "angulartics": "~0.15.17"
+    "angulartics": "~0.15.17",
+    "angular-scroll": "~0.5.7"
   }
 }

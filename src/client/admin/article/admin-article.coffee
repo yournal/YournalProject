@@ -20,6 +20,29 @@ module.config [
         access:
           allow: ['admin']
           state: 'login'
+      resolve:
+        article: ['$rootScope', '$state', '$stateParams', 'Article', 'Message',
+          ($rootScope, $state, $stateParams, Article, Message) ->
+            $rootScope.loading = true
+            Article.get(
+              year: $stateParams.year
+              volume: $stateParams.volume
+              number: $stateParams.number
+              section: $stateParams.section
+              article: $stateParams.article
+            ,
+              (response) ->
+                return
+            ,
+              (err) ->
+                Message.add
+                  success: false
+                  persist: 1
+                  expire: -1
+                  msg: 'Article not found.'
+                $state.go '404'
+            ).$promise
+        ]
     )
 ]
 
@@ -83,40 +106,20 @@ module.controller module.mean.namespace('NewCtrl'), [
 
 module.controller module.mean.namespace('EditCtrl'), [
   '$scope',
-  '$state',
   '$stateParams',
-  'Article'
-  ($scope, $state, $stateParams, Article) ->
-    year = parseInt($stateParams.year)
-    volume = parseInt($stateParams.volume)
-    number = parseInt($stateParams.number)
-    sectionId = $stateParams.section
-    articleId = $stateParams.article
-
-    article = Article.get(
-      year: year
-      volume: volume
-      number: number
-      section: sectionId
-      article: articleId
-    ,
-      (response) ->
-        return
-    ,
-      (err) ->
-        $state.go '404'
-    )
-
+  'article',
+  'Article',
+  ($scope, $stateParams, article, Article) ->
     $scope.article = article
     $scope.error = []
     $scope.response = null
     $scope.updateArticle = () ->
       Article.update
-        year: year
-        volume: volume
-        number: number
-        section: sectionId
-        article: articleId
+        year: $stateParams.year
+        volume: $stateParams.volume
+        number: $stateParams.number
+        section: $stateParams.section
+        article: $stateParams.article
       ,
         article
       ,
@@ -149,7 +152,6 @@ module.controller module.mean.namespace('DeleteCtrl'), [
         section: section
         article: article
 
-
       Article.delete(
         data
       ,
@@ -158,10 +160,17 @@ module.controller module.mean.namespace('DeleteCtrl'), [
             success: true
             msg: 'Article "' + response.title + '" successfully deleted.'
 
-          if not redirect
-            $rootScope.$emit 'rebind'
-          else
-            $state.go redirect
+          if redirect
+            if redirect is 'reload'
+              $state.go($state.current, $stateParams,
+                reload: true
+                inherit: false
+                notify: true
+              )
+            else if redirect is 'previous'
+              $state.go $state.previous
+            else
+              $state.go redirect
       ,
         (err) ->
           if err.data?
@@ -175,7 +184,4 @@ module.controller module.mean.namespace('DeleteCtrl'), [
             success: false
             msg: err
       )
-
 ]
-
-

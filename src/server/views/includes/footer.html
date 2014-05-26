@@ -6,6 +6,7 @@
 <% for file in @mean[@mean.name].assets.js.collection : %>
   <script type="text/javascript" src="<%= file %>"></script>
 <% end %>
+<script type="text/javascript" src="<%= @mean[@mean.name].assets.js['vendor/angular-scroll/angular-scroll.min.js'] %>"></script>
 <script src="http://platform.twitter.com/widgets.js"></script>
 <script type="text/javascript">
   (function(i,s,o,g,r,a,m){
