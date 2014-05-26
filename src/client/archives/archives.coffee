@@ -10,19 +10,23 @@ module.config [
       url: '/archives'
       templateUrl: module.mean.resource('archives/archives.html')
       controller: module.mean.namespace('ArchivesCtrl')
+      resolve:
+        issues: ['$rootScope', 'Issue', ($rootScope, Issue) ->
+          $rootScope.loading = true
+          Issue.query(filter: 'sections').$promise
+        ]
     )
 ]
 
 module.controller module.mean.namespace('ArchivesCtrl'), [
   '$rootScope',
   '$scope',
-  'Issue',
+  'issues',
   'User',
-  ($rootScope, $scope, Issue, User) ->
-    bind = ->
-      $scope.issues = Issue.query(filter: 'sections')
+  ($rootScope, $scope, issues, User) ->
+    $scope.issues = issues
     $scope.user = User
-    $rootScope.$on 'rebind', ->
-      bind()
-    bind()
+
+    $scope.deleteIssue = (issueIndex) ->
+      issues.splice issueIndex, 1
 ]

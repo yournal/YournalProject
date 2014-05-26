@@ -10,10 +10,7 @@
   min-height: 600px;
   left: 0;
   right: 0;
-  -webkit-transition: opacity .3s ease-in-out;
-  -moz-transition: opacity .3s ease-in-out;
-  -o-transition: opacity .3s ease-in-out;
-  transition: opacity .3s ease-in-out;
+  .transition(0.3s, ease-in-out);
 }
 
 [ui-view].ng-enter {
@@ -44,5 +41,23 @@
 
 .message-hide.ng-hide-add,
 .message-hide.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
+
+.animate-loader-if {
+  background:white;
+}
+
+.animate-loader-if.ng-enter, .animate-loader-if.ng-leave {
+  .transition(0.3s, ease-in-out);
+}
+
+.animate-loader-if.ng-enter,
+.animate-loader-if.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.animate-loader-if.ng-leave,
+.animate-loader-if.ng-enter.ng-enter-active {
   opacity: 1;
 }

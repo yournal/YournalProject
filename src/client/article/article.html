@@ -5,7 +5,7 @@
       <a class="btn btn-primary btn-lg" ng-href="{{$state.href('article-edit', {year: year, volume: volume, number: number, section: section, article: article._id})}}">
         <span class="glyphicon glyphicon-pencil"></span>
       </a>
-      <button type="button" ng-controller="yournal.admin.article.DeleteCtrl" ng-click="delete(year, volume, number, section, article._id, 'home')" class="btn btn-danger btn-lg">
+      <button type="button" ng-controller="yournal.admin.article.DeleteCtrl" ng-click="delete(year, volume, number, section, article._id, 0, 0, 'home')" class="btn btn-danger btn-lg">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
     </span>
@@ -30,21 +30,19 @@
       </div>
       <div class="row">
         <ul class="list-unstyled list-inline col-md-11 col-md-offset-1 social-media">
-          <li><a twitter data-lang="en" data-count='horizontal' data-url='{{shareUrl}}' data-size="medium"></a></li>
-          <li><div gplus class="g-plusone" data-action="share" data-annotation="bubble" data-href="{{shareUrl}}" data-size="medium"></div></li>
-          <li><div class="fb-share-button" data-href="{{shareUrl}}" data-type="button_count"></div></li>
+          <li><a twitter data-lang="en" data-count="horizontal" data-url="{{url}}" data-size="medium" data-text="{{article.title}}"></a></li>
+          <li><div google-plus class="g-plusone" data-action="share" data-annotation="bubble" data-href="{{url}}" data-size="medium"></div></li>
+          <li>
+            <div class="facebook-link" facebook data-name="{{article.title}}" data-url="{{url}}" data-caption="{{article.abstract}}" data-shares="shares">
+              <span class="facebook-button" href></span>
+              <span class="facebook-shares bubble" ng-init="totalShares = shares || 0">{{totalShares}}</span>
+            </div>
+          </li>
         </ul>
       </div>
     </section>
     <hr>
     <p>{{article.content}}</p>
   </div>
-
-  <div disqus="article._id" ng-show="user.isAuthorized()"></div>
-  <div ng-show="!user.isAuthorized()">
-    <br>
-    Please <a ng-href="{{$state.href('login')}}">login</a> or <a ng-href="{{$state.href('register')}}">register</a> to leave a comment.
-  </div>
+  <div class="disqus-comments" disqus="article._id"></div>
 </article>
-
-<div id="fb-root"></div>

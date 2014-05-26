@@ -63,18 +63,6 @@ module.controller module.mean.namespace('EditCtrl'), [
     volume = parseInt($stateParams.volume)
     number = parseInt($stateParams.number)
 
-    issue = Issue.get(
-      year: year
-      volume: volume
-      number: number
-    ,
-      (response) ->
-        return
-    ,
-      (err) ->
-        $state.go '404'
-    )
-
     $scope.year = year
     $scope.volume = volume
     $scope.number = number
@@ -120,10 +108,12 @@ module.controller module.mean.namespace('EditCtrl'), [
 module.controller module.mean.namespace('DeleteCtrl'), [
   '$scope',
   '$rootScope',
+  '$state',
+  '$stateParams',
   'Issue',
   'Message',
-  ($scope, $rootScope, Issue, Message) ->
-    $scope.delete = (year, volume, number) ->
+  ($scope, $rootScope, $state, $stateParams, Issue, Message) ->
+    $scope.delete = (year, volume, number, redirect) ->
       data =
         year: parseInt year
         volume: parseInt volume
@@ -135,7 +125,18 @@ module.controller module.mean.namespace('DeleteCtrl'), [
           Message.add
             success: true
             msg: 'Issue successfully deleted.'
-          $rootScope.$emit 'rebind'
+
+          if redirect
+            if redirect is 'reload'
+              $state.go($state.current, $stateParams,
+                reload: true
+                inherit: false
+                notify: true
+              )
+            else if redirect is 'previous'
+              $state.go $state.previous
+            else
+              $state.go redirect
       ,
         (err) ->
           if err.data?

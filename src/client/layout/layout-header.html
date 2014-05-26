@@ -1,4 +1,4 @@
-<div class="container" ng-controller="yournal.layout.HeaderCtrl">
+<div class="container header-container" ng-controller="yournal.layout.HeaderCtrl">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" ng-click="collapsed = !collapsed">
       <span class="sr-only">Toggle navigation</span>
@@ -8,6 +8,7 @@
     </button>
     <a class="navbar-brand" href="#">Yournal</a>
   </div>
+  <div class="ajax-loader animate-loader-if" ng-if="loading"></div>
   <div class="collapse navbar-collapse" data-collapse="collapsed">
     <ul class="nav navbar-nav">
       <li ng-class="{active: $state.includes('home')}" ng-click="collapsed = true">
@@ -29,10 +30,10 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
         <ul class="dropdown-menu">
 
-          <li ng-class="{active: $state.includes('issue-new')}"><a ng-href="{{$state.href('issue-new')}}">New issue</a></li>
-          <li ng-class="{active: $state.includes('section-new')}"><a ng-href="{{$state.href('section-new')}}">New section</a></li>
-          <li ng-class="{active: $state.includes('article-new')}"><a ng-href="{{$state.href('article-new')}}">New article</a></li>
-          <li ng-class="{active: $state.includes('settings')}"><a ng-href="{{$state.href('settings')}}">Journal settings</a></li>
+          <li ng-class="{active: $state.includes('issue-new')}"><a ng-href="{{$state.href('issue-new')}}" ng-click="collapsed = true">New issue</a></li>
+          <li ng-class="{active: $state.includes('section-new')}"><a ng-href="{{$state.href('section-new')}}" ng-click="collapsed = true">New section</a></li>
+          <li ng-class="{active: $state.includes('article-new')}"><a ng-href="{{$state.href('article-new')}}" ng-click="collapsed = true">New article</a></li>
+          <li ng-class="{active: $state.includes('settings')}"><a ng-href="{{$state.href('settings')}}" ng-click="collapsed = true">Journal settings</a></li>
         </ul>
       </li>
       <li ng-class="{active: $state.includes('login')}" ng-click="collapsed = true" ng-show="!user.isAuthorized()">

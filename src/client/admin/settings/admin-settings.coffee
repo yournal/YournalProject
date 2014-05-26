@@ -11,14 +11,19 @@ module.config [
         access:
           allow: ['admin']
           state: 'login'
+      resolve:
+        journal: ['$rootScope', 'Journal', ($rootScope, Journal) ->
+          $rootScope.loading = true
+          Journal.get().$promise
+        ]
     )
 ]
 
 module.controller module.mean.namespace('SettingsCtrl'), [
   '$scope',
-  'Journal'
-  ($scope, Journal) ->
-    $scope.journal = Journal.get()
+  'journal'
+  ($scope, journal) ->
+    $scope.journal = journal
 
     $scope.save = ->
       $scope.journal.$update(

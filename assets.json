@@ -23,5 +23,8 @@
       "public/css/**/*"
     ]
   },
-  "other": {}
+  "other": {
+    "public/release/ajax-loader.gif": "public/img/ajax-loader.gif",
+    "public/release/facebook-share.png": "public/img/facebook-share.png"
+  }
 }

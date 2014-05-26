@@ -8,30 +8,64 @@ module.config [
     $stateProvider.state('home',
       url: '/'
       templateUrl: module.mean.resource('current/current-home.html')
-      controller: module.mean.namespace('CurrentCtrl')
+      controller: module.mean.namespace('HomeCtrl')
+      resolve:
+        loading: ['$rootScope', ($rootScope) ->
+          $rootScope.loading = true
+        ]
+        journal: ['Journal', (Journal) ->
+          Journal.get().$promise
+        ]
+        issues: ['Issue', (Issue) ->
+          Issue.query(sort: ['year', 'volume', 'number'], order: -1, limit: 1).$promise
+        ]
     )
     $stateProvider.state('current',
       url: '/current'
       templateUrl: module.mean.resource('current/current.html')
       controller: module.mean.namespace('CurrentCtrl')
+      resolve:
+        issues: ['$rootScope', 'Issue', ($rootScope, Issue) ->
+          $rootScope.loading = true
+          Issue.query(sort: ['year', 'volume', 'number'], order: -1, limit: 1).$promise
+        ]
     )
 ]
 
 module.controller module.mean.namespace('CurrentCtrl'), [
   '$rootScope',
   '$scope',
-  'Journal',
-  'Issue',
+  'issues',
   'User',
-  ($rootScope, $scope, Journal, Issue, User) ->
-    $scope.journal = Journal.get()
+  ($rootScope, $scope, issues, User) ->
     $scope.user = User
-    bind = ->
-      issue = Issue.query(sort: ['year', 'volume', 'number'], order: -1, limit: 1)
-      issue.$promise.then (data) ->
-        if data.length > 0
-          $scope.issue = data[0]
-    $rootScope.$on 'rebind', ->
-      bind()
-    bind()
+
+    if issues.length > 0
+      $scope.issue = issues[0]
+
+    $scope.deleteSection = (sectionIndex) ->
+      $scope.issue.sections.splice sectionIndex, 1
+
+    $scope.deleteArticle = (sectionIndex, articleIndex) ->
+      $scope.issue.sections[sectionIndex].articles.splice articleIndex, 1
+]
+
+module.controller module.mean.namespace('HomeCtrl'), [
+  '$rootScope',
+  '$scope',
+  'journal',
+  'issues',
+  'User',
+  ($rootScope, $scope, journal, issues, User) ->
+    $scope.journal = journal
+    $scope.user = User
+
+    if issues.length > 0
+      $scope.issue = issues[0]
+
+    $scope.deleteSection = (sectionIndex) ->
+      $scope.issue.sections.splice sectionIndex, 1
+
+    $scope.deleteArticle = (sectionIndex, articleIndex) ->
+      $scope.issue.sections[sectionIndex].articles.splice articleIndex, 1
 ]

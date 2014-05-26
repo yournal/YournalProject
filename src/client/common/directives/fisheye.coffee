@@ -94,12 +94,11 @@ module.directive 'fisheye', ([
       scope.$watch 'data', (data) ->
         if not data?
           return
-
         # d3 is the raw d3 object
         d3 = getFisheye($window.d3)
 
         width = d3.select(element[0])[0][0].offsetWidth
-        height = width * 0.5
+        height = 400
         nodeRadius = 7.5
 
         color = d3.scale.category20()
@@ -112,21 +111,39 @@ module.directive 'fisheye', ([
           .size([width, height])
 
         svg = d3.select(element[0]).append('svg')
-          .attr('width', width)
-          .attr('height', height)
+          .attr('width', '100%')
+          .attr('height', '400')
 
         svg.append('rect')
           .attr('class', 'rect-background')
-          .attr('width', width)
-          .attr('height', height)
+          .attr('width', '100%')
+          .attr('height', '400')
+
+        data = null
+
+        angular.element($window).bind 'resize', ->
+          width = d3.select(element[0])[0][0].offsetWidth
+          force = d3.layout.force()
+            .charge(-240)
+            .linkDistance(40)
+            .size([width, height])
+          if data?
+            d3.selectAll(".node").remove()
+            d3.selectAll(".link").remove()
+            d3.selectAll(".d3tooltip").remove()
+            scope.render(data)
 
         scope.$watch('data', (newData) ->
-          scope.render(newData)
+          data = newData
+          scope.render(data)
         )
 
         scope.render = (data) ->
-          if !data?
+
+
+          if not data?
             return
+
           n = data.nodes.length
           force.nodes(data.nodes).links(data.links)
 
@@ -188,7 +205,9 @@ module.directive 'fisheye', ([
             .style('fill', (d) -> color(d.group) )
             .call(force.drag)
 
-          tooltip = d3.select('body')
+
+
+          tooltip = d3.select('.wrapper')
             .append('div')
             .attr('class', 'd3tooltip')
             .style('position', 'absolute')
