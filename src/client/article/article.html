@@ -33,7 +33,7 @@
           <li><a twitter data-lang="en" data-count="horizontal" data-url="{{url}}" data-size="medium" data-text="{{article.title}}"></a></li>
           <li><div google-plus class="g-plusone" data-action="share" data-annotation="bubble" data-href="{{url}}" data-size="medium"></div></li>
           <li>
-            <div class="facebook-link" facebook data-name="Yournal" data-url="{{url}}" data-caption="{{article.title}}" data-shares="shares">
+            <div class="facebook-link" facebook data-name="{{article.title}}" data-url="{{url}}" data-caption="{{article.abstract}}" data-shares="shares">
               <span class="facebook-button" href></span>
               <span class="facebook-shares bubble" ng-init="shares = shares || 0">{{shares}}</span>
             </div>
