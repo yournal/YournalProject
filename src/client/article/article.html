@@ -31,11 +31,11 @@
       <div class="row">
         <ul class="list-unstyled list-inline col-md-11 col-md-offset-1 social-media">
           <li><a twitter data-lang="en" data-count="horizontal" data-url="{{url}}" data-size="medium" data-text="{{article.title}}"></a></li>
-          <li><div google-plus class="g-plusone" data-action="share" data-annotation="bubble" data-href="{{url}}" data-size="medium"></div></li>
+          <li><div yournal-google-plus class="g-plusone" data-action="share" data-annotation="bubble" data-href="{{url}}" data-size="medium"></div></li>
           <li>
-            <div class="facebook-link" facebook data-name="{{article.title}}" data-url="{{url}}" data-caption="{{article.abstract}}" data-shares="shares">
+            <div class="facebook-link" yournal-facebook data-name="{{article.title}}" data-url="{{url}}" data-caption="{{article.abstract}}" data-shares="shares">
               <span class="facebook-button" href></span>
-              <span class="facebook-shares bubble" ng-init="totalShares = shares || 0">{{totalShares}}</span>
+              <span class="facebook-shares bubble" ng-init="totalShares = shares || 2">{{shares}}</span>
             </div>
           </li>
         </ul>

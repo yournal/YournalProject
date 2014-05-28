@@ -6,8 +6,8 @@
   <meta name="fragment" content="!">
   <meta charset="utf-8">
   <base href="<%- @mean.mount %>">
-  <link rel="stylesheet" href="<%= @mean[@mean.name].assets.css['vendor/bootstrap/dist/css/bootstrap.css'] %>">
-  <% for file in @mean[@mean.name].assets.css.collection : %>
+  <link rel="stylesheet" href="<%= @mean[@mean.name].assets.css['//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'] %>">
+  <% for file in @mean[@mean.name].assets.css['public/release/meanstack-project.css'] : %>
     <link rel="stylesheet" href="<%= file %>">
   <% end %>
   <!--[if lt IE 9]>

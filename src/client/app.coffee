@@ -8,7 +8,7 @@ app = mean.module 'yournal', [
   'yournal.interceptors',
   'yournal.services',
   'djds4rce.angular-socialshare',
-  'yournal.gplus',
+  'yournal.social',
   'yournal.admin',
   'yournal.current',
   'yournal.search',
