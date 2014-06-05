@@ -1,12 +1,12 @@
-module = mean.module 'yournal.admin.issue'
+module = angular.module 'yournal.admin.issue', []
 
 module.config [
   '$stateProvider',
   ($stateProvider) ->
     $stateProvider.state('issue-new',
       url: '/admin/issue/new'
-      templateUrl: module.mean.resource('admin/issue/admin-issue-new.html')
-      controller: module.mean.namespace('NewCtrl')
+      templateUrl: 'public/yournal/js/admin/issue/admin-issue-new.html'
+      controller: 'yournal.admin.issue.NewCtrl'
       data:
         access:
           allow: ['admin']
@@ -14,8 +14,8 @@ module.config [
     )
     $stateProvider.state('issue-edit',
       url: '/admin/issue/edit/:year/:volume/:number'
-      templateUrl: module.mean.resource('admin/issue/admin-issue-edit.html')
-      controller: module.mean.namespace('EditCtrl')
+      templateUrl: 'public/yournal/js/admin/issue/admin-issue-edit.html'
+      controller: 'yournal.admin.issue.EditCtrl'
       data:
         access:
           allow: ['admin']
@@ -23,7 +23,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('NewCtrl'), [
+module.controller 'yournal.admin.issue.NewCtrl', [
   '$scope',
   'Issue',
   ($scope, Issue) ->
@@ -53,12 +53,13 @@ module.controller module.mean.namespace('NewCtrl'), [
             $scope.error = err.data
 ]
 
-module.controller module.mean.namespace('EditCtrl'), [
+module.controller 'yournal.admin.issue.EditCtrl', [
   '$scope',
   '$state',
   '$stateParams',
   'Issue',
-  ($scope, $state, $stateParams, Issue) ->
+  'Message',
+  ($scope, $state, $stateParams, Issue, Message) ->
     year = parseInt($stateParams.year)
     volume = parseInt($stateParams.volume)
     number = parseInt($stateParams.number)
@@ -105,7 +106,7 @@ module.controller module.mean.namespace('EditCtrl'), [
             $scope.error = err.data
 ]
 
-module.controller module.mean.namespace('DeleteCtrl'), [
+module.controller 'yournal.admin.issue.DeleteCtrl', [
   '$scope',
   '$rootScope',
   '$state',

@@ -1,7 +1,4 @@
-exports.schema = {}
-exports.model = {}
-
-exports.schema.UserSchema = ($mongoose, crypto) ->
+exports.UserSchema = ($mongoose, crypto) ->
   validate = (value) ->
     return (@provider and @provider isnt 'local') or value.length
 
@@ -62,5 +59,5 @@ exports.schema.UserSchema = ($mongoose, crypto) ->
 
   return UserSchema
 
-exports.model.UserModel = ($connection, UserSchema) ->
+exports.UserModel = ($connection, UserSchema) ->
   $connection.model('User', UserSchema)

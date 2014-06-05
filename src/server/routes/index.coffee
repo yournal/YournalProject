@@ -1,4 +1,4 @@
-exports.route = ($route, $views, passport, auth, UserCtrl) ->
+exports.IndexRoute = ($route, $views, passport, auth, UserCtrl) ->
   $route.get '/', (req, res) ->
     $views.index.render(req, res)
 

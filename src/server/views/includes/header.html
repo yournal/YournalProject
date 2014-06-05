@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="fragment" content="!">
   <meta charset="utf-8">
-  <base href="<%- @mean.mount %>">
-  <link rel="stylesheet" href="<%= @mean[@mean.name].assets.css['//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'] %>">
-  <% for file in @mean[@mean.name].assets.css['public/release/meanstack-project.css'] : %>
-    <link rel="stylesheet" href="<%= file %>">
-  <% end %>
+  <base href="{{ mount }}">
+  <link rel="stylesheet" href="{{ assets.css['//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'] }}">
+  {% for file in assets.css['public/yournal/release/meanstack-project.css'] %}
+    <link rel="stylesheet" href="{{ file }}">
+  {% endfor %}
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>

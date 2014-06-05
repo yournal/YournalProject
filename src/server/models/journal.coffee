@@ -1,7 +1,4 @@
-exports.schema = {}
-exports.model = {}
-
-exports.schema.JournalSchema = ($mongoose) ->
+exports.JournalSchema = ($mongoose) ->
   new $mongoose.Schema(
     title:
       type: String,
@@ -13,5 +10,5 @@ exports.schema.JournalSchema = ($mongoose) ->
       default: 'This is a description.'
   )
 
-exports.model.JournalModel = ($connection, JournalSchema) ->
+exports.JournalModel = ($connection, JournalSchema) ->
   $connection.model('Journal', JournalSchema)

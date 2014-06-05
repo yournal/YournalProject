@@ -1,4 +1,4 @@
-exports.route = ($route, csrf, auth, SectionCtrl) ->
+exports.SectionRoute = ($route, csrf, auth, SectionCtrl) ->
   $route.get '/issues/:year/:volume/:number/sections', (req, res) ->
     SectionCtrl.getSections req, res
 
@@ -13,5 +13,3 @@ exports.route = ($route, csrf, auth, SectionCtrl) ->
 
   $route.put '/issues/:year/:volume/:number/sections/:section', csrf, auth(['admin']), (req, res) ->
     SectionCtrl.updateSection req, res
-
-  return '/api'

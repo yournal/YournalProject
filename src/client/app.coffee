@@ -1,4 +1,4 @@
-app = mean.module 'yournal', [
+app = angular.module 'yournal', [
   'ngResource',
   'ngAnimate',
   'ui.router',
@@ -22,17 +22,20 @@ app = mean.module 'yournal', [
   'angulartics.google.analytics'
 ]
 
+angular.module 'yournal.interceptors', []
+angular.module 'yournal.services', []
+
 # Bootstrap
-mean.ready = (app) ->
+angular.element(document).ready ->
   if window.location.hash is '#_=_'
     window.location.hash = '#!'
-mean.bootstrap = (app) ->
   injector = angular.injector(['ng'])
-  $http = injector.get('$http')
-  $http.get('/auth').then (response) ->
-    app.constant 'user', response.data
-    angular.bootstrap document, [app.name]
-mean.init app
+  $http = injector.get '$http'
+  $http.get('/data.json').then (response) ->
+    app.constant 'assets', response.assets
+    $http.get('/auth').then (response) ->
+      app.constant 'user', response.data
+      angular.bootstrap document, ['yournal']
 
 # Config
 app.config([
@@ -55,14 +58,14 @@ app.run([
   '$rootScope',
   '$state',
   '$stateParams',
-  '$mean',
+  'assets',
   'user',
   'User',
   'Message',
-  ($window, $rootScope, $state, $stateParams, $mean, user, User, Message) ->
+  ($window, $rootScope, $state, $stateParams, assets, user, User, Message) ->
     $rootScope.$state = $state
     $rootScope.$stateParams = $stateParams
-    $rootScope.$mean = $mean # register mean into global scope
+    $rootScope.assets = assets
 
     # Set current user
     if user isnt 'unauthorized'

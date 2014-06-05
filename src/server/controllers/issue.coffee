@@ -1,6 +1,4 @@
-exports.controller = {}
-
-exports.controller.IssueCtrl = (IssueModel) ->
+exports.IssueCtrl = (IssueModel) ->
 
   getIssue: (req, res) ->
     IssueModel.findOne(req.params, (err, document) ->
@@ -107,7 +105,3 @@ exports.controller.IssueCtrl = (IssueModel) ->
           return res.status(400).send 'Unknown error occured.'
         res.json document
     )
-
-
-
-

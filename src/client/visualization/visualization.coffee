@@ -1,4 +1,4 @@
-module = mean.module 'yournal.visualization', [
+module = angular.module 'yournal.visualization', [
   'yournal.directives.fisheye'
 ]
 
@@ -7,8 +7,8 @@ module.config [
   ($stateProvider) ->
     $stateProvider.state('visualization',
       url: '/visualization'
-      templateUrl: module.mean.resource('visualization/visualization.html')
-      controller: module.mean.namespace('VisualisationCtrl')
+      templateUrl: 'public/yournal/js/visualization/visualization.html'
+      controller: 'yournal.visualization.VisualisationCtrl'
       resolve:
         articles: ['$rootScope', 'Article', ($rootScope, Article) ->
           $rootScope.loading = true
@@ -17,7 +17,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('VisualisationCtrl'), [
+module.controller 'yournal.visualization.VisualisationCtrl', [
   '$scope',
   'articles',
   ($scope, articles) ->

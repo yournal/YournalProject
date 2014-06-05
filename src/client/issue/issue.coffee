@@ -1,4 +1,4 @@
-module = mean.module 'yournal.issue', [
+module = angular.module 'yournal.issue', [
   'yournal.services',
   'yournal.admin.section',
   'yournal.admin.article'
@@ -9,8 +9,8 @@ module.config [
   ($stateProvider) ->
     $stateProvider.state('issue',
       url: '/issue/:year/:volume/:number'
-      templateUrl: module.mean.resource('issue/issue.html')
-      controller: module.mean.namespace('IssueCtrl')
+      templateUrl: 'public/yournal/js/issue/issue.html'
+      controller: 'yournal.issue.IssueCtrl'
       resolve:
         issue: ['$rootScope', '$state', '$stateParams', 'Issue',
           ($rootScope, $state, $stateParams, Issue) ->
@@ -29,7 +29,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('IssueCtrl'), [
+module.controller 'yournal.issue.IssueCtrl', [
   '$rootScope',
   '$scope',
   '$state',

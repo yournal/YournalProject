@@ -1,12 +1,12 @@
-module = mean.module 'yournal.admin.section'
+module = angular.module 'yournal.admin.section', []
 
 module.config [
   '$stateProvider',
   ($stateProvider) ->
     $stateProvider.state('section-new',
       url: '/admin/section/new'
-      templateUrl: module.mean.resource('admin/section/admin-section-new.html')
-      controller: module.mean.namespace('NewCtrl')
+      templateUrl: 'public/yournal/js/admin/section/admin-section-new.html'
+      controller: 'yournal.admin.section.NewCtrl'
       data:
         access:
           allow: ['admin']
@@ -14,8 +14,8 @@ module.config [
     )
     $stateProvider.state('section-edit',
       url: '/admin/section/edit/:year/:volume/:number/:section'
-      templateUrl: module.mean.resource('admin/section/admin-section-edit.html')
-      controller: module.mean.namespace('EditCtrl')
+      templateUrl: 'public/yournal/js/admin/section/admin-section-edit.html'
+      controller: 'yournal.admin.section.EditCtrl'
       data:
         access:
           allow: ['admin']
@@ -45,7 +45,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('NewCtrl'), [
+module.controller 'yournal.admin.section.NewCtrl', [
   '$scope',
   'Issue',
   'Section',
@@ -78,7 +78,7 @@ module.controller module.mean.namespace('NewCtrl'), [
             $scope.error = err.data
 ]
 
-module.controller module.mean.namespace('EditCtrl'), [
+module.controller 'yournal.admin.section.EditCtrl', [
   '$scope',
   '$stateParams',
   'section',
@@ -109,7 +109,7 @@ module.controller module.mean.namespace('EditCtrl'), [
 
 ]
 
-module.controller module.mean.namespace('DeleteCtrl'), [
+module.controller 'yournal.admin.section.DeleteCtrl', [
   '$scope',
   '$rootScope',
   '$stateParams',

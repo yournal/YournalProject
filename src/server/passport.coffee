@@ -1,4 +1,4 @@
-module.exports = ($app, $mean, UserModel) ->
+module.exports = ($app, $injector, UserModel) ->
   passport = require 'passport'
 
   passport.serializeUser (user, done) ->
@@ -30,7 +30,7 @@ module.exports = ($app, $mean, UserModel) ->
   $app.use passport.session()
 
   # Auth middleware
-  $mean.register 'auth', -> (roles) -> (req, res, next) ->
+  $injector.register 'auth', -> (roles) -> (req, res, next) ->
     if !req.isAuthenticated()
       res.send 401, 'Unauthorized access.'
     else
@@ -51,4 +51,4 @@ module.exports = ($app, $mean, UserModel) ->
       else
         next()
 
-  $mean.register 'passport', -> passport
+  return passport

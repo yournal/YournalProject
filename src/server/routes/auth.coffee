@@ -1,4 +1,4 @@
-exports.route = ($route, $views, passport, token, csrf, auth, UserCtrl) ->
+exports.AuthRoute = ($route, $views, passport, token, csrf, auth, UserCtrl) ->
   $route.get '/admin/*', auth(['admin']), (req, res) ->
     $views.index.render(req, res)
 

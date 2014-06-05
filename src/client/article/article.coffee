@@ -1,4 +1,4 @@
-module = mean.module 'yournal.article', [
+module = angular.module 'yournal.article', [
   'yournal.services',
   'yournal.admin.article'
 ]
@@ -8,8 +8,8 @@ module.config [
   ($stateProvider) ->
     $stateProvider.state('article',
       url: '/issue/:year/:volume/:number/sections/:section/article/:article'
-      templateUrl: module.mean.resource('article/article.html')
-      controller: module.mean.namespace('ArticleCtrl')
+      templateUrl: 'public/yournal/js/article/article.html'
+      controller: 'yournal.article.ArticleCtrl'
       resolve:
         article: ['$rootScope', '$stateParams', '$state', 'Article',
           ($rootScope, $stateParams, $state, Article) ->
@@ -30,7 +30,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('ArticleCtrl'), [
+module.controller 'yournal.article.ArticleCtrl', [
   '$window',
   '$scope',
   '$stateParams',

@@ -1,4 +1,4 @@
-exports.route = ($route, csrf, auth, ArticleCtrl) ->
+exports.ArticleRoute = ($route, csrf, auth, ArticleCtrl) ->
   $route.get '/issues/:year/:volume/:number/sections/:section/articles', (req, res) ->
     ArticleCtrl.getArticles req, res
 
@@ -16,5 +16,3 @@ exports.route = ($route, csrf, auth, ArticleCtrl) ->
 
   $route.put '/issues/:year/:volume/:number/sections/:section/articles/:article', csrf, auth(['admin']), (req, res) ->
     ArticleCtrl.updateArticle req, res
-
-  return '/api'

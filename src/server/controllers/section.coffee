@@ -1,6 +1,4 @@
-exports.controller = {}
-
-exports.controller.SectionCtrl = (IssueModel, SectionModel) ->
+exports.SectionCtrl = (IssueModel, SectionModel) ->
 
   getSection: (req, res) ->
     IssueModel.findOne({
