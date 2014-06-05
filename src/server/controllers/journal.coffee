@@ -1,6 +1,4 @@
-exports.controller = {}
-
-exports.controller.JournalCtrl = (JournalModel) ->
+exports.JournalCtrl = (JournalModel) ->
 
   getJournal: (req, res) ->
     JournalModel.findOne (err, document) ->

@@ -1,6 +1,4 @@
-exports.controller = {}
-
-exports.controller.UserCtrl = (UserModel) ->
+exports.UserCtrl = (UserModel) ->
 
   create: (req, res, next) ->
     user = new UserModel req.body

@@ -1,6 +1,4 @@
-exports.controller = {}
-
-exports.controller.ArticleCtrl = (IssueModel, ArticleModel) ->
+exports.ArticleCtrl = (IssueModel, ArticleModel) ->
 
   getArticle: (req, res) ->
     IssueModel.findOne({

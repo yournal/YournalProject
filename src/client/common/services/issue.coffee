@@ -1,4 +1,4 @@
-module = mean.module 'yournal.services'
+module = angular.module 'yournal.services'
 
 module.factory 'Issue', [
   '$resource',

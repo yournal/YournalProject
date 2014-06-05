@@ -1,12 +1,12 @@
-module = mean.module 'yournal.auth', ['yournal.services']
+module = angular.module 'yournal.auth', ['yournal.services']
 
 module.config [
   '$stateProvider',
   ($stateProvider) ->
     $stateProvider.state('login',
       url: '/login'
-      templateUrl: module.mean.resource('auth/auth-login.html')
-      controller: module.mean.namespace('LoginCtrl')
+      templateUrl: 'public/yournal/js/auth/auth-login.html'
+      controller: 'yournal.auth.LoginCtrl'
       data:
         access:
           deny: ['authorized']
@@ -14,8 +14,8 @@ module.config [
     )
     $stateProvider.state('register',
       url: '/register'
-      templateUrl: module.mean.resource('auth/auth-register.html')
-      controller: module.mean.namespace('RegisterCtrl')
+      templateUrl: 'public/yournal/js/auth/auth-register.html'
+      controller: 'yournal.auth.RegisterCtrl'
       data:
         access:
           deny: ['authorized']
@@ -23,7 +23,7 @@ module.config [
     )
     $stateProvider.state('logout',
       url: '/logout'
-      controller: module.mean.namespace('LogoutCtrl')
+      controller: 'yournal.auth.LogoutCtrl'
       data:
         access:
           allow: ['authorized']
@@ -31,7 +31,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('LogoutCtrl'), [
+module.controller 'yournal.auth.LogoutCtrl', [
   '$rootScope',
   '$state',
   '$http',
@@ -49,7 +49,7 @@ module.controller module.mean.namespace('LogoutCtrl'), [
     )
 ]
 
-module.controller module.mean.namespace('LoginCtrl'), [
+module.controller 'yournal.auth.LoginCtrl', [
   '$rootScope',
   '$scope',
   '$state'
@@ -84,7 +84,7 @@ module.controller module.mean.namespace('LoginCtrl'), [
       )
 ]
 
-module.controller module.mean.namespace('RegisterCtrl'), [
+module.controller 'yournal.auth.RegisterCtrl', [
   '$rootScope',
   '$scope',
   '$state',

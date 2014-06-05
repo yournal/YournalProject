@@ -1,12 +1,12 @@
-module = mean.module 'yournal.admin.article'
+module = angular.module 'yournal.admin.article', []
 
 module.config [
   '$stateProvider',
   ($stateProvider) ->
     $stateProvider.state('article-new',
       url: '/admin/article/new'
-      templateUrl: module.mean.resource('admin/article/admin-article-new.html')
-      controller: module.mean.namespace('NewCtrl')
+      templateUrl: 'public/yournal/js/admin/article/admin-article-new.html'
+      controller: 'yournal.admin.article.NewCtrl'
       data:
         access:
           allow: ['admin']
@@ -14,8 +14,8 @@ module.config [
     )
     $stateProvider.state('article-edit',
       url: '/admin/article/edit/:year/:volume/:number/:section/:article'
-      templateUrl: module.mean.resource('admin/article/admin-article-edit.html')
-      controller: module.mean.namespace('EditCtrl')
+      templateUrl: 'public/yournal/js/admin/article/admin-article-edit.html'
+      controller: 'yournal.admin.article.EditCtrl'
       data:
         access:
           allow: ['admin']
@@ -46,7 +46,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('NewCtrl'), [
+module.controller 'yournal.admin.article.NewCtrl', [
   '$scope',
   'Issue',
   'Article',
@@ -104,7 +104,7 @@ module.controller module.mean.namespace('NewCtrl'), [
 
 
 
-module.controller module.mean.namespace('EditCtrl'), [
+module.controller 'yournal.admin.article.EditCtrl', [
   '$scope',
   '$stateParams',
   'article',
@@ -136,7 +136,7 @@ module.controller module.mean.namespace('EditCtrl'), [
 
 ]
 
-module.controller module.mean.namespace('DeleteCtrl'), [
+module.controller 'yournal.admin.article.DeleteCtrl', [
   '$scope',
   '$rootScope',
   '$state',

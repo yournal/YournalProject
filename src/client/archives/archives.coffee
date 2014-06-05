@@ -1,4 +1,4 @@
-module = mean.module 'yournal.archives', [
+module = angular.module 'yournal.archives', [
   'yournal.services',
   'yournal.admin.issue'
 ]
@@ -8,8 +8,8 @@ module.config [
   ($stateProvider) ->
     $stateProvider.state('archives',
       url: '/archives'
-      templateUrl: module.mean.resource('archives/archives.html')
-      controller: module.mean.namespace('ArchivesCtrl')
+      templateUrl: 'public/yournal/js/archives/archives.html'
+      controller: 'yournal.archives.ArchivesCtrl'
       resolve:
         issues: ['$rootScope', 'Issue', ($rootScope, Issue) ->
           $rootScope.loading = true
@@ -18,7 +18,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('ArchivesCtrl'), [
+module.controller 'yournal.archives.ArchivesCtrl', [
   '$rootScope',
   '$scope',
   'issues',

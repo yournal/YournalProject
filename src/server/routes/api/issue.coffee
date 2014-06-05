@@ -1,4 +1,4 @@
-exports.route = ($route, csrf, auth, IssueCtrl) ->
+exports.IssueRoute = ($route, csrf, auth, IssueCtrl) ->
   $route.get '/issues/:year?/:volume?', (req, res) ->
     IssueCtrl.getIssues req, res
 
@@ -13,5 +13,3 @@ exports.route = ($route, csrf, auth, IssueCtrl) ->
 
   $route.delete '/issues/:year/:volume/:number', csrf, auth(['admin']), (req, res) ->
     IssueCtrl.deleteIssue req, res
-
-  return '/api'

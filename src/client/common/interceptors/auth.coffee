@@ -1,4 +1,4 @@
-module = mean.module 'yournal.interceptors'
+module = angular.module 'yournal.interceptors'
 
 module.config ['$httpProvider', ($httpProvider) ->
   $httpProvider.interceptors.push 'authInterceptor'

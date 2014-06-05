@@ -1,4 +1,4 @@
-module = mean.module 'yournal.current', [
+module = angular.module 'yournal.current', [
   'yournal.services'
 ]
 
@@ -7,8 +7,8 @@ module.config [
   ($stateProvider) ->
     $stateProvider.state('home',
       url: '/'
-      templateUrl: module.mean.resource('current/current-home.html')
-      controller: module.mean.namespace('HomeCtrl')
+      templateUrl: 'public/yournal/js/current/current-home.html'
+      controller: 'yournal.current.HomeCtrl'
       resolve:
         loading: ['$rootScope', ($rootScope) ->
           $rootScope.loading = true
@@ -22,8 +22,8 @@ module.config [
     )
     $stateProvider.state('current',
       url: '/current'
-      templateUrl: module.mean.resource('current/current.html')
-      controller: module.mean.namespace('CurrentCtrl')
+      templateUrl: 'public/yournal/js/current/current.html'
+      controller: 'yournal.current.CurrentCtrl'
       resolve:
         issues: ['$rootScope', 'Issue', ($rootScope, Issue) ->
           $rootScope.loading = true
@@ -32,7 +32,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('CurrentCtrl'), [
+module.controller 'yournal.current.CurrentCtrl', [
   '$rootScope',
   '$scope',
   'issues',
@@ -50,7 +50,7 @@ module.controller module.mean.namespace('CurrentCtrl'), [
       $scope.issue.sections[sectionIndex].articles.splice articleIndex, 1
 ]
 
-module.controller module.mean.namespace('HomeCtrl'), [
+module.controller 'yournal.current.HomeCtrl', [
   '$rootScope',
   '$scope',
   'journal',

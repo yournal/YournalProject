@@ -1,14 +1,14 @@
-<script type="text/javascript">window.mean = '<%- @mean.name %>';</script>
+<script type="text/javascript">window.mean = '{{ name }}';</script>
 
-<% for file in @mean[@mean.name].assets.js['public/release/meanstack-aggregated.js'] : %>
-  <script type="text/javascript" src="<%= file %>"></script>
-<% end %>
+{% for file in assets.js['public/yournal/release/meanstack-aggregated.js'] %}
+  <script type="text/javascript" src="{{ file }}"></script>
+{% endfor %}
 
-<% for file in @mean[@mean.name].assets.js['public/release/meanstack-project.js'] : %>
-  <script type="text/javascript" src="<%= file %>"></script>
-<% end %>
+{% for file in assets.js['public/yournal/release/meanstack-project.js'] %}
+  <script type="text/javascript" src="{{ file }}"></script>
+{% endfor %}
 
-<script src="<%= @mean[@mean.name].assets.js['http://platform.twitter.com/widgets.js'] %>"></script>
+<script src="{{ assets.js['http://platform.twitter.com/widgets.js'] }}"></script>
 <script type="text/javascript">
   (function(i,s,o,g,r,a,m){
   i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

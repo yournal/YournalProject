@@ -1,5 +1,5 @@
 {
-  "directory": "public/vendor/",
+  "directory": "public/yournal/vendor/",
   "storage": {
       "packages": ".tmp/bower-cache",
       "registry": ".tmp/bower-registry"

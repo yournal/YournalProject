@@ -81,7 +81,7 @@ getFisheye = (d3) ->
 
   return d3
 
-module = mean.module 'yournal.directives.fisheye'
+module = angular.module 'yournal.directives.fisheye', []
 module.directive 'fisheye', ([
   '$window',
   '$timeout',

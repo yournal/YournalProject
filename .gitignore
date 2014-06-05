@@ -2,9 +2,6 @@ node_modules/
 lib/
 public/
 npm-debug.log
-vhosts.js
-server.js
-app.js
 yournal.*
 .assets
 .tmp/

@@ -1,12 +1,12 @@
-module = mean.module 'yournal.admin.settings'
+module = angular.module 'yournal.admin.settings', []
 
 module.config [
   '$stateProvider',
   ($stateProvider) ->
     $stateProvider.state('settings',
       url: '/admin/settings'
-      templateUrl: module.mean.resource('admin/settings/admin-settings.html')
-      controller: module.mean.namespace('SettingsCtrl')
+      templateUrl: 'public/yournal/js/admin/settings/admin-settings.html'
+      controller: 'yournal.admin.settings.SettingsCtrl'
       data:
         access:
           allow: ['admin']
@@ -19,7 +19,7 @@ module.config [
     )
 ]
 
-module.controller module.mean.namespace('SettingsCtrl'), [
+module.controller 'yournal.admin.settings.SettingsCtrl', [
   '$scope',
   'journal'
   ($scope, journal) ->
